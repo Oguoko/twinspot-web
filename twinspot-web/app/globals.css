@@ -1,0 +1,396 @@
+/* ============================
+   PHASE 4A — GLOBAL TYPOGRAPHY
+   Twinspot Tours & Travel
+============================ */
+
+/* ---------
+   CSS RESET
+--------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f7f5f2;
+  color: #1a1a1a;
+  font-family: var(--font-body);
+  line-height: var(--line-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* -----------------------
+   TYPOGRAPHY VARIABLES
+----------------------- */
+
+:root {
+  /* Fonts */
+  --font-body: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --font-heading: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+
+  /* Font sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.85rem;
+  --text-base: 1rem;
+  --text-lg: 1.15rem;
+  --text-xl: 1.35rem;
+
+  --h1: clamp(2.6rem, 5vw, 4.2rem);
+  --h2: clamp(1.9rem, 3vw, 2.6rem);
+  --h3: 1.6rem;
+  --h4: 1.25rem;
+
+  /* Line heights */
+  --line-tight: 1.05;
+  --line-heading: 1.2;
+  --line-body: 1.85;
+
+  /* Colors */
+  --color-text: #1a1a1a;
+  --color-muted: #666;
+  --color-light: #999;
+  --color-accent: #8c6b2f;
+
+  /* Spacing rhythm */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 3.5rem;
+  --space-xl: 6rem;
+}
+
+/* -----------------------
+   HEADINGS
+----------------------- */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--h1);
+  line-height: var(--line-tight);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-md);
+}
+
+h2 {
+  font-size: var(--h2);
+  line-height: var(--line-heading);
+  margin-bottom: var(--space-sm);
+}
+
+h3 {
+  font-size: var(--h3);
+  margin-bottom: var(--space-xs);
+}
+
+h4 {
+  font-size: var(--h4);
+  margin-bottom: var(--space-xs);
+}
+
+/* -----------------------
+   BODY TEXT
+----------------------- */
+
+p {
+  font-size: var(--text-base);
+  line-height: var(--line-body);
+  margin: 0 0 var(--space-sm);
+  color: var(--color-text);
+}
+
+.lede {
+  font-size: var(--text-xl);
+  line-height: 1.75;
+  color: #2a2a2a;
+  margin-bottom: var(--space-lg);
+}
+
+/* -----------------------
+   META / CAPTIONS
+----------------------- */
+
+.meta,
+.post-meta,
+.breadcrumb {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+figcaption {
+  font-size: var(--text-xs);
+  color: var(--color-light);
+}
+
+/* -----------------------
+   LINKS
+----------------------- */
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* -----------------------
+   IMAGES
+----------------------- */
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* -----------------------
+   UTILITIES
+----------------------- */
+
+.inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.section {
+  padding: var(--space-xl) 1.5rem;
+}
+
+/* -----------------------
+   TAGS / PILLS
+----------------------- */
+
+.tag {
+  font-size: 0.7rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #555;
+}
+
+/* ============================
+   PHASE 4B — GLOBAL SPACING
+============================ */
+
+/* -----------------------
+   SECTION RHYTHM
+----------------------- */
+
+section {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+}
+
+section + section {
+  margin-top: var(--space-xl);
+}
+
+/* Tighter hero, looser content */
+.hero {
+  padding-top: calc(var(--space-xl) * 1.2);
+  padding-bottom: calc(var(--space-xl) * 1.1);
+}
+
+/* -----------------------
+   CONTENT STACKING
+----------------------- */
+
+.inner > * + * {
+  margin-top: var(--space-md);
+}
+
+/* Meta sits closer to titles */
+.meta {
+  margin-bottom: var(--space-sm);
+}
+
+/* Headlines need air above them */
+h2 {
+  margin-top: var(--space-lg);
+}
+
+h3 {
+  margin-top: var(--space-md);
+}
+
+/* -----------------------
+   PARAGRAPH FLOW
+----------------------- */
+
+.body > p + p {
+  margin-top: var(--space-sm);
+}
+
+/* Lede deserves space */
+.lede {
+  margin-top: var(--space-sm);
+}
+
+/* -----------------------
+   GALLERIES
+----------------------- */
+
+.gallery {
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-xl);
+}
+
+.gallery-grid {
+  margin-top: var(--space-md);
+}
+
+/* -----------------------
+   RELATED CONTENT
+----------------------- */
+
+.related {
+  padding-top: var(--space-xl);
+  padding-bottom: calc(var(--space-xl) * 1.2);
+}
+
+.related h2 {
+  margin-bottom: var(--space-sm);
+}
+
+.related-grid {
+  margin-top: var(--space-md);
+}
+
+/* -----------------------
+   FOOTER / END SECTIONS
+----------------------- */
+
+footer,
+.end-section {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+}
+
+
+/* ============================
+   PHASE 4C — COMPONENT SPACING
+============================ */
+
+/* -----------------------
+   CARDS (DESTINATIONS, POSTS)
+----------------------- */
+
+.card,
+.related-card,
+.destination-card {
+  padding: var(--space-md);
+  border-radius: 14px;
+}
+
+.card > * + *,
+.related-card > * + * {
+  margin-top: var(--space-xs);
+}
+
+/* Titles should sit close to media */
+.card h3,
+.related-card h3 {
+  margin-top: var(--space-xs);
+}
+
+/* Body text inside cards */
+.card p,
+.related-card p {
+  margin-top: var(--space-xs);
+}
+
+/* -----------------------
+   GRIDS
+----------------------- */
+
+.grid,
+.related-grid,
+.gallery-grid {
+  gap: var(--space-md);
+}
+
+/* Larger grids feel calmer */
+@media (min-width: 900px) {
+  .grid,
+  .related-grid,
+  .gallery-grid {
+    gap: var(--space-lg);
+  }
+}
+
+/* -----------------------
+   IMAGE BLOCKS
+----------------------- */
+
+.card img,
+.gallery-item img,
+.hero-media img {
+  margin-bottom: var(--space-sm);
+}
+
+/* Captions should not feel cramped */
+.gallery-item figcaption {
+  padding: 0.75rem 1rem;
+  line-height: 1.4;
+}
+
+/* -----------------------
+   LISTS (TAGS, META)
+----------------------- */
+
+.tags {
+  margin-top: var(--space-md);
+}
+
+.tags > * {
+  margin-right: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+/* -----------------------
+   LINKS AS COMPONENTS
+----------------------- */
+
+.card-link,
+a.button,
+.hero-cta {
+  margin-top: var(--space-sm);
+}
+
+/* -----------------------
+   RELATED CONTENT STACK
+----------------------- */
+
+.related-grid > * {
+  padding-top: var(--space-sm);
+}
+
+/* -----------------------
+   SAFETY: NO COLLISIONS
+----------------------- */
+
+* + img {
+  margin-top: 0;
+}
+
