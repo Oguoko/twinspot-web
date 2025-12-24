@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TipTapEditor from "./TipTapEditor";
 import ImagePicker from "./ImagePicker";
+import { savePost } from "@/app/admin/posts/actions";
 
 type ImageItem = {
   imageUrl: string;
@@ -20,8 +21,8 @@ export default function PostEditor({
 }: Props) {
   const [content, setContent] = useState(initialContent);
   const [editorRef, setEditorRef] = useState<any>(null);
+  const [heroImage, setHeroImage] = useState<ImageItem | null>(null);
 
-  // Inject image HTML directly (simple + reliable)
   function insertImage(img: ImageItem) {
     if (!editorRef) return;
 
@@ -34,27 +35,38 @@ export default function PostEditor({
       .run();
   }
 
+  async function handleSave() {
+    await savePost({
+      title: "Draft title",
+      slug: "draft-slug",
+      content,
+      heroImage,
+      published: false,
+    });
+
+    alert("Post saved");
+  }
+
   return (
     <div>
       <TipTapEditor
         content={content}
         onChange={setContent}
+        onReady={setEditorRef}
       />
 
-      <input
-        type="hidden"
-        name="content"
-        value={content}
-        readOnly
-      />
+      <input type="hidden" name="content" value={content} readOnly />
 
       <h3 style={{ marginTop: "2.5rem" }}>Insert Image</h3>
 
-      <ImagePicker
-        images={images}
-        onSelect={insertImage}
-      />
+      <ImagePicker images={images} onSelect={insertImage} />
+
+      <button
+        onClick={handleSave}
+        style={{ marginTop: "2rem" }}
+      >
+        Save Post
+      </button>
     </div>
   );
 }
-

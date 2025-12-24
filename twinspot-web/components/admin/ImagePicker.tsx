@@ -24,16 +24,13 @@ export default function ImagePicker({ images, onSelect }: Props) {
 
   return (
     <div className="image-picker">
-      {images.map((img, i) => {
-        // 🚫 Guard against bad URLs
-        if (
-          !img.imageUrl ||
-          !img.imageUrl.startsWith("http")
-        ) {
-          return null;
-        }
-
-        return (
+      {images
+        .filter(
+          (img) =>
+            img.imageUrl &&
+            img.imageUrl.startsWith("http")
+        )
+        .map((img, i) => (
           <button
             key={i}
             type="button"
@@ -48,8 +45,7 @@ export default function ImagePicker({ images, onSelect }: Props) {
               style={{ objectFit: "cover" }}
             />
           </button>
-        );
-      })}
+        ))}
 
       <style jsx>{`
         .image-picker {
