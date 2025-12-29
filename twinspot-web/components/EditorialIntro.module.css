@@ -1,0 +1,14 @@
+.editorialIntro {
+  max-width: 720px;
+}
+
+.editorialIntro-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.editorialIntro-content h2 {
+  margin-bottom: 16px;
+}

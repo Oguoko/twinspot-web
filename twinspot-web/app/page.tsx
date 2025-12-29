@@ -1,71 +1,24 @@
-import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
-import { db } from "@/lib/firebase/config";
+// app/page.tsx
 
 import Image from "next/image";
 import Link from "next/link";
 
 import HeroMotion from "@/components/HeroMotion";
 import DestinationGrid from "@/components/DestinationGrid";
+import HomeClient from "@/components/home/HomeClient";
+
+import { getFeaturedPosts, getLatestPosts } from "@/lib/data/homepage";
+import { getDestinations } from "@/lib/data/destinations";
 
 /* -----------------------------
-   DATA (SERVER — SANITIZED)
------------------------------ */
-
-async function getDestinations() {
-  const q = query(
-    collection(db, "destinations"),
-    where("published", "==", true),
-    limit(6)
-  );
-
-  const snap = await getDocs(q);
-
-  // ✅ RETURN PLAIN JSON ONLY
-  return snap.docs.map(doc => {
-    const data = doc.data();
-
-    return {
-      slug: doc.id,
-      title: data.title ?? "",
-      summary: data.summary ?? "",
-      region: data.region ?? "",
-      country: data.country ?? "",
-      heroImage: data.heroImage
-        ? {
-            imageUrl: data.heroImage.imageUrl ?? null,
-            alt: data.heroImage.alt ?? "",
-          }
-        : null,
-    };
-  });
-}
-
-async function getPosts() {
-  const q = query(
-    collection(db, "posts"),
-    where("published", "==", true),
-    orderBy("createdAt", "desc"),
-    limit(3)
-  );
-
-  const snap = await getDocs(q);
-
-  // Posts are rendered directly here (server-safe)
-  return snap.docs.map(doc => ({
-    slug: doc.id,
-    title: doc.data().title ?? "",
-    excerpt: doc.data().excerpt ?? "",
-  }));
-}
-
-/* -----------------------------
-   PAGE
+   PAGE (SERVER COMPONENT)
 ----------------------------- */
 
 export default async function HomePage() {
-  const [destinations, posts] = await Promise.all([
+  const [featured, latest, destinations] = await Promise.all([
+    getFeaturedPosts(),
+    getLatestPosts(),
     getDestinations(),
-    getPosts(),
   ]);
 
   return (
@@ -106,7 +59,7 @@ export default async function HomePage() {
           </p>
         </header>
 
-        {/* ✅ SAFE: PLAIN JSON ONLY */}
+        {/* SAFE: plain JSON only */}
         <DestinationGrid destinations={destinations} />
       </section>
 
@@ -121,9 +74,9 @@ export default async function HomePage() {
         </header>
 
         <div className="posts">
-          {posts.map(post => (
+          {featured.map((post) => (
             <Link
-              key={post.slug}
+              key={post.id}
               href={`/blog/${post.slug}`}
               className="post"
             >
@@ -148,6 +101,7 @@ export default async function HomePage() {
         </p>
       </section>
 
+      {/* STYLES */}
       <style>{`
         .hero {
           position: relative;
@@ -231,11 +185,10 @@ export default async function HomePage() {
           max-width: 720px;
         }
       `}</style>
+
       <header className="sr-only">
-  <h1>Birding Safaris Across East Africa</h1>
-</header>
-
-
+        <h1>Birding Safaris Across East Africa</h1>
+      </header>
     </main>
   );
 }

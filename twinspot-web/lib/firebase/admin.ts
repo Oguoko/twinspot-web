@@ -1,16 +1,25 @@
+// lib/firebase/admin.ts
+
 import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
+import fs from "fs";
+import path from "path";
 
-/**
- * Initializes Firebase Admin SDK safely.
- * This must only run on the server.
- */
-export function initAdmin() {
+function initAdmin() {
   if (getApps().length > 0) return;
 
+  const serviceAccountPath = path.join(
+    process.cwd(),
+    "twinspot-tours-and-trave-4aa06-firebase-adminsdk-fbsvc-5d8cb5631b.json"
+  );
+
+  if (!fs.existsSync(serviceAccountPath)) {
+    throw new Error("Firebase service account JSON file not found");
+  }
+
   const serviceAccount = JSON.parse(
-    process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT as string
+    fs.readFileSync(serviceAccountPath, "utf8")
   );
 
   initializeApp({
@@ -18,6 +27,7 @@ export function initAdmin() {
   });
 }
 
-// Optional exports for later use
-export const adminAuth = () => getAuth();
-export const adminDb = () => getFirestore();
+initAdmin();
+
+export const adminAuth = getAuth();
+export const adminDb = getFirestore();

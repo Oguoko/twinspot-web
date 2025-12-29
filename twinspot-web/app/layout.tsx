@@ -1,8 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.twinspot.co.ke"), // change if needed
+  metadataBase: new URL("https://www.twinspot.co.ke"),
   title: {
     default: "Twinspot Tours & Travel | Birding Safaris Across East Africa",
     template: "%s | Twinspot Tours & Travel",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
       "Birding safaris and field notes from East Africa’s richest habitats.",
     images: [
       {
-        url: "/og-default.jpg", // add later or swap with Firebase image
+        url: "/og-default.jpg",
         width: 1200,
         height: 630,
         alt: "Twinspot Tours & Travel – Birding Safaris",
@@ -40,7 +41,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

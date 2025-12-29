@@ -1,0 +1,53 @@
+.cta {
+  margin-top: 7rem;
+  padding: 5rem 2rem;
+  background: #f7f5f2; /* warm editorial neutral */
+}
+
+.inner {
+  max-width: 900px;
+  margin: auto;
+}
+
+.heading {
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  color: #1f2a1f; /* deep green-black */
+}
+
+.copy {
+  max-width: 680px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 2.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.primary {
+  background: #c9a24d;
+  color: #1a1a1a;
+  padding: 0.85rem 1.6rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.primary:hover {
+  background: #b8933f;
+}
+
+.secondary {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1f2a1f;
+  text-decoration: underline;
+}

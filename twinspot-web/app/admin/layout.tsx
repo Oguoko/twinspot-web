@@ -8,5 +8,15 @@ export default async function AdminLayout({
 }) {
   await requireEditor();
 
-  return <>{children}</>;
+  return (
+    <section
+      style={{
+        background: "#fafafa",
+        minHeight: "100vh",
+        padding: "2rem",
+      }}
+    >
+      {children}
+    </section>
+  );
 }

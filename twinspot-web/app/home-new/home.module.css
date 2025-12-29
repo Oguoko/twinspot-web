@@ -1,0 +1,131 @@
+/* ===============================
+   PAGE BASE
+================================ */
+
+.page {
+  background: #f6f4ef;
+}
+
+/* ===============================
+   CONTAINERS
+================================ */
+
+.container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.containerWide {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===============================
+   SECTION RHYTHM (HOMEPAGE ONLY)
+================================ */
+
+.section {
+  padding: 88px 0;
+}
+
+/* ===============================
+   HERO (BOXED IMAGE + TEXT)
+================================ */
+
+.hero {
+  padding: 96px 24px 120px;
+}
+
+.heroGrid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.heroMedia img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 18px;
+}
+
+.heroContent {
+  max-width: 520px;
+}
+
+.heroTitle {
+  font-size: clamp(2.6rem, 4.5vw, 3.8rem);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.heroTitle span {
+  color: #8c6b2f;
+}
+
+.heroSubtitle {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.heroCta {
+  display: inline-block;
+  padding: 0.75rem 1.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  background: #8c6b2f;
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.heroCta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ===============================
+   STORIES GRID
+================================ */
+
+.storyGrid {
+  margin-top: 32px;
+}
+
+/* ===============================
+   CTA + FOOTER HANDOFF
+================================ */
+
+.ctaWrap {
+  margin: 120px 0 80px;
+}
+
+.pageEnd {
+  height: 64px;
+}
+
+/* ===============================
+   MOBILE
+================================ */
+
+@media (max-width: 900px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero {
+    padding: 72px 24px 88px;
+  }
+}

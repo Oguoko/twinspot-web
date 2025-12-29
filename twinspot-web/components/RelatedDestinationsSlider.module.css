@@ -1,0 +1,49 @@
+.wrapper {
+  width: 100%;
+}
+
+.title {
+  font-size: 22px;
+  margin-bottom: 24px;
+}
+
+.rail {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 12px;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  min-width: 320px;
+  scroll-snap-align: start;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+}

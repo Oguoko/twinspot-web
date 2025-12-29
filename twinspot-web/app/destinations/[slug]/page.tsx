@@ -1,213 +1,139 @@
-import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore";
-import { db } from "@/lib/firebase/config";
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
+import Image from "next/image";
 
-import FadeIn from "@/components/FadeIn";
-import SeasonalityTable from "@/components/SeasonalityTable";
+import { getDestination } from "@/lib/data/destinations";
+import { getRelatedPosts } from "@/lib/data/relatedPosts";
 
-/* -----------------------------
-   TYPES
------------------------------ */
+import EditorialIntro from "@/components/EditorialIntro";
+import ThingsToKnow from "@/components/ThingsToKnow";
+import EditorialCTA from "@/components/EditorialCTA";
+import RelatedPosts from "@/components/RelatedPosts";
+import FaqSection from "@/components/FaqSection";
 
-type Destination = {
-  slug: string;
-  title: string;
-  summary?: string;
-  region?: string;
-  country?: string;
-  heroImage?: {
-    imageUrl?: string;
-    alt?: string;
-  };
-  seasons?: any[];
+import styles from "./destination.module.css";
+import { getRelatedDestinations } from "@/lib/data/destinations";
+
+import RelatedDestinationsSlider from "@/components/RelatedDestinationsSlider";
+
+
+
+type PageProps = {
+  params: Promise<{ slug: string }>;
 };
 
-/* -----------------------------
-   DATA
------------------------------ */
-
-async function fetchDestination(slug: string): Promise<Destination | null> {
-  if (!slug) return null;
-
-  const ref = doc(db, "destinations", slug);
-  const snap = await getDoc(ref);
-
-  if (!snap.exists()) return null;
-
-  const data = snap.data();
-
-  return {
-    slug,
-    title: data.title,
-    summary: data.summary,
-    region: data.region,
-    country: data.country,
-    heroImage: data.heroImage,
-    seasons: data.seasons,
-  };
-}
-
-async function fetchGalleryImages(slug: string) {
-  const q = query(
-    collection(db, "images"),
-    where("destination", "==", slug)
-  );
-
-  const snap = await getDocs(q);
-  return snap.docs.map(d => d.data());
-}
-
-/* -----------------------------
-   METADATA
------------------------------ */
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export default async function DestinationPage({ params }: PageProps) {
   const { slug } = await params;
-
-  const destination = await fetchDestination(slug);
-  if (!destination) return {};
-
-  const title = `${destination.title} | Twinspot Birding Destinations`;
-  const description =
-    destination.summary ||
-    "Birding destinations and guided safaris across East Africa.";
-
-  const image =
-    destination.heroImage?.imageUrl || "/og-default.jpg";
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: destination.heroImage?.alt || destination.title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [image],
-    },
-  };
-}
-
-/* -----------------------------
-   PAGE (DEFAULT EXPORT)
------------------------------ */
-
-export default async function DestinationPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-
   if (!slug) notFound();
 
-  const destination = await fetchDestination(slug);
+  const destination = await getDestination(slug);
   if (!destination) notFound();
 
-  const images = await fetchGalleryImages(slug);
+  const relatedPosts = await getRelatedPosts(slug);
 
-  const seasons =
-    destination.seasons ?? [
-      {
-        months: "Jan – Mar",
-        conditions: "Dry season",
-        highlights: "Resident species, raptors",
-      },
-      {
-        months: "Apr – Jun",
-        conditions: "Long rains",
-        highlights: "Breeding plumage",
-      },
-      {
-        months: "Jul – Oct",
-        conditions: "Cooler, dry",
-        highlights: "Migrants",
-      },
-      {
-        months: "Nov – Dec",
-        conditions: "Short rains",
-        highlights: "Palearctic arrivals",
-      },
-    ];
+  const relatedDestinations = await getRelatedDestinations(
+  destination.slug,
+  destination.region
+);
+
+
+
+
+  const heroSrc =
+    destination.heroImage?.imageUrl ||
+    destination.heroImage?.url ||
+    null;
 
   return (
-    <main className="destination">
-      {/* HERO */}
-      <section className="hero">
-        {destination.heroImage?.imageUrl && (
-          <Image
-            src={destination.heroImage.imageUrl}
-            alt={destination.heroImage.alt || destination.title}
-            fill
-            priority
-            className="hero-image"
-          />
-        )}
-        <div className="hero-overlay" />
-        <div className="hero-content">
-          <h1>{destination.title}</h1>
-        </div>
-      </section>
-
-      {/* CONTENT */}
-      <section className="content">
-        <div className="inner">
-          <div className="meta">
-            <span>{destination.region}</span>
-            <span>•</span>
-            <span>{destination.country}</span>
+    <main className={styles.page}>
+      {/* ===============================
+         HERO (BOXED IMAGE)
+      =============================== */}
+      <section className={`${styles.hero} ${styles.containerWide}`}>
+        {heroSrc && (
+          <div className={styles.heroImage}>
+            <Image
+              src={heroSrc}
+              alt={destination.heroImage?.alt || destination.title}
+              width={1280}
+              height={480}
+              priority
+              sizes="(max-width: 1280px) 100vw, 1280px"
+            />
           </div>
+        )}
 
-          <FadeIn>
-            <p className="lede">{destination.summary}</p>
-          </FadeIn>
+        <h1 className={styles.heroTitle}>{destination.title}</h1>
 
-          <FadeIn delay={0.1}>
-            <SeasonalityTable seasons={seasons} />
-          </FadeIn>
+        {(destination.region || destination.country) && (
+          <p className={styles.heroMeta}>
+            {[destination.region, destination.country]
+              .filter(Boolean)
+              .join(" • ")}
+          </p>
+        )}
+      </section>
+
+      {/* ===============================
+         EDITORIAL INTRO
+      =============================== */}
+      <section className={`${styles.section} ${styles.container}`}>
+        <div className={styles.editorialIntro}>
+          <EditorialIntro
+            title={`Discover ${destination.title}`}
+            intro={destination.summary}
+            body="This destination rewards slow travel and careful exploration, offering some of East Africa’s most consistent birding and wildlife experiences."
+          />
         </div>
       </section>
 
-      {/* GALLERY */}
-      {images.length > 0 && (
-        <section className="gallery">
-          <div className="gallery-grid">
-            {images
-  .filter(img => typeof img.imageUrl === "string" && img.imageUrl.startsWith("http"))
-  .slice(0, 6)
-  .map((img, i) => (
-    <figure key={i} className="gallery-item">
-      <Image
-        src={img.imageUrl}
-        alt={img.alt || destination.title}
-        fill
-        className="gallery-image"
-      />
-      {img.caption && <figcaption>{img.caption}</figcaption>}
-    </figure>
-))}
+      {/* ===============================
+         THINGS TO KNOW
+      =============================== */}
+      {Array.isArray(destination.thingsToKnow) &&
+        destination.thingsToKnow.length > 0 && (
+          <section className={`${styles.sectionTight} ${styles.container}`}>
+            <ThingsToKnow items={destination.thingsToKnow} />
+          </section>
+        )}
 
-           
+      {/* ===============================
+         FAQ
+      =============================== */}
+      {Array.isArray(destination.faq) && destination.faq.length > 0 && (
+        <section className={`${styles.sectionTight} ${styles.container}`}>
+          <FaqSection items={destination.faq} />
+        </section>
+      )}
+
+      {relatedDestinations.length > 0 && (
+  <section className={`${styles.section} ${styles.containerWide}`}>
+    <RelatedDestinationsSlider destinations={relatedDestinations} />
+  </section>
+)}
+
+
+      {/* ===============================
+         RELATED STORIES
+      =============================== */}
+      {relatedPosts.length > 0 && (
+        <section className={`${styles.section} ${styles.container}`}>
+          <div className={styles.relatedWrap}>
+            <RelatedPosts posts={relatedPosts} />
           </div>
         </section>
       )}
+
+      {/* ===============================
+         CTA
+      =============================== */}
+      <section className={styles.ctaWrap}>
+        <EditorialCTA destinationTitle={destination.title} />
+      </section>
+
+      {/* ===============================
+         PAGE END (FOOTER HANDOFF)
+      =============================== */}
+      <div className={styles.pageEnd} />
     </main>
   );
 }

@@ -4,15 +4,11 @@ export default function AdminHome() {
   return (
     <div>
       <h1>Admin Dashboard</h1>
-
-      <h2>Select an image</h2>
-
-      <ImagePicker
-        onSelect={(img) => {
-          console.log("Selected image:", img);
-          alert(`Selected: ${img.alt || img.id}`);
-        }}
-      />
+      <ul>
+        <li><a href="/admin/posts">Posts</a></li>
+        <li><a href="/admin/destinations">Destinations</a></li>
+        <li><a href="/admin/images">Images</a></li>
+      </ul>
     </div>
   );
 }

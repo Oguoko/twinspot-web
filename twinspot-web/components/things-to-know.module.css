@@ -1,0 +1,36 @@
+.wrapper {
+  max-width: 1100px;
+  margin: 6rem auto;
+  padding: 0 2rem;
+}
+
+.wrapper h2 {
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem 3rem;
+}
+
+.row {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 1.2rem;
+}
+
+.row dt {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #777;
+  margin-bottom: 0.4rem;
+}
+
+.row dd {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #222;
+}

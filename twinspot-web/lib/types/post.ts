@@ -1,13 +1,21 @@
-export type Post = {
+import { Timestamp } from "firebase-admin/firestore";
+
+export type ImageItem = {
+  imageUrl: string;
+  alt?: string;
+};
+
+
+
+export interface Post {
   id?: string;
   title: string;
   slug: string;
-  content: string; // TipTap JSON string
-  heroImage?: {
-    imageUrl: string;
-    alt?: string;
-  };
+  excerpt?: string;
+  content: string;
   published: boolean;
-  createdAt?: any;
-  updatedAt?: any;
+  tags?: string[];
+  heroImage?: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 };

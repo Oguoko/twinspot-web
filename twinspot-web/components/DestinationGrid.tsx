@@ -1,88 +1,84 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import FadeIn from "@/components/FadeIn";
+import Link from "next/link";
+
+type Destination = {
+  slug: string;
+  title: string;
+  summary: string;
+  heroImage?: {
+    imageUrl?: string;
+    alt?: string;
+  } | null;
+};
 
 export default function DestinationGrid({
   destinations,
 }: {
-  destinations: any[];
+  destinations: Destination[];
 }) {
   return (
-    <div className="dest-grid">
-      {destinations.map((dest, i) => (
-        <FadeIn key={dest.slug} delay={i * 0.05}>
-          <Link href={`/destinations/${dest.slug}`} className="dest-card">
-            {dest.heroImage?.imageUrl ? (
-              <Image
-                src={dest.heroImage.imageUrl}
-                alt={dest.heroImage.alt || dest.title}
-                fill
-                className="dest-image"
-              />
-            ) : (
-              <div className="dest-placeholder" />
-            )}
+    <div className="grid">
+      {destinations.map((d) => {
+        const src =
+          typeof d.heroImage?.imageUrl === "string" &&
+          d.heroImage.imageUrl.length > 10
+            ? d.heroImage.imageUrl
+            : null;
 
-            <div className="dest-meta">
-              <h3>{dest.title}</h3>
-              <span>{dest.region}</span>
+        return (
+          <Link
+            key={d.slug}
+            href={`/destinations/${d.slug}`}
+            className="card"
+          >
+            <div className="image-wrap">
+              {src ? (
+                <Image
+                  src={src}
+                  alt={d.heroImage?.alt || d.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  style={{ objectFit: "cover" }}
+                />
+              ) : (
+                <div className="image-fallback" />
+              )}
             </div>
+
+            <h3>{d.title}</h3>
+            <p>{d.summary}</p>
           </Link>
-        </FadeIn>
-      ))}
+        );
+      })}
 
       <style jsx>{`
-        .dest-grid {
+        .grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
           gap: 2.5rem;
         }
 
-        .dest-card {
-          position: relative;
-          height: 360px;
-          border-radius: 14px;
-          overflow: hidden;
+        .card {
           text-decoration: none;
-          color: white;
+          color: inherit;
         }
 
-        .dest-image {
-          object-fit: cover;
-        }
-
-        .dest-placeholder {
+        .image-wrap {
+          position: relative;
           width: 100%;
-          height: 100%;
-          background: linear-gradient(135deg, #1f3d2b, #14261c);
+          aspect-ratio: 16 / 10;
+          overflow: hidden;
+          border-radius: 12px;
+          margin-bottom: 1rem;
+          background: #eee;
         }
 
-        .dest-meta {
+        .image-fallback {
           position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          padding: 1.5rem;
-          background: linear-gradient(
-            to top,
-            rgba(0, 0, 0, 0.65),
-            transparent
-          );
-        }
-
-        .dest-meta h3 {
-          margin: 0;
-          font-family: serif;
-          font-size: 1.35rem;
-        }
-
-        .dest-meta span {
-          font-size: 0.8rem;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          opacity: 0.85;
+          inset: 0;
+          background: #ddd;
         }
       `}</style>
     </div>

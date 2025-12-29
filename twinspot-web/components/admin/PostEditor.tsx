@@ -1,71 +1,97 @@
 "use client";
 
-import { useState } from "react";
+import { Post } from "@/lib/types/post";
 import TipTapEditor from "./TipTapEditor";
 import ImagePicker from "./ImagePicker";
-import { savePost } from "@/app/admin/posts/actions";
-
-type ImageItem = {
-  imageUrl: string;
-  alt?: string;
-};
 
 type Props = {
-  initialContent?: string;
-  images: ImageItem[];
+  post: Post;
+  onChange: (post: Post) => void;
+  onSave: (post: Post) => void;
+  saving?: boolean;
 };
 
 export default function PostEditor({
-  initialContent = "",
-  images,
+  post,
+  onChange,
+  onSave,
+  saving,
 }: Props) {
-  const [content, setContent] = useState(initialContent);
-  const [editorRef, setEditorRef] = useState<any>(null);
-  const [heroImage, setHeroImage] = useState<ImageItem | null>(null);
-
-  function insertImage(img: ImageItem) {
-    if (!editorRef) return;
-
-    editorRef
-      .chain()
-      .focus()
-      .insertContent(
-        `<img src="${img.imageUrl}" alt="${img.alt || ""}" />`
-      )
-      .run();
-  }
-
-  async function handleSave() {
-    await savePost({
-      title: "Draft title",
-      slug: "draft-slug",
-      content,
-      heroImage,
-      published: false,
-    });
-
-    alert("Post saved");
-  }
-
   return (
-    <div>
-      <TipTapEditor
-        content={content}
-        onChange={setContent}
-        onReady={setEditorRef}
+    <div style={{ padding: "2rem", maxWidth: 900 }}>
+      <input
+        type="text"
+        placeholder="Post title"
+        value={post.title}
+        onChange={(e) =>
+          onChange({ ...post, title: e.target.value })
+        }
+        style={{
+          width: "100%",
+          fontSize: "1.4rem",
+          marginBottom: "1rem",
+        }}
       />
 
-      <input type="hidden" name="content" value={content} readOnly />
+      <TipTapEditor
+        content={post.content}
+        onChange={(content) =>
+          onChange({ ...post, content })
+        }
+      />
 
-      <h3 style={{ marginTop: "2.5rem" }}>Insert Image</h3>
+      <h3 style={{ marginTop: "2rem" }}>Publishing</h3>
 
-      <ImagePicker images={images} onSelect={insertImage} />
+      <label style={{ display: "block", marginBottom: "0.5rem" }}>
+        <input
+          type="checkbox"
+          checked={post.published}
+          onChange={(e) =>
+            onChange({
+              ...post,
+              published: e.target.checked,
+            })
+          }
+        />{" "}
+        Published
+      </label>
+
+      {post.published && (
+        <label style={{ display: "block", marginBottom: "1rem" }}>
+          Publish date:
+          <input
+            type="datetime-local"
+            value={
+              post.publishedAt
+                ? new Date(
+                    post.publishedAt.toDate()
+                  )
+                    .toISOString()
+                    .slice(0, 16)
+                : ""
+            }
+            onChange={(e) =>
+              onChange({
+                ...post,
+                publishedAt: e.target.value
+                  ? (new Date(e.target.value) as any)
+                  : null,
+              })
+            }
+            style={{ marginLeft: "0.5rem" }}
+          />
+        </label>
+      )}
 
       <button
-        onClick={handleSave}
-        style={{ marginTop: "2rem" }}
+        onClick={() => onSave(post)}
+        disabled={saving}
+        style={{
+          marginTop: "2rem",
+          padding: "0.6rem 1.2rem",
+        }}
       >
-        Save Post
+        {saving ? "Saving…" : "Save Post"}
       </button>
     </div>
   );

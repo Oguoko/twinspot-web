@@ -1,73 +1,46 @@
 "use client";
 
-import Image from "next/image";
-
-type ImageItem = {
-  imageUrl: string;
-  alt?: string;
-  caption?: string;
-};
+import { ImageAsset } from "@/lib/types/image";
 
 type Props = {
-  images: ImageItem[];
-  onSelect: (image: ImageItem) => void;
+  images: ImageAsset[];
+  onSelect: (url: string) => void;
 };
 
 export default function ImagePicker({ images, onSelect }: Props) {
-  if (!images || images.length === 0) {
+  if (images.length === 0) {
     return (
-      <p style={{ fontSize: "0.85rem", color: "#777" }}>
-        No images available yet.
-      </p>
+      <div style={{ opacity: 0.6 }}>
+        No images uploaded yet.
+      </div>
     );
   }
 
   return (
-    <div className="image-picker">
-      {images
-        .filter(
-          (img) =>
-            img.imageUrl &&
-            img.imageUrl.startsWith("http")
-        )
-        .map((img, i) => (
-          <button
-            key={i}
-            type="button"
-            className="image-item"
-            onClick={() => onSelect(img)}
-          >
-            <Image
-              src={img.imageUrl}
-              alt={img.alt || "Selected image"}
-              width={220}
-              height={140}
-              style={{ objectFit: "cover" }}
-            />
-          </button>
-        ))}
-
-      <style jsx>{`
-        .image-picker {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-          gap: 1rem;
-          margin-top: 1rem;
-        }
-
-        .image-item {
-          border: none;
-          padding: 0;
-          background: transparent;
-          cursor: pointer;
-          border-radius: 8px;
-          overflow: hidden;
-        }
-
-        .image-item:hover {
-          outline: 2px solid #8c6b2f;
-        }
-      `}</style>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+        gap: "1rem",
+        marginTop: "1rem",
+      }}
+    >
+      {images.map((img) => (
+        <img
+          key={img.id}
+          src={img.url}
+          alt={img.name}
+          onClick={() => onSelect(img.url)}
+          style={{
+            width: "100%",
+            height: 100,
+            objectFit: "cover",
+            cursor: "pointer",
+            borderRadius: 6,
+            border: "2px solid transparent",
+          }}
+        />
+      ))}
     </div>
   );
 }

@@ -1,12 +1,7 @@
-import PostEditor from "@/components/admin/PostEditor";
-import { getImages } from "@/lib/data/images";
+import { getPosts } from "@/lib/data/posts";
+import AdminPostsClient from "@/components/admin/AdminPostsClient";
 
 export default async function AdminPostsPage() {
-  const images = await getImages(); // server-only work
-
-  return (
-    <main>
-      <PostEditor images={images} />
-    </main>
-  );
+  const posts = await getPosts();
+  return <AdminPostsClient posts={posts} />;
 }
