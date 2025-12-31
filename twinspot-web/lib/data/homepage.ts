@@ -1,12 +1,14 @@
 import { adminDb } from "@/lib/firebase/admin";
-import type { Post } from "@/lib/types/post";
+import type { PostPreview } from "@/lib/types/post";
 import { Timestamp } from "firebase-admin/firestore";
 
 function serialize(ts?: Timestamp) {
   return ts ? ts.toDate().toISOString() : null;
 }
 
-function normalizePost(doc: FirebaseFirestore.QueryDocumentSnapshot): Post {
+function normalizePost(
+  doc: FirebaseFirestore.QueryDocumentSnapshot
+): PostPreview {
   const data = doc.data();
 
   return {
@@ -22,11 +24,12 @@ function normalizePost(doc: FirebaseFirestore.QueryDocumentSnapshot): Post {
         }
       : undefined,
     createdAt: serialize(data.createdAt),
-    updatedAt: serialize(data.updatedAt),
   };
 }
 
-export async function getFeaturedPosts(limit = 5): Promise<Post[]> {
+export async function getFeaturedPosts(
+  limit = 5
+): Promise<PostPreview[]> {
   const snap = await adminDb
     .collection("posts")
     .where("published", "==", true)
@@ -37,7 +40,9 @@ export async function getFeaturedPosts(limit = 5): Promise<Post[]> {
   return snap.docs.map(normalizePost);
 }
 
-export async function getLatestPosts(limit = 6): Promise<Post[]> {
+export async function getLatestPosts(
+  limit = 6
+): Promise<PostPreview[]> {
   const snap = await adminDb
     .collection("posts")
     .where("published", "==", true)

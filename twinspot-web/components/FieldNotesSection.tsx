@@ -3,10 +3,11 @@ import Image from "next/image";
 import styles from "./field-notes-section.module.css";
 
 import { getFeaturedPosts } from "@/lib/data/homepage";
-import type { Post } from "@/lib/types/post";
+import type { PostPreview } from "@/lib/types/post";
+
 
 export default async function FieldNotesSection() {
-  const posts: Post[] = await getFeaturedPosts(5);
+  const posts: PostPreview[] = await getFeaturedPosts(5);
 
   if (!posts || posts.length === 0) return null;
 
