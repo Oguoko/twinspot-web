@@ -1,11 +1,10 @@
 "use server";
 
 /**
- * TEMPORARILY DISABLED
- * Firebase admin storage is not required for public site deployment.
- * This file will be re-enabled once admin tooling is finalized.
+ * Admin image upload intentionally disabled.
+ * This file exists only to satisfy routing.
  */
 
 export async function uploadImage() {
-  throw new Error("Image upload temporarily disabled.");
+  throw new Error("Image upload is disabled.");
 }
