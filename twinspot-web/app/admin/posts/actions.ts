@@ -1,16 +1,24 @@
 "use server";
 
-import { createPost, updatePost, deletePost } from "@/lib/data/posts";
-import { Post } from "@/lib/types/post";
+import { adminDb } from "@/lib/firebase/admin";
+import type { Post } from "@/lib/types/post";
 
-export async function savePost(post: Post) {
+type PostInput = Omit<Post, "id"> & { id?: string };
+
+export async function savePost(post: PostInput): Promise<string> {
   if (post.id) {
-    await updatePost(post.id, post);
+    await adminDb.collection("posts").doc(post.id).update({
+      ...post,
+      updatedAt: new Date(),
+    });
     return post.id;
   }
-  return await createPost(post);
-}
 
-export async function removePost(id: string) {
-  await deletePost(id);
+  const ref = await adminDb.collection("posts").add({
+    ...post,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+
+  return ref.id;
 }
