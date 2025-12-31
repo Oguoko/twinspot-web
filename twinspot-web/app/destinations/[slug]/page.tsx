@@ -1,94 +1,154 @@
-import { notFound } from "next/navigation";
+import { doc, getDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/lib/firebase/config";
 import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
-import { getDestination, getRelatedDestinations } from "@/lib/data/destinations";
-import { getRelatedPosts } from "@/lib/data/relatedPosts";
+/* -----------------------------
+   TYPES (local, authoritative)
+-------------------------------- */
 
-import EditorialIntro from "@/components/EditorialIntro";
-
-import EditorialCTA from "@/components/EditorialCTA";
-import RelatedPosts from "@/components/RelatedPosts";
-import FaqSection from "@/components/FaqSection";
-import RelatedDestinationsSlider from "@/components/RelatedDestinationsSlider";
-
-import styles from "./destination.module.css";
-
-type PageProps = {
-  params: { slug: string };
+type ImageItem = {
+  imageUrl: string;
+  alt?: string;
 };
 
-export default async function DestinationPage({ params }: PageProps) {
-  const { slug } = params;
-  if (!slug) notFound();
+type Destination = {
+  slug: string;
+  title: string;
+  summary: string;
+  region?: string;
+  country?: string;
+  heroImage?: ImageItem;
+  gallery?: ImageItem[];
+  createdAt: Date | null;
+  updatedAt: Date | null;
+};
 
-  const destination = await getDestination(slug);
-  if (!destination) notFound();
+/* -----------------------------
+   DATA FETCHING
+-------------------------------- */
 
-  const relatedPosts = await getRelatedPosts(slug);
+async function getDestination(slug: string): Promise<Destination | null> {
+  const ref = doc(db, "destinations", slug);
+  const snap = await getDoc(ref);
 
-  const relatedDestinations = await getRelatedDestinations(
-    destination.slug,
-    destination.region
+  if (!snap.exists()) return null;
+
+  const data = snap.data();
+
+  return {
+    slug,
+    title: data.title,
+    summary: data.summary,
+    region: data.region,
+    country: data.country,
+    heroImage: data.heroImage,
+    gallery: data.gallery,
+    createdAt: data.createdAt?.toDate?.() || null,
+    updatedAt: data.updatedAt?.toDate?.() || null,
+  };
+}
+
+async function getRelatedPosts(slug: string) {
+  const q = query(
+    collection(db, "posts"),
+    where("published", "==", true),
+    where("destination", "==", slug)
   );
 
-  const heroSrc = destination.heroImage?.imageUrl ?? null;
+  const snap = await getDocs(q);
+
+  return snap.docs.map((doc) => ({
+    slug: doc.id,
+    ...doc.data(),
+  }));
+}
+
+/* -----------------------------
+   PAGE
+-------------------------------- */
+
+export default async function DestinationPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const destination = await getDestination(params.slug);
+  if (!destination) notFound();
+
+  const posts = await getRelatedPosts(params.slug);
 
   return (
-    <main className={styles.page}>
+    <main className="bg-[#F7F5F2] text-[#1A1A1A]">
       {/* HERO */}
-      <section className={`${styles.hero} ${styles.containerWide}`}>
-        {heroSrc && (
-          <div className={styles.heroImage}>
-            <Image
-              src={heroSrc}
-              alt={destination.heroImage?.alt || destination.title}
-              width={1280}
-              height={480}
-              priority
-            />
-          </div>
+      <section className="relative h-[85vh] flex items-end">
+        {destination.heroImage?.imageUrl && (
+          <Image
+            src={destination.heroImage.imageUrl}
+            alt={destination.heroImage.alt || destination.title}
+            fill
+            priority
+            className="object-cover"
+          />
         )}
 
-        <h1 className={styles.heroTitle}>{destination.title}</h1>
+        <div className="absolute inset-0 bg-black/40" />
+
+        <div className="relative px-6 pb-24 max-w-5xl">
+          <p className="text-sm uppercase tracking-wide text-white/70 mb-4">
+            {destination.region} · {destination.country}
+          </p>
+
+          <h1 className="text-[2.6rem] md:text-[4.2rem] font-serif leading-tight text-white">
+            {destination.title}
+          </h1>
+        </div>
       </section>
 
-      {/* INTRO */}
-      <section className={`${styles.section} ${styles.container}`}>
-        <EditorialIntro
-          title={`Discover ${destination.title}`}
-          intro={destination.summary}
-          body="This destination rewards slow travel and careful exploration, offering some of East Africa’s most consistent birding and wildlife experiences."
-        />
+      {/* SUMMARY */}
+      <section className="max-w-[42rem] px-6 py-24">
+        <p className="text-[1.05rem] leading-[1.75]">
+          {destination.summary}
+        </p>
       </section>
 
-
-      {/* FAQ */}
-      {Array.isArray(destination.faq) && destination.faq.length > 0 && (
-        <section className={`${styles.sectionTight} ${styles.container}`}>
-          <FaqSection items={destination.faq} />
+      {/* GALLERY */}
+      {Array.isArray(destination.gallery) && (
+        <section className="px-6 pb-28 max-w-6xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {destination.gallery.map((img, index) => (
+              <div key={index} className="relative h-64">
+                <Image
+                  src={img.imageUrl}
+                  alt={img.alt || destination.title}
+                  fill
+                  className="object-cover rounded-xl"
+                />
+              </div>
+            ))}
+          </div>
         </section>
       )}
 
-      {/* RELATED DESTINATIONS */}
-      {relatedDestinations.length > 0 && (
-        <section className={`${styles.section} ${styles.containerWide}`}>
-          <RelatedDestinationsSlider destinations={relatedDestinations} />
+      {/* FIELD NOTES */}
+      {posts.length > 0 && (
+        <section className="px-6 py-24 bg-white">
+          <h2 className="text-[1.8rem] font-serif mb-12">
+            Field Notes from {destination.title}
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-10">
+            {posts.map((post) => (
+              <Link key={post.slug} href={`/blog/${post.slug}`}>
+                <h3 className="font-serif text-lg hover:underline">
+                  {post.title}
+                </h3>
+              </Link>
+            ))}
+          </div>
         </section>
       )}
-
-      {/* RELATED POSTS */}
-      {relatedPosts.length > 0 && (
-        <section className={`${styles.section} ${styles.container}`}>
-          <RelatedPosts posts={relatedPosts} />
-        </section>
-      )}
-
-      {/* CTA */}
-      <section className={styles.ctaWrap}>
-        <EditorialCTA />
-      </section>
-
-      <div className={styles.pageEnd} />
     </main>
   );
 }
