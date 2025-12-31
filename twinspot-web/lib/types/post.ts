@@ -4,14 +4,14 @@ export type ImageItem = {
 };
 
 export interface Post {
-  id: string;               // ✅ REQUIRED
+  id: string;
   title: string;
   slug: string;
+  content: string;          // ✅ REQUIRED
   excerpt?: string;
-  content?: string;
   published: boolean;
   tags?: string[];
-  heroImage?: ImageItem;    // ✅ CONSISTENT SHAPE
+  heroImage?: ImageItem;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
