@@ -85,7 +85,7 @@ export default async function DestinationPage({ params }: PageProps) {
 
       {/* CTA */}
       <section className={styles.ctaWrap}>
-        <EditorialCTA destinationTitle={destination.title} />
+        <EditorialCTA />
       </section>
 
       <div className={styles.pageEnd} />
