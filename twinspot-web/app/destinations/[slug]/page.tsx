@@ -3,19 +3,16 @@ import Image from "next/image";
 
 import { getDestination } from "@/lib/data/destinations";
 import { getRelatedPosts } from "@/lib/data/relatedPosts";
+import { getRelatedDestinations } from "@/lib/data/destinations";
 
 import EditorialIntro from "@/components/EditorialIntro";
 import ThingsToKnow from "@/components/ThingsToKnow";
 import EditorialCTA from "@/components/EditorialCTA";
 import RelatedPosts from "@/components/RelatedPosts";
 import FaqSection from "@/components/FaqSection";
-
-import styles from "./destination.module.css";
-import { getRelatedDestinations } from "@/lib/data/destinations";
-
 import RelatedDestinationsSlider from "@/components/RelatedDestinationsSlider";
 
-
+import styles from "./destination.module.css";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -31,17 +28,16 @@ export default async function DestinationPage({ params }: PageProps) {
   const relatedPosts = await getRelatedPosts(slug);
 
   const relatedDestinations = await getRelatedDestinations(
-  destination.slug,
-  destination.region
-);
+    destination.slug,
+    destination.region
+  );
 
-
-
-
-  const heroSrc =
-    destination.heroImage?.imageUrl ||
-    destination.heroImage?.url ||
-    null;
+  /**
+   * FIX:
+   * heroImage only supports `imageUrl`
+   * `url` does NOT exist on the type
+   */
+  const heroSrc = destination.heroImage?.imageUrl ?? null;
 
   return (
     <main className={styles.page}>
@@ -105,12 +101,14 @@ export default async function DestinationPage({ params }: PageProps) {
         </section>
       )}
 
+      {/* ===============================
+         RELATED DESTINATIONS
+      =============================== */}
       {relatedDestinations.length > 0 && (
-  <section className={`${styles.section} ${styles.containerWide}`}>
-    <RelatedDestinationsSlider destinations={relatedDestinations} />
-  </section>
-)}
-
+        <section className={`${styles.section} ${styles.containerWide}`}>
+          <RelatedDestinationsSlider destinations={relatedDestinations} />
+        </section>
+      )}
 
       {/* ===============================
          RELATED STORIES
