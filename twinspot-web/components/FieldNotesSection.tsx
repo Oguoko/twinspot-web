@@ -3,17 +3,7 @@ import Image from "next/image";
 import styles from "./field-notes-section.module.css";
 
 import { getFeaturedPosts } from "@/lib/data/homepage";
-
-type Post = {
-  id: string;
-  title: string;
-  excerpt?: string;
-  slug: string;
-  heroImage?: {
-    imageUrl?: string;
-    alt?: string;
-  };
-};
+import type { Post } from "@/lib/types/post";
 
 export default async function FieldNotesSection() {
   const posts: Post[] = await getFeaturedPosts(5);
@@ -32,12 +22,8 @@ export default async function FieldNotesSection() {
           <p>Observations from the wild, written along the way.</p>
         </header>
 
-        {/* ===== HERO STORY WITH OVERLAY ===== */}
         {heroPost && (
-          <Link
-            href={`/blog/${heroPost.slug}`}
-            className={styles.heroCard}
-          >
+          <Link href={`/blog/${heroPost.slug}`} className={styles.heroCard}>
             {heroPost.heroImage?.imageUrl && (
               <div className={styles.heroImage}>
                 <Image
@@ -54,15 +40,12 @@ export default async function FieldNotesSection() {
             <div className={styles.heroOverlay}>
               <h3>{heroPost.title}</h3>
               {heroPost.excerpt && <p>{heroPost.excerpt}</p>}
-              <span className={styles.readMore}>
-                Read more →
-              </span>
+              <span className={styles.readMore}>Read more →</span>
             </div>
           </Link>
         )}
       </div>
 
-      {/* ===== SPLIT SECTION ===== */}
       {featurePost && (
         <div className={styles.split}>
           <Link
