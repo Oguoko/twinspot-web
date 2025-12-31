@@ -6,21 +6,17 @@ import { getStorage } from "firebase-admin/storage";
 const BUCKET_NAME = "twinspot-tours-and-trave-4aa06.appspot.com";
 
 if (!getApps().length) {
-  const serviceAccountJson = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT;
+  const b64 = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT_B64;
 
-  if (!serviceAccountJson) {
+  if (!b64) {
     throw new Error(
-      "Missing FIREBASE_ADMIN_SERVICE_ACCOUNT environment variable"
+      "Missing FIREBASE_ADMIN_SERVICE_ACCOUNT_B64 environment variable"
     );
   }
 
-  const serviceAccount = JSON.parse(serviceAccountJson);
-
-  // ✅ CRITICAL FIX
-  if (serviceAccount.private_key) {
-    serviceAccount.private_key =
-      serviceAccount.private_key.replace(/\\n/g, "\n");
-  }
+  const serviceAccount = JSON.parse(
+    Buffer.from(b64, "base64").toString("utf-8")
+  );
 
   initializeApp({
     credential: cert(serviceAccount),
