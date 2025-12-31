@@ -7,7 +7,14 @@ import type { Destination } from "@/lib/data/destinations";
 export default function RelatedDestinationsSlider({
   destinations,
 }: {
-  destinations: Destination[];
+  destinations: {
+  slug: string;
+  title: string;
+  heroImage?: {
+  imageUrl: string;
+  alt?: string;
+  };
+}[];
 }) {
   return (
     <div className={styles.grid}>
