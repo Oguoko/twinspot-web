@@ -22,3 +22,8 @@ export async function savePost(post: PostInput): Promise<string> {
 
   return ref.id;
 }
+
+export async function removePost(id: string) {
+  if (!id) return;
+  await adminDb.collection("posts").doc(id).delete();
+}
