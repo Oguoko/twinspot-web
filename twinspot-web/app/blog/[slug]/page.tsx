@@ -8,7 +8,10 @@ export default async function BlogPostPage({
 }) {
   const post = await getPostBySlug(params.slug);
 
-  if (!post || !post.content) notFound();
+  if (!post) notFound();
+
+  // ✅ HARD GUARARD: content must exist
+  const html = post.content ?? "";
 
   return (
     <article
@@ -22,7 +25,7 @@ export default async function BlogPostPage({
 
       <div
         dangerouslySetInnerHTML={{
-          __html: post.content,
+          __html: html,
         }}
       />
     </article>
