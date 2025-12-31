@@ -1,0 +1,208 @@
+/* ================= NAVBAR ================= */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+  background: rgba(250, 248, 244, 0.92);
+}
+
+.inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+
+/* ================= DESKTOP NAV ================= */
+
+.nav {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.navItem {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chevron {
+  font-size: 0.75rem;
+  margin-left: 4px;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.iconBtn,
+.menuBtn {
+  background: none;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ================= DROPDOWN ================= */
+
+.dropdown {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  width: 100%;
+  background: #faf8f4;
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+
+.dropdownInner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 64px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 64px;
+}
+
+.dropdownText {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+}
+
+.column h4 {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.dropdownLink {
+  position: relative;
+  display: block;
+  font-size: 1.2rem;
+  padding: 10px 0;
+}
+
+.highlight {
+  position: absolute;
+  left: -8px;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: #d6e400;
+  z-index: -1;
+  transition: width .25s ease;
+}
+
+.dropdownLink:hover .highlight {
+  width: calc(100% + 16px);
+}
+
+.miniLinks {
+  grid-column: span 2;
+  margin-top: 48px;
+  display: flex;
+  gap: 24px;
+  font-size: .85rem;
+}
+
+/* ================= IMAGE PANEL ================= */
+
+.imagePanel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.imageCard {
+  border-radius: 18px;
+  overflow: hidden;
+  transition: opacity .3s, filter .3s;
+}
+
+.imageCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imageCard span {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.inactive {
+  opacity: .35;
+  filter: blur(2px);
+}
+
+.active {
+  opacity: 1;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 1024px) {
+  .nav {
+    display: none;
+  }
+}
+
+/* FULLSCREEN MOBILE MENU */
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  background: #faf8f4;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileHeader {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.closeBtn {
+  font-size: 1.25rem;
+  background: none;
+  border: none;
+}
+
+.mobileLinks {
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mobilePrimary {
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mobileExtras {
+  margin-top: 40px;
+  display: flex;
+  gap: 24px;
+  font-size: .9rem;
+}

@@ -1,35 +1,21 @@
 import Link from "next/link";
 import styles from "./editorial-cta.module.css";
 
-type Props = {
-  destinationTitle?: string;
-};
-
-export default function EditorialCTA({ destinationTitle }: Props) {
+export default function EditorialCTA() {
   return (
-    <section className={styles.cta}>
+    <div className={styles.wrap}>
       <div className={styles.inner}>
-        <h2 className={styles.heading}>
-          Plan Your Birding Trip
-          {destinationTitle ? ` to ${destinationTitle}` : ""}
-        </h2>
+        <h2 className={styles.title}>What’s Your Travel Personality?</h2>
 
-        <p className={styles.copy}>
-          From seasonal bird movements to ideal safari routes, our team helps
-          you design a birding experience that fits your interests, pace, and
-          travel style.
+        <p className={styles.text}>
+          Answer a few quick questions and discover the kind of journey that best
+          matches your pace, curiosity, and travel style.
         </p>
 
-        <div className={styles.actions}>
-          <Link href="/contact" className={styles.primary}>
-            Plan My Trip
-          </Link>
-
-          <Link href="/blog" className={styles.secondary}>
-            Read Birding Guides
-          </Link>
-        </div>
+        <Link href="/experiences" className={styles.button}>
+          Take the Quiz
+        </Link>
       </div>
-    </section>
+    </div>
   );
 }

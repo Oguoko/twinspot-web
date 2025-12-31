@@ -1,63 +1,70 @@
 import Link from "next/link";
+import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import QuizCTA from "@/components/QuizCTA";
+import ExperiencesSection from "@/components/ExperiencesSection";
+import BirdingLocationsSection from "@/components/BirdingLocationsSection";
+import FieldNotesSection from "@/components/FieldNotesSection";
+import ContentRail from "@/components/ContentRail";
+import WhyTwinspotSection from "@/components/WhyTwinspotSection";
+import EditorialStatementSection from "@/components/EditorialStatementSection";
+
 
 import { getDestinations } from "@/lib/data/destinations";
-import { getFeaturedPosts, getLatestPosts } from "@/lib/data/homepage";
+import { getFeaturedPosts } from "@/lib/data/homepage";
 
 import RelatedDestinationsSlider from "@/components/RelatedDestinationsSlider";
-import RelatedPosts from "@/components/RelatedPosts";
 import EditorialCTA from "@/components/EditorialCTA";
 
 import styles from "./home.module.css";
 
 export default async function HomePage() {
-  const [featured, latest, destinations] = await Promise.all([
-    getFeaturedPosts(),
-    getLatestPosts(),
-    getDestinations(),
-  ]);
-
-  // 🔎 DEBUG — REMOVE AFTER CONFIRMATION
-  console.log("DESTINATIONS:", destinations);
-  console.log("FEATURED POSTS:", featured);
-  console.log("LATEST POSTS:", latest);
+  const destinations = await getDestinations();
 
   return (
     <main className={styles.page}>
-{/* ===============================
-   HERO (BOXED IMAGE + TEXT)
-=============================== */}
-<section className={styles.hero}>
-  <div className={styles.heroGrid}>
-    <div className={styles.heroMedia}>
-      <img
-        src="/hero.jpg"
-        alt="Birding safari in East Africa"
-      />
-    </div>
+      <Navbar />
 
-    <div className={styles.heroContent}>
-      <h1 className={styles.heroTitle}>
-        Birding Safaris <br />
-        Across <span>East Africa</span>
-      </h1>
+      {/* ================= HERO ================= */}
+      <section className={styles.hero}>
+        <div className={styles.heroMedia}>
+          <Image
+            src="/hero.jpg"
+            alt="Birding safari in East Africa"
+            fill
+            priority
+            className={styles.heroImage}
+          />
+          <div className={styles.heroOverlay} />
+        </div>
 
-      <p className={styles.heroSubtitle}>
-        Thoughtfully guided journeys into Africa’s richest bird habitats,
-        designed for birders who value depth, ethics, and wild places.
-      </p>
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>
+            Birding Safaris <br />
+            Across <span>East Africa</span>
+          </h1>
 
-      <Link href="/contact" className={styles.heroCta}>
-        Plan Your Journey
-      </Link>
-    </div>
-  </div>
-</section>
+          <p className={styles.heroSubtitle}>
+            Thoughtfully guided journeys into Africa’s richest bird habitats,
+            designed for birders who value depth, ethics, and wild places.
+          </p>
 
+          <Link href="/contact" className={styles.heroCta}>
+            Plan Your Journey
+          </Link>
+        </div>
+      </section>
 
-      {/* DESTINATIONS */}
+      {/* ============ DESTINATIONS ============ */}
       <section className={styles.section}>
         <div className={styles.containerWide}>
-          <h2>Destinations We Know Intimately</h2>
+          <header className={styles.sectionHeader}>
+            <h2>Destinations We Know Intimately</h2>
+            <p className={styles.sectionIntro}>
+              Landscapes and habitats we return to season after season, guided by
+              deep ecological knowledge and trusted local expertise.
+            </p>
+          </header>
 
           <RelatedDestinationsSlider
             destinations={destinations.slice(0, 8)}
@@ -65,27 +72,27 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* BLOG */}
+      {/* ============ QUIZ CTA ============ */}
       <section className={styles.section}>
-        <div className={styles.container}>
-          <h2>Field Notes & Birding Insights</h2>
-          <RelatedPosts posts={featured} />
-        </div>
+        <QuizCTA />
       </section>
 
-      {/* PHILOSOPHY */}
-      <section className={styles.section}>
-        <div className={styles.container}>
-          <h2>Why Bird With Twinspot</h2>
-          <p>
-            We design birding journeys around habitat, season, and species
-            behaviour — not rushed checklists. Our focus is slow travel,
-            skilled guiding, and respect for ecosystems.
-          </p>
-        </div>
-      </section>
+      {/* ============ EXPERIENCES ============ */}
+      <ContentRail>
+        <ExperiencesSection />
+      </ContentRail>
 
-      {/* CTA */}
+      {/* ============ FIELD NOTES / BLOG ============ */}
+      <ContentRail>
+        <FieldNotesSection />
+      </ContentRail>
+
+      <WhyTwinspotSection />
+      <EditorialStatementSection />
+      
+
+
+      {/* ============ EDITORIAL CTA ============ */}
       <section className={styles.ctaWrap}>
         <EditorialCTA />
       </section>

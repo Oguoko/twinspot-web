@@ -1,57 +1,45 @@
-import Image from "next/image";
 import Link from "next/link";
-
+import Image from "next/image";
 import styles from "./RelatedDestinationsSlider.module.css";
 
-type DestinationCard = {
-  slug: string;
-  title: string;
-  heroImage?: {
-    imageUrl: string;
-    alt?: string;
-  };
-};
-
-type Props = {
-  title?: string;
-  destinations: DestinationCard[];
-};
+import type { Destination } from "@/lib/data/destinations";
 
 export default function RelatedDestinationsSlider({
-  title = "Explore Related Destinations",
   destinations,
-}: Props) {
-  if (!destinations || destinations.length === 0) return null;
-
+}: {
+  destinations: Destination[];
+}) {
   return (
-    <div className={styles.wrapper}>
-      <h2 className={styles.title}>{title}</h2>
+    <div className={styles.grid}>
+      {destinations.map((dest) => {
+        const imageUrl = dest.heroImage?.imageUrl;
 
-      <div className={styles.rail}>
-        {destinations.map((dest) => {
-          const img = dest.heroImage?.imageUrl;
-
-          return (
-            <Link
-              key={dest.slug}
-              href={`/destinations/${dest.slug}`}
-              className={styles.card}
-            >
-              {img && (
+        return (
+          <Link
+            key={dest.slug}
+            href={`/destinations/${dest.slug}`}
+            className={styles.card}
+          >
+            <div className={styles.imageWrap}>
+              {imageUrl ? (
                 <Image
-                  src={img}
+                  src={imageUrl}
                   alt={dest.heroImage?.alt || dest.title}
-                  width={360}
-                  height={240}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className={styles.image}
                 />
+              ) : (
+                <div className={styles.imageFallback} />
               )}
+            </div>
 
-              <h4 className={styles.cardTitle}>{dest.title}</h4>
-            </Link>
-          );
-        })}
-      </div>
+            <div className={styles.cardBody}>
+              <h3 className={styles.title}>{dest.title}</h3>
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 }

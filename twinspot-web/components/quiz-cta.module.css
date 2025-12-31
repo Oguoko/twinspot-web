@@ -1,7 +1,7 @@
 .wrap {
   background: #ffffff;
-  border-radius: 28px;
-  padding: 72px 24px;
+  border-radius: 32px;
+  padding: 96px 24px;
   border: 1px solid #e5e5e5;
 }
 
@@ -12,7 +12,7 @@
 }
 
 .title {
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   font-weight: 800;
   margin-bottom: 16px;
   letter-spacing: -0.02em;
@@ -29,16 +29,11 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 26px;
+  padding: 14px 28px;
   border-radius: 999px;
   background: #0f6b4f;
   color: #ffffff;
   font-weight: 600;
-  text-decoration: none;
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
-}
-
-.button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  border: none;
+  cursor: pointer;
 }

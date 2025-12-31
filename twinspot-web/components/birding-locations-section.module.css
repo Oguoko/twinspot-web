@@ -1,0 +1,99 @@
+.section {
+  padding: 120px 0;
+  background: #faf8f4;
+}
+
+.inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.header {
+  max-width: 720px;
+  margin-bottom: 64px;
+}
+
+.header h2 {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.header p {
+  margin-top: 16px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.iconWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rotatingIcon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px solid #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  transition: transform 0.2s ease-out;
+}
+
+.slider {
+  position: relative;
+}
+
+.track {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 16px;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  min-width: 320px;
+  scroll-snap-align: start;
+}
+
+.slide h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.slide p {
+  color: #666;
+  max-width: 260px;
+}
+
+.controls {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+}
+
+.controls button {
+  background: none;
+  border: 1px solid #111;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 1rem;
+}
