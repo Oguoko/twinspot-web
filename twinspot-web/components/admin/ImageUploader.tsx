@@ -1,21 +1,22 @@
 "use client";
 
 import { uploadImage } from "@/app/admin/images/actions";
-import { useTransition } from "react";
 
 export default function ImageUploader() {
-  const [pending, startTransition] = useTransition();
-
   return (
     <form
-      action={(formData) =>
-        startTransition(() => uploadImage(formData))
-      }
+      action={uploadImage}
       style={{ marginBottom: "2rem" }}
     >
-      <input type="file" name="file" accept="image/*" required />
-      <button disabled={pending}>
-        {pending ? "Uploading…" : "Upload Image"}
+      <input
+        type="file"
+        name="file"
+        accept="image/*"
+        required
+      />
+
+      <button type="submit">
+        Upload Image
       </button>
     </form>
   );
