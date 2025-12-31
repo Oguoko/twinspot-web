@@ -1,28 +1,48 @@
 "use client";
 
 import { useState } from "react";
-import { Post } from "@/lib/types/post";
-import { savePost } from "@/app/admin/posts/actions";
 import { useRouter } from "next/navigation";
+import type { Post } from "@/lib/types/post";
+import { savePost } from "@/app/admin/posts/actions";
 
-export default function AdminPostEditorClient({ post }: { post?: Post }) {
+/* ===============================
+   FORM TYPE (NO ID REQUIRED)
+================================ */
+
+type PostForm = {
+  title: string;
+  slug: string;
+  content: string;
+  published: boolean;
+};
+
+export default function AdminPostEditorClient({
+  post,
+}: {
+  post?: Post;
+}) {
   const router = useRouter();
 
-  const [form, setForm] = useState<Post>(
-    post ?? {
-      title: "",
-      slug: "",
-      content: "",
-      published: false,
-    }
-  );
+  const [form, setForm] = useState<PostForm>({
+    title: post?.title ?? "",
+    slug: post?.slug ?? "",
+    content: post?.content ?? "",
+    published: post?.published ?? false,
+  });
 
-  function update<K extends keyof Post>(key: K, value: Post[K]) {
-    setForm({ ...form, [key]: value });
+  function update<K extends keyof PostForm>(
+    key: K,
+    value: PostForm[K]
+  ) {
+    setForm((prev) => ({ ...prev, [key]: value }));
   }
 
   async function onSave() {
-    const id = await savePost(form);
+    const id = await savePost({
+      ...(post?.id ? { id: post.id } : {}),
+      ...form,
+    });
+
     router.push(`/admin/posts/${id}`);
   }
 
@@ -53,7 +73,9 @@ export default function AdminPostEditorClient({ post }: { post?: Post }) {
         <input
           type="checkbox"
           checked={form.published}
-          onChange={(e) => update("published", e.target.checked)}
+          onChange={(e) =>
+            update("published", e.target.checked)
+          }
         />
         Published
       </label>
