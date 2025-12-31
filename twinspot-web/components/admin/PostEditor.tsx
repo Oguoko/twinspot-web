@@ -42,7 +42,7 @@ export default function PostEditor({
 
       <h3 style={{ marginTop: "2rem" }}>Publishing</h3>
 
-      <label style={{ display: "block", marginBottom: "0.5rem" }}>
+      <label style={{ display: "block", marginBottom: "1rem" }}>
         <input
           type="checkbox"
           checked={post.published}
@@ -55,33 +55,6 @@ export default function PostEditor({
         />{" "}
         Published
       </label>
-
-      {post.published && (
-        <label style={{ display: "block", marginBottom: "1rem" }}>
-          Publish date:
-          <input
-            type="datetime-local"
-            value={
-              post.publishedAt
-                ? new Date(
-                    post.publishedAt.toDate()
-                  )
-                    .toISOString()
-                    .slice(0, 16)
-                : ""
-            }
-            onChange={(e) =>
-              onChange({
-                ...post,
-                publishedAt: e.target.value
-                  ? (new Date(e.target.value) as any)
-                  : null,
-              })
-            }
-            style={{ marginLeft: "0.5rem" }}
-          />
-        </label>
-      )}
 
       <button
         onClick={() => onSave(post)}
