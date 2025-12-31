@@ -16,6 +16,12 @@ if (!getApps().length) {
 
   const serviceAccount = JSON.parse(serviceAccountJson);
 
+  // ✅ CRITICAL FIX
+  if (serviceAccount.private_key) {
+    serviceAccount.private_key =
+      serviceAccount.private_key.replace(/\\n/g, "\n");
+  }
+
   initializeApp({
     credential: cert(serviceAccount),
     storageBucket: BUCKET_NAME,
@@ -24,9 +30,4 @@ if (!getApps().length) {
 
 export const adminAuth = getAuth();
 export const adminDb = getFirestore();
-
-/**
- * Explicit named export.
- * Do not refactor to default export.
- */
 export const adminStorage = getStorage().bucket(BUCKET_NAME);
