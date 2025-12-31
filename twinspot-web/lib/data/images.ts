@@ -1,27 +1,15 @@
 import { adminDb } from "@/lib/firebase/admin";
-import { ImageAsset } from "@/lib/types/image";
-import { Timestamp } from "firebase-admin/firestore";
+import type { ImageAsset } from "@/lib/types/image";
 
 export async function getImages(): Promise<ImageAsset[]> {
-  const snapshot = await adminDb
-    .collection("images")
-    .orderBy("createdAt", "desc")
-    .get();
+  const snapshot = await adminDb.collection("images").get();
 
-  return snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...(doc.data() as ImageAsset),
-  }));
-}
+  return snapshot.docs.map((doc) => {
+    const data = doc.data() as Omit<ImageAsset, "id">;
 
-export async function saveImage(data: {
-  url: string;
-  name: string;
-}) {
-  const now = Timestamp.now();
-
-  await adminDb.collection("images").add({
-    ...data,
-    createdAt: now,
+    return {
+      id: doc.id,   // single source of truth
+      ...data,
+    };
   });
 }
