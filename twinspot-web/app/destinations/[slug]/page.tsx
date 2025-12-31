@@ -5,7 +5,7 @@ import { getDestination, getRelatedDestinations } from "@/lib/data/destinations"
 import { getRelatedPosts } from "@/lib/data/relatedPosts";
 
 import EditorialIntro from "@/components/EditorialIntro";
-import ThingsToKnow from "@/components/ThingsToKnow";
+
 import EditorialCTA from "@/components/EditorialCTA";
 import RelatedPosts from "@/components/RelatedPosts";
 import FaqSection from "@/components/FaqSection";
@@ -61,14 +61,6 @@ export default async function DestinationPage({ params }: PageProps) {
         />
       </section>
 
-      {/* THINGS TO KNOW */}
-      {"thingsToKnow" in destination &&
-        Array.isArray((destination as any).thingsToKnow) &&
-        (destination as any).thingsToKnow.length > 0 && (
-          <section className={`${styles.sectionTight} ${styles.container}`}>
-            <ThingsToKnow items={(destination as any).thingsToKnow} />
-          </section>
-        )}
 
       {/* FAQ */}
       {Array.isArray(destination.faq) && destination.faq.length > 0 && (
