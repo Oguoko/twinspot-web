@@ -3,27 +3,25 @@
 import { cert, getApps, initializeApp } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
-import fs from "fs";
-import path from "path";
+import { getStorage } from "firebase-admin/storage";
 
 function initAdmin() {
   if (getApps().length > 0) return;
 
-  const serviceAccountPath = path.join(
-    process.cwd(),
-    "twinspot-tours-and-trave-4aa06-firebase-adminsdk-fbsvc-5d8cb5631b.json"
-  );
+  const serviceAccountJson =
+    process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT;
 
-  if (!fs.existsSync(serviceAccountPath)) {
-    throw new Error("Firebase service account JSON file not found");
+  if (!serviceAccountJson) {
+    throw new Error(
+      "Missing FIREBASE_ADMIN_SERVICE_ACCOUNT environment variable"
+    );
   }
 
-  const serviceAccount = JSON.parse(
-    fs.readFileSync(serviceAccountPath, "utf8")
-  );
+  const serviceAccount = JSON.parse(serviceAccountJson);
 
   initializeApp({
     credential: cert(serviceAccount),
+    storageBucket: "twinspot-tours-and-trave-4aa06.appspot.com",
   });
 }
 
@@ -31,3 +29,6 @@ initAdmin();
 
 export const adminAuth = getAuth();
 export const adminDb = getFirestore();
+export const adminStorage = getStorage().bucket(
+  "twinspot-tours-and-trave-4aa06.appspot.com"
+);
