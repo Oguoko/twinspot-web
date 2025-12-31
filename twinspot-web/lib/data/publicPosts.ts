@@ -1,6 +1,8 @@
 import { adminDb } from "@/lib/firebase/admin";
 import { Timestamp } from "firebase-admin/firestore";
-import { Post } from "@/lib/types/post";
+import type { Post } from "@/lib/types/post";
+
+type PostData = Omit<Post, "id">;
 
 export async function getPublishedPosts(): Promise<Post[]> {
   const now = Timestamp.now();
@@ -12,10 +14,14 @@ export async function getPublishedPosts(): Promise<Post[]> {
     .orderBy("publishedAt", "desc")
     .get();
 
-  return snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...(doc.data() as Post),
-  }));
+  return snapshot.docs.map((doc) => {
+    const data = doc.data() as PostData;
+
+    return {
+      id: doc.id,
+      ...data,
+    };
+  });
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
@@ -32,9 +38,10 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   if (snapshot.empty) return null;
 
   const doc = snapshot.docs[0];
+  const data = doc.data() as PostData;
 
   return {
     id: doc.id,
-    ...(doc.data() as Post),
+    ...data,
   };
 }
