@@ -3,7 +3,31 @@
 import { useState } from "react";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
-import { NAV_MENUS, MenuKey, MOBILE_MENU, MobileNode } from "./navMenu.config";
+import {
+  NAV_MENUS,
+  MenuKey,
+  MOBILE_MENU,
+  MobileNode,
+} from "./navMenu.config";
+
+/* ===============================
+   LOCAL TYPES (STRICT MODE FIX)
+================================ */
+
+type MenuLink = {
+  label: string;
+  href: string;
+};
+
+type MenuColumn = {
+  heading: string;
+  links: MenuLink[];
+};
+
+type MenuImage = {
+  src: string;
+  caption: string;
+};
 
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
@@ -32,7 +56,9 @@ export default function Navbar() {
     <>
       <header className={styles.navbar}>
         <div className={styles.inner}>
-          <Link href="/" className={styles.logo}>Twinspot</Link>
+          <Link href="/" className={styles.logo}>
+            Twinspot
+          </Link>
 
           {/* DESKTOP NAV */}
           <nav className={styles.nav}>
@@ -40,7 +66,9 @@ export default function Navbar() {
               <button
                 key={key}
                 className={styles.navItem}
-                onClick={() => setOpenMenu(openMenu === key ? null : key)}
+                onClick={() =>
+                  setOpenMenu(openMenu === key ? null : key)
+                }
               >
                 {NAV_MENUS[key].title}
                 <span className={styles.chevron}>▾</span>
@@ -50,7 +78,10 @@ export default function Navbar() {
 
           <div className={styles.actions}>
             <button className={styles.iconBtn}>🔍</button>
-            <button className={styles.menuBtn} onClick={() => setMobileOpen(true)}>
+            <button
+              className={styles.menuBtn}
+              onClick={() => setMobileOpen(true)}
+            >
               Menu
             </button>
           </div>
@@ -61,25 +92,36 @@ export default function Navbar() {
           <div className={styles.dropdown}>
             <div className={styles.dropdownInner}>
               <div className={styles.dropdownText}>
-                {menu.columns.map((col, cIdx) => (
-                  <div className={styles.column} key={cIdx}>
-                    <h4>{col.heading}</h4>
-                    {col.links.map((link, i) => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        className={styles.dropdownLink}
-                        onMouseEnter={() => setActiveImage(i % 2)}
-                      >
-                        <span className={styles.highlight} />
-                        {link.label}
-                      </Link>
-                    ))}
-                  </div>
-                ))}
+                {menu.columns.map(
+                  (col: MenuColumn, cIdx: number) => (
+                    <div className={styles.column} key={cIdx}>
+                      <h4>{col.heading}</h4>
+
+                      {col.links.map(
+                        (link: MenuLink, i: number) => (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            className={styles.dropdownLink}
+                            onMouseEnter={() =>
+                              setActiveImage(i % 2)
+                            }
+                          >
+                            <span
+                              className={styles.highlight}
+                            />
+                            {link.label}
+                          </Link>
+                        )
+                      )}
+                    </div>
+                  )
+                )}
 
                 <div className={styles.miniLinks}>
-                  <Link href="/sustainability">Sustainability</Link>
+                  <Link href="/sustainability">
+                    Sustainability
+                  </Link>
                   <Link href="/charity">Charity</Link>
                   <Link href="/partners">Sponsors</Link>
                   <Link href="/contact">Contact</Link>
@@ -87,17 +129,21 @@ export default function Navbar() {
               </div>
 
               <div className={styles.imagePanel}>
-                {menu.images.map((img, i) => (
-                  <div
-                    key={img.src}
-                    className={`${styles.imageCard} ${
-                      activeImage === i ? styles.active : styles.inactive
-                    }`}
-                  >
-                    <img src={img.src} alt="" />
-                    <span>{img.caption}</span>
-                  </div>
-                ))}
+                {menu.images.map(
+                  (img: MenuImage, i: number) => (
+                    <div
+                      key={img.src}
+                      className={`${styles.imageCard} ${
+                        activeImage === i
+                          ? styles.active
+                          : styles.inactive
+                      }`}
+                    >
+                      <img src={img.src} alt="" />
+                      <span>{img.caption}</span>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>
@@ -140,7 +186,9 @@ export default function Navbar() {
             )}
 
             <div className={styles.mobileExtras}>
-              <Link href="/sustainability">Sustainability</Link>
+              <Link href="/sustainability">
+                Sustainability
+              </Link>
               <Link href="/charity">Charity</Link>
               <Link href="/partners">Sponsors</Link>
               <Link href="/contact">Contact</Link>
