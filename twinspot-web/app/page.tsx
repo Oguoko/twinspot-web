@@ -1,5 +1,5 @@
-import HomeNew from "./home-new/page";
+import HomePage from "./home-new/page";
 
-export default function Home() {
-  return <HomeNew />;
+export default function Page() {
+  return <HomePage />;
 }
