@@ -3,16 +3,12 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import QuizCTA from "@/components/QuizCTA";
 import ExperiencesSection from "@/components/ExperiencesSection";
-import BirdingLocationsSection from "@/components/BirdingLocationsSection";
 import FieldNotesSection from "@/components/FieldNotesSection";
 import ContentRail from "@/components/ContentRail";
 import WhyTwinspotSection from "@/components/WhyTwinspotSection";
 import EditorialStatementSection from "@/components/EditorialStatementSection";
 
-
 import { getDestinations } from "@/lib/data/destinations";
-import { getFeaturedPosts } from "@/lib/data/homepage";
-
 import RelatedDestinationsSlider from "@/components/RelatedDestinationsSlider";
 import EditorialCTA from "@/components/EditorialCTA";
 
@@ -55,7 +51,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ============ DESTINATIONS ============ */}
+      {/* ================= DESTINATIONS ================= */}
       <section className={styles.section}>
         <div className={styles.containerWide}>
           <header className={styles.sectionHeader}>
@@ -72,27 +68,50 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ============ QUIZ CTA ============ */}
+      {/* ================= QUIZ CTA ================= */}
       <section className={styles.section}>
         <QuizCTA />
       </section>
 
-      {/* ============ EXPERIENCES ============ */}
+      {/* ================= EXPERIENCES ================= */}
       <ContentRail>
         <ExperiencesSection />
       </ContentRail>
 
-      {/* ============ FIELD NOTES / BLOG ============ */}
+      {/* ================= FIELD NOTES ================= */}
       <ContentRail>
         <FieldNotesSection />
       </ContentRail>
 
       <WhyTwinspotSection />
       <EditorialStatementSection />
-      
 
+      {/* ================= BLACK AUTHORITY CARD ================= */}
+      <section className={styles.authorityWrap}>
+        <div className={styles.authorityCard}>
+          <h2>
+            Journeys shaped by field experience,
+            local knowledge, and long-standing conservation partnerships.
+          </h2>
 
-      {/* ============ EDITORIAL CTA ============ */}
+          <p>
+            Twinspot journeys are guided by seasoned birders with decades of time spent in East Africa’s key habitats.
+We work closely with trusted local guides and conservation partners to design itineraries that prioritise
+seasonality, ethics, and meaningful observation.
+
+Our approach favours smaller groups, fewer locations, and the patience required to notice what others pass by.
+
+          </p>
+
+          <div className={styles.authorityActions}>
+            <Link href="/contact">Email Our Team</Link>
+            <span />
+            <Link href="/contact">Speak with Us</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= EDITORIAL CTA ================= */}
       <section className={styles.ctaWrap}>
         <EditorialCTA />
       </section>
