@@ -206,3 +206,24 @@
   gap: 24px;
   font-size: .9rem;
 }
+
+
+.navItemWrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navLink {
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: inherit;
+}
+
+.chevronBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}

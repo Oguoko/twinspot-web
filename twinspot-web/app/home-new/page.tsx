@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
+
 import QuizCTA from "@/components/QuizCTA";
 import ExperiencesSection from "@/components/ExperiencesSection";
 import FieldNotesSection from "@/components/FieldNotesSection";
@@ -19,6 +20,7 @@ export default async function HomePage() {
 
   return (
     <main className={styles.page}>
+      {/* ORIGINAL NAVBAR — RESTORED */}
       <Navbar />
 
       {/* ================= HERO ================= */}
@@ -95,12 +97,14 @@ export default async function HomePage() {
           </h2>
 
           <p>
-            Twinspot journeys are guided by seasoned birders with decades of time spent in East Africa’s key habitats.
-We work closely with trusted local guides and conservation partners to design itineraries that prioritise
-seasonality, ethics, and meaningful observation.
-
-Our approach favours smaller groups, fewer locations, and the patience required to notice what others pass by.
-
+            Twinspot journeys are guided by seasoned birders with decades of time
+            spent in East Africa’s key habitats. We work closely with trusted
+            local guides and conservation partners to design itineraries that
+            prioritise seasonality, ethics, and meaningful observation.
+            <br />
+            <br />
+            Our approach favours smaller groups, fewer locations, and the
+            patience required to notice what others pass by.
           </p>
 
           <div className={styles.authorityActions}>

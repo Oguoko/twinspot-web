@@ -1,15 +1,30 @@
-/* components/nav/siteHeader.module.css */
-
 .header {
+  width: 100%;
+  z-index: 100;
+}
+
+/* ===============================
+   VARIANTS
+================================ */
+
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 50;
-  pointer-events: auto;
 }
 
-/* Shared grid with hero */
+.sticky {
+  position: sticky;
+  top: 0;
+  background: #f6f4ef;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+
 .inner {
   max-width: 1280px;
   margin: 0 auto;
@@ -20,16 +35,22 @@
   justify-content: space-between;
 }
 
-/* LOGO */
+/* ===============================
+   LOGO
+================================ */
+
 .logo a {
   font-size: 1.2rem;
   font-weight: 700;
   text-decoration: none;
-  color: #ffffff;
   letter-spacing: -0.01em;
+  color: #121912;
 }
 
-/* NAV */
+/* ===============================
+   NAV
+================================ */
+
 .nav {
   display: flex;
   gap: 28px;
@@ -40,18 +61,20 @@
   border: none;
   padding: 0;
   font: inherit;
-  color: #ffffff;
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  position: relative;
+  color: #121912;
 }
 
 .navItem:hover {
-  opacity: 0.85;
+  opacity: 0.75;
 }
 
-/* ACTIONS */
+/* ===============================
+   ACTIONS
+================================ */
+
 .actions {
   display: flex;
   align-items: center;
@@ -61,21 +84,113 @@
 .iconBtn {
   background: none;
   border: none;
-  color: #ffffff;
   font-size: 1rem;
   cursor: pointer;
+  color: #121912;
 }
 
 .menuBtn {
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.25);
   padding: 6px 14px;
   border-radius: 999px;
   font-size: 0.85rem;
   cursor: pointer;
+  color: #121912;
 }
 
-.menuBtn:hover {
-  background: rgba(255, 255, 255, 0.1);
+
+
+/* ================= HEADER ================= */
+
+.header {
+  z-index: 100;
+  width: 100%;
 }
+
+/* VARIANTS */
+.sticky {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(12px);
+  background: rgba(250, 248, 244, 0.92);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+}
+
+/* ================= CORE LAYOUT ================= */
+
+.inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+
+/* ================= DESKTOP NAV ================= */
+
+.nav {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.navItem {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chevron {
+  font-size: 0.75rem;
+  margin-left: 4px;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.iconBtn,
+.menuBtn {
+  background: none;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ================= DROPDOWN ================= */
+
+.dropdown {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  width: 100%;
+  background: #faf8f4;
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+
+.dropdownInner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 64px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 64px;
+}
+
+/* --- rest of your CSS continues UNCHANGED --- */

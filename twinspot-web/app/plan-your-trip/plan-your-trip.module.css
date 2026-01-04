@@ -1,0 +1,159 @@
+.page {
+  background: #f6f4ef;
+}
+
+/* ===============================
+   CONTAINERS
+================================ */
+
+.containerWide {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===============================
+   SECTION RHYTHM
+================================ */
+
+.section {
+  padding: 44px 0;
+}
+
+.sectionAlt {
+  padding: 44px 0;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* ===============================
+   HERO
+================================ */
+
+.hero {
+  max-width: 1440px;
+  margin: 24px auto 0;
+  border-radius: 32px;
+  overflow: hidden;
+  min-height: 80vh;
+  position: relative;
+}
+
+.heroMedia {
+  position: absolute;
+  inset: 0;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.heroContent {
+  position: relative;
+  max-width: 720px;
+  padding: 18vh 2rem 0;
+  margin-left: clamp(1.5rem, 6vw, 6rem);
+  color: #ffffff;
+}
+
+.heroTitle {
+  font-size: clamp(3rem, 5.5vw, 4.75rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+}
+
+.heroTitle span {
+  color: #c9a24d;
+}
+
+.heroSubtitle {
+  max-width: 520px;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.heroCta {
+  display: inline-block;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  background: #8c6b2f;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ===============================
+   CONTENT
+================================ */
+
+.intro {
+  font-size: 1.25rem;
+  max-width: 720px;
+  margin-bottom: 1rem;
+}
+
+.body {
+  max-width: 720px;
+  line-height: 1.7;
+}
+
+.subheading {
+  font-size: 1.9rem;
+  margin-bottom: 2rem;
+}
+
+.process {
+  display: grid;
+  gap: 32px;
+  max-width: 900px;
+}
+
+/* ===============================
+   CTA
+================================ */
+
+.cta {
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.cta p {
+  max-width: 600px;
+  margin: 0 auto 24px;
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 12px 28px;
+  background: #c9a24d;
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 999px;
+}
+
+/* ===============================
+   MOBILE
+================================ */
+
+@media (max-width: 900px) {
+  .section,
+  .sectionAlt {
+    padding: 36px 0;
+  }
+
+  .heroContent {
+    margin-left: 0;
+  }
+}

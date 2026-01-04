@@ -1,35 +1,204 @@
-// components/nav/SiteHeader.tsx
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import styles from "./siteHeader.module.css";
 
-export default function SiteHeader() {
+import {
+  NAV_MENUS,
+  MenuKey,
+  MOBILE_MENU,
+  MobileNode,
+} from "./navMenu.config";
+
+/* ===============================
+   TYPES
+================================ */
+
+type Props = {
+  variant?: "sticky" | "overlay";
+};
+
+type MenuLink = {
+  label: string;
+  href: string;
+};
+
+type MenuColumn = {
+  heading: string;
+  links: MenuLink[];
+};
+
+type MenuImage = {
+  src: string;
+  caption: string;
+};
+
+export default function SiteHeader({ variant = "sticky" }: Props) {
+  const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
+  const [stack, setStack] = useState<MobileNode[]>([]);
+
+  const menu = openMenu ? NAV_MENUS[openMenu] : null;
+  const current = stack[stack.length - 1];
+  const items = current?.children ?? MOBILE_MENU;
+
+  function openNode(node: MobileNode) {
+    if (node.children) setStack([...stack, node]);
+  }
+
+  function goBack() {
+    setStack(stack.slice(0, -1));
+  }
+
+  function closeMobile() {
+    setMobileOpen(false);
+    setStack([]);
+  }
+
   return (
-    <header className={styles.header}>
-      <div className={styles.inner}>
-        {/* LOGO */}
-        <div className={styles.logo}>
-          <Link href="/">Twinspot</Link>
+    <>
+      <header
+        className={`${styles.header} ${
+          variant === "overlay" ? styles.overlay : styles.sticky
+        }`}
+      >
+        <div className={styles.inner}>
+          <Link href="/" className={styles.logo}>
+            Twinspot
+          </Link>
+
+          {/* DESKTOP NAV */}
+          <nav className={styles.nav}>
+            {(Object.keys(NAV_MENUS) as MenuKey[]).map((key) => (
+              <button
+                key={key}
+                className={styles.navItem}
+                onClick={() =>
+                  setOpenMenu(openMenu === key ? null : key)
+                }
+              >
+                {NAV_MENUS[key].title}
+                <span className={styles.chevron}>▾</span>
+              </button>
+            ))}
+          </nav>
+
+          <div className={styles.actions}>
+            <button className={styles.iconBtn}>🔍</button>
+            <button
+              className={styles.menuBtn}
+              onClick={() => setMobileOpen(true)}
+            >
+              Menu
+            </button>
+          </div>
         </div>
 
-        {/* PRIMARY NAV */}
-        <nav className={styles.nav}>
-          <button className={styles.navItem}>Plan Your Trip</button>
-          <button className={styles.navItem}>Destinations</button>
-          <button className={styles.navItem}>Birding Themes</button>
-          <button className={styles.navItem}>Travel Guides</button>
-          <button className={styles.navItem}>About</button>
-        </nav>
+        {/* DESKTOP DROPDOWN */}
+        {menu && (
+          <div className={styles.dropdown}>
+            <div className={styles.dropdownInner}>
+              <div className={styles.dropdownText}>
+                {menu.columns.map(
+                  (col: MenuColumn, cIdx: number) => (
+                    <div className={styles.column} key={cIdx}>
+                      <h4>{col.heading}</h4>
 
-        {/* ACTIONS */}
-        <div className={styles.actions}>
-          <button className={styles.iconBtn} aria-label="Search">
-            🔍
-          </button>
-          <button className={styles.menuBtn}>
-            Menu
-          </button>
+                      {col.links.map(
+                        (link: MenuLink, i: number) => (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            className={styles.dropdownLink}
+                            onMouseEnter={() =>
+                              setActiveImage(i % menu.images.length)
+                            }
+                          >
+                            <span className={styles.highlight} />
+                            {link.label}
+                          </Link>
+                        )
+                      )}
+                    </div>
+                  )
+                )}
+
+                <div className={styles.miniLinks}>
+                  <Link href="/sustainability">Sustainability</Link>
+                  <Link href="/charity">Charity</Link>
+                  <Link href="/partners">Sponsors</Link>
+                  <Link href="/contact">Contact</Link>
+                </div>
+              </div>
+
+              <div className={styles.imagePanel}>
+                {menu.images.map(
+                  (img: MenuImage, i: number) => (
+                    <div
+                      key={img.src}
+                      className={`${styles.imageCard} ${
+                        activeImage === i
+                          ? styles.active
+                          : styles.inactive
+                      }`}
+                    >
+                      <img src={img.src} alt="" />
+                      <span>{img.caption}</span>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* MOBILE MENU */}
+      {mobileOpen && (
+        <div className={styles.mobileMenu}>
+          <div className={styles.mobileHeader}>
+            {stack.length > 0 ? (
+              <button onClick={goBack}>← Back</button>
+            ) : (
+              <span />
+            )}
+            <button onClick={closeMobile}>✕</button>
+          </div>
+
+          <div className={styles.mobileLinks}>
+            {items.map((item) =>
+              item.children ? (
+                <button
+                  key={item.title}
+                  className={styles.mobilePrimary}
+                  onClick={() => openNode(item)}
+                >
+                  {item.title}
+                  <span>→</span>
+                </button>
+              ) : (
+                <Link
+                  key={item.title}
+                  href={item.href!}
+                  className={styles.mobilePrimary}
+                  onClick={closeMobile}
+                >
+                  {item.title}
+                </Link>
+              )
+            )}
+
+            <div className={styles.mobileExtras}>
+              <Link href="/sustainability">Sustainability</Link>
+              <Link href="/charity">Charity</Link>
+              <Link href="/partners">Sponsors</Link>
+              <Link href="/contact">Contact</Link>
+            </div>
+          </div>
         </div>
-      </div>
-    </header>
+      )}
+    </>
   );
 }

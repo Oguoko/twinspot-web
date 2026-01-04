@@ -11,7 +11,7 @@ import {
 } from "./navMenu.config";
 
 /* ===============================
-   LOCAL TYPES (STRICT MODE FIX)
+   LOCAL TYPES
 ================================ */
 
 type MenuLink = {
@@ -56,26 +56,52 @@ export default function Navbar() {
     <>
       <header className={styles.navbar}>
         <div className={styles.inner}>
+          {/* LOGO */}
           <Link href="/" className={styles.logo}>
             Twinspot
           </Link>
 
           {/* DESKTOP NAV */}
           <nav className={styles.nav}>
-            {(Object.keys(NAV_MENUS) as MenuKey[]).map((key) => (
-              <button
-                key={key}
-                className={styles.navItem}
-                onClick={() =>
-                  setOpenMenu(openMenu === key ? null : key)
-                }
-              >
-                {NAV_MENUS[key].title}
-                <span className={styles.chevron}>▾</span>
-              </button>
-            ))}
+            {(Object.keys(NAV_MENUS) as MenuKey[]).map((key) => {
+              const menuItem = NAV_MENUS[key];
+
+              return (
+                <div key={key} className={styles.navItemWrap}>
+                  {/* CLICKABLE LABEL */}
+                  <Link
+                    href={
+                      key === "plan"
+                        ? "/plan-your-trip"
+                        : key === "destinations"
+                        ? "/destinations"
+                        : key === "themes"
+                        ? "/themes"
+                        : key === "guides"
+                        ? "/travel-guides"
+                        : "/about"
+                    }
+                    className={styles.navLink}
+                  >
+                    {menuItem.title}
+                  </Link>
+
+                  {/* DROPDOWN TOGGLE */}
+                  <button
+                    className={styles.chevronBtn}
+                    onClick={() =>
+                      setOpenMenu(openMenu === key ? null : key)
+                    }
+                    aria-label={`Open ${menuItem.title} menu`}
+                  >
+                    <span className={styles.chevron}>▾</span>
+                  </button>
+                </div>
+              );
+            })}
           </nav>
 
+          {/* ACTIONS */}
           <div className={styles.actions}>
             <button className={styles.iconBtn}>🔍</button>
             <button
@@ -104,12 +130,10 @@ export default function Navbar() {
                             href={link.href}
                             className={styles.dropdownLink}
                             onMouseEnter={() =>
-                              setActiveImage(i % 2)
+                              setActiveImage(i % menu.images.length)
                             }
                           >
-                            <span
-                              className={styles.highlight}
-                            />
+                            <span className={styles.highlight} />
                             {link.label}
                           </Link>
                         )
@@ -119,9 +143,7 @@ export default function Navbar() {
                 )}
 
                 <div className={styles.miniLinks}>
-                  <Link href="/sustainability">
-                    Sustainability
-                  </Link>
+                  <Link href="/sustainability">Sustainability</Link>
                   <Link href="/charity">Charity</Link>
                   <Link href="/partners">Sponsors</Link>
                   <Link href="/contact">Contact</Link>
@@ -150,7 +172,7 @@ export default function Navbar() {
         )}
       </header>
 
-      {/* MOBILE DRILL-DOWN MENU */}
+      {/* MOBILE DRILL-DOWN MENU (UNCHANGED) */}
       {mobileOpen && (
         <div className={styles.mobileMenu}>
           <div className={styles.mobileHeader}>
@@ -186,9 +208,7 @@ export default function Navbar() {
             )}
 
             <div className={styles.mobileExtras}>
-              <Link href="/sustainability">
-                Sustainability
-              </Link>
+              <Link href="/sustainability">Sustainability</Link>
               <Link href="/charity">Charity</Link>
               <Link href="/partners">Sponsors</Link>
               <Link href="/contact">Contact</Link>
