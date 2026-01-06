@@ -68,19 +68,9 @@ export default function Navbar() {
 
               return (
                 <div key={key} className={styles.navItemWrap}>
-                  {/* CLICKABLE LABEL */}
+                  {/* MAIN CLICKABLE LINK */}
                   <Link
-                    href={
-                      key === "plan"
-                        ? "/plan-your-trip"
-                        : key === "destinations"
-                        ? "/destinations"
-                        : key === "themes"
-                        ? "/themes"
-                        : key === "guides"
-                        ? "/travel-guides"
-                        : "/about"
-                    }
+                    href={menuItem.href}
                     className={styles.navLink}
                   >
                     {menuItem.title}
@@ -172,7 +162,7 @@ export default function Navbar() {
         )}
       </header>
 
-      {/* MOBILE DRILL-DOWN MENU (UNCHANGED) */}
+      {/* MOBILE MENU (UNCHANGED) */}
       {mobileOpen && (
         <div className={styles.mobileMenu}>
           <div className={styles.mobileHeader}>

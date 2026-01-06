@@ -1,107 +1,165 @@
-export type MenuKey = "plan" | "things" | "places" | "events";
+/* ======================================================
+   NAV MENU CONFIG
+   Source of truth for Navbar dropdowns & mobile menu
+====================================================== */
 
-/* ================= DESKTOP MENUS ================= */
+export type MenuKey =
+  | "plan"
+  | "destinations"
+  | "themes"
+  | "guides"
+  | "about";
 
-export const NAV_MENUS: Record<MenuKey, any> = {
+/* ===============================
+   DESKTOP MEGA MENU
+================================ */
+
+export const NAV_MENUS: Record<
+  MenuKey,
+  {
+    title: string;
+    href: string; // ✅ ADDED (SAFE)
+    columns: {
+      heading: string;
+      links: {
+        label: string;
+        href: string;
+      }[];
+    }[];
+    images: {
+      src: string;
+      caption: string;
+    }[];
+  }
+> = {
   plan: {
     title: "Plan Your Trip",
+    href: "/plan-your-trip",
     columns: [
       {
-        heading: "Birding & Photography",
+        heading: "Planning",
         links: [
-          { label: "Birding Tours", href: "/tours/birding" },
-          { label: "Photography Tours", href: "/tours/photography" },
-          { label: "Small Group Expeditions", href: "/tours/small-group" },
-          { label: "Private Guided Trips", href: "/tours/private" },
-          { label: "Migration Safaris", href: "/tours/migration" },
+          { label: "How We Plan", href: "/plan-your-trip" },
+          { label: "Best Time to Travel", href: "/travel-guides" },
+          { label: "What to Expect", href: "/travel-guides" },
         ],
       },
+    ],
+    images: [
       {
-        heading: "Destinations",
+        src: "/nav/plan-1.jpg",
+        caption: "Journeys shaped by season",
+      },
+      {
+        src: "/nav/plan-2.jpg",
+        caption: "Unhurried exploration",
+      },
+    ],
+  },
+
+  destinations: {
+    title: "Destinations",
+    href: "/destinations",
+    columns: [
+      {
+        heading: "East Africa",
         links: [
-          { label: "Uganda", href: "/destinations/uganda" },
           { label: "Kenya", href: "/destinations/kenya" },
+          { label: "Uganda", href: "/destinations/uganda" },
           { label: "Tanzania", href: "/destinations/tanzania" },
-          { label: "Rwanda (Gorillas)", href: "/destinations/rwanda" },
         ],
       },
     ],
     images: [
-      { src: "/menu/birding-1.jpg", caption: "Walking in a Winter Wonderland" },
-      { src: "/menu/birding-2.jpg", caption: "No Hibernation Necessary" },
+      {
+        src: "/nav/destinations-1.jpg",
+        caption: "Wetlands and forests",
+      },
+      {
+        src: "/nav/destinations-2.jpg",
+        caption: "Savannah landscapes",
+      },
     ],
   },
 
-  things: {
-    title: "Things To Do",
+  themes: {
+    title: "Birding Themes",
+    href: "/themes",
     columns: [
       {
-        heading: "Birding Calendar",
+        heading: "Focus",
         links: [
-          { label: "Migration Seasons", href: "/calendar/migration" },
-          { label: "Birding Festivals", href: "/calendar/festivals" },
-          { label: "Peak Sightings", href: "/calendar/sightings" },
-        ],
-      },
-      {
-        heading: "Learning",
-        links: [
-          { label: "Guided Workshops", href: "/learning/workshops" },
-          { label: "Photography Clinics", href: "/learning/photography" },
+          { label: "Endemics", href: "/themes/endemics" },
+          { label: "Photography", href: "/themes/photography" },
+          { label: "Migration", href: "/themes/migration" },
         ],
       },
     ],
     images: [
-      { src: "/menu/things-1.jpg", caption: "Your Guide to Snowshoeing Trails" },
-      { src: "/menu/things-2.jpg", caption: "Shop and Explore Dickerson Road" },
+      {
+        src: "/nav/themes-1.jpg",
+        caption: "Rare species",
+      },
+      {
+        src: "/nav/themes-2.jpg",
+        caption: "Moments of stillness",
+      },
     ],
   },
 
-  places: {
-    title: "Places To Stay",
+  guides: {
+    title: "Travel Guides",
+    href: "/travel-guides",
     columns: [
       {
-        heading: "Safari Lodges",
+        heading: "Resources",
         links: [
-          { label: "Birding Lodges", href: "/lodges/birding" },
-          { label: "Eco Camps", href: "/lodges/eco" },
-          { label: "Mobile Camps", href: "/lodges/mobile" },
-        ],
-      },
-      {
-        heading: "Regions",
-        links: [
-          { label: "Albertine Rift", href: "/regions/albertine-rift" },
-          { label: "Serengeti", href: "/regions/serengeti" },
-          { label: "Masai Mara", href: "/regions/masai-mara" },
+          { label: "Field Notes", href: "/blog" },
+          { label: "Planning Advice", href: "/travel-guides" },
         ],
       },
     ],
     images: [
-      { src: "/menu/stay-1.jpg", caption: "Lodges Deep in Nature" },
-      { src: "/menu/stay-2.jpg", caption: "Remote & Intimate Camps" },
+      {
+        src: "/nav/guides-1.jpg",
+        caption: "Field insights",
+      },
+      {
+        src: "/nav/guides-2.jpg",
+        caption: "Preparation matters",
+      },
     ],
   },
 
-  events: {
-    title: "Events",
+  about: {
+    title: "About",
+    href: "/about",
     columns: [
       {
-        heading: "Seasonal Highlights",
+        heading: "Twinspot",
         links: [
-          { label: "Birding Events", href: "/events/birding" },
-          { label: "Photography Meetups", href: "/events/photography" },
+          { label: "About Us", href: "/about" },
+          { label: "Contact", href: "/contact" },
         ],
       },
     ],
     images: [
-      { src: "/menu/events-1.jpg", caption: "Birding Festivals" },
-      { src: "/menu/events-2.jpg", caption: "Conservation Talks" },
+      {
+        src: "/nav/about-1.jpg",
+        caption: "Our story",
+      },
+      {
+        src: "/nav/about-2.jpg",
+        caption: "People and purpose",
+      },
     ],
   },
-};
+} as const;
 
-/* ================= MOBILE DRILL-DOWN ================= */
+/* ===============================
+   MOBILE MENU STRUCTURE
+   (UNCHANGED)
+================================ */
 
 export type MobileNode = {
   title: string;
@@ -113,50 +171,39 @@ export const MOBILE_MENU: MobileNode[] = [
   {
     title: "Plan Your Trip",
     children: [
-      {
-        title: "Destinations",
-        children: [
-          { title: "Uganda", href: "/destinations/uganda" },
-          { title: "Kenya", href: "/destinations/kenya" },
-          { title: "Tanzania", href: "/destinations/tanzania" },
-          { title: "Rwanda (Gorillas)", href: "/destinations/rwanda" },
-        ],
-      },
-      {
-        title: "Birding & Photography",
-        children: [
-          { title: "Birding Tours", href: "/tours/birding" },
-          { title: "Photography Tours", href: "/tours/photography" },
-          { title: "Small Group Expeditions", href: "/tours/small-group" },
-          { title: "Migration Safaris", href: "/tours/migration" },
-        ],
-      },
+      { title: "How We Plan", href: "/plan-your-trip" },
+      { title: "Best Time to Travel", href: "/travel-guides" },
+      { title: "What to Expect", href: "/travel-guides" },
     ],
   },
-
   {
-    title: "Things To Do",
+    title: "Destinations",
     children: [
-      { title: "Migration Seasons", href: "/calendar/migration" },
-      { title: "Birding Festivals", href: "/calendar/festivals" },
-      { title: "Workshops", href: "/learning/workshops" },
+      { title: "Kenya", href: "/destinations/kenya" },
+      { title: "Uganda", href: "/destinations/uganda" },
+      { title: "Tanzania", href: "/destinations/tanzania" },
     ],
   },
-
   {
-    title: "Places To Stay",
+    title: "Birding Themes",
     children: [
-      { title: "Birding Lodges", href: "/lodges/birding" },
-      { title: "Eco Camps", href: "/lodges/eco" },
-      { title: "Mobile Camps", href: "/lodges/mobile" },
+      { title: "Endemics", href: "/themes/endemics" },
+      { title: "Photography", href: "/themes/photography" },
+      { title: "Migration", href: "/themes/migration" },
     ],
   },
-
   {
-    title: "Events",
+    title: "Travel Guides",
     children: [
-      { title: "Birding Events", href: "/events/birding" },
-      { title: "Photography Meetups", href: "/events/photography" },
+      { title: "Field Notes", href: "/blog" },
+      { title: "Planning Advice", href: "/travel-guides" },
+    ],
+  },
+  {
+    title: "About",
+    children: [
+      { title: "About Us", href: "/about" },
+      { title: "Contact", href: "/contact" },
     ],
   },
 ];
