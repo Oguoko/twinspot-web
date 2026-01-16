@@ -1,13 +1,11 @@
 /* ======================================================
    NAV MENU CONFIG
-   Source of truth for Navbar dropdowns & mobile menu
 ====================================================== */
 
 export type MenuKey =
   | "plan"
   | "destinations"
-  | "themes"
-  | "guides"
+  | "tours"
   | "about";
 
 /* ===============================
@@ -18,7 +16,7 @@ export const NAV_MENUS: Record<
   MenuKey,
   {
     title: string;
-    href: string; // ✅ ADDED (SAFE)
+    href?: string; // optional because main links are NOT clickable
     columns: {
       heading: string;
       links: {
@@ -34,7 +32,6 @@ export const NAV_MENUS: Record<
 > = {
   plan: {
     title: "Plan Your Trip",
-    href: "/plan-your-trip",
     columns: [
       {
         heading: "Planning",
@@ -46,119 +43,76 @@ export const NAV_MENUS: Record<
       },
     ],
     images: [
-      {
-        src: "/nav/plan-1.jpg",
-        caption: "Journeys shaped by season",
-      },
-      {
-        src: "/nav/plan-2.jpg",
-        caption: "Unhurried exploration",
-      },
+      { src: "/nav/plan-1.jpg", caption: "Journeys shaped by season" },
+      { src: "/nav/plan-2.jpg", caption: "Unhurried exploration" },
     ],
   },
 
   destinations: {
     title: "Destinations",
-    href: "/destinations",
     columns: [
       {
         heading: "East Africa",
         links: [
           { label: "Kenya", href: "/destinations/kenya" },
-          { label: "Uganda", href: "/destinations/uganda" },
           { label: "Tanzania", href: "/destinations/tanzania" },
+          { label: "Uganda", href: "/destinations/uganda" },
+          { label: "Rwanda", href: "/destinations/rwanda" },
         ],
       },
     ],
     images: [
-      {
-        src: "/nav/destinations-1.jpg",
-        caption: "Wetlands and forests",
-      },
-      {
-        src: "/nav/destinations-2.jpg",
-        caption: "Savannah landscapes",
-      },
+      { src: "/nav/destinations-1.jpg", caption: "Wetlands and forests" },
+      { src: "/nav/destinations-2.jpg", caption: "Savannah landscapes" },
     ],
   },
 
-  themes: {
-    title: "Birding Themes",
-    href: "/themes",
+  tours: {
+    title: "Tours",
     columns: [
       {
-        heading: "Focus",
+        heading: "Experiences",
         links: [
-          { label: "Endemics", href: "/themes/endemics" },
-          { label: "Photography", href: "/themes/photography" },
-          { label: "Migration", href: "/themes/migration" },
+          { label: "Birding Tours in Kenya", href: "/tours/birding-kenya" },
+          { label: "Wildlife Safaris", href: "/tours/wildlife-safaris" },
+          { label: "Bird Photography Tours", href: "/tours/bird-photography" },
+          { label: "Camping Tours", href: "/tours/camping" },
+          { label: "Mountaineering Tours", href: "/tours/mountaineering" },
+          { label: "Great Migration", href: "/tours/great-migration" },
+          { label: "Team Building Tours", href: "/tours/team-building" },
         ],
       },
     ],
     images: [
-      {
-        src: "/nav/themes-1.jpg",
-        caption: "Rare species",
-      },
-      {
-        src: "/nav/themes-2.jpg",
-        caption: "Moments of stillness",
-      },
-    ],
-  },
-
-  guides: {
-    title: "Travel Guides",
-    href: "/travel-guides",
-    columns: [
-      {
-        heading: "Resources",
-        links: [
-          { label: "Field Notes", href: "/blog" },
-          { label: "Planning Advice", href: "/travel-guides" },
-        ],
-      },
-    ],
-    images: [
-      {
-        src: "/nav/guides-1.jpg",
-        caption: "Field insights",
-      },
-      {
-        src: "/nav/guides-2.jpg",
-        caption: "Preparation matters",
-      },
+      { src: "/nav/themes-1.jpg", caption: "Purposeful journeys" },
+      { src: "/nav/themes-2.jpg", caption: "Adventure with intent" },
     ],
   },
 
   about: {
     title: "About",
-    href: "/about",
     columns: [
       {
         heading: "Twinspot",
         links: [
-          { label: "About Us", href: "/about" },
-          { label: "Contact", href: "/contact" },
+          { label: "Our Transport", href: "/about/transport" },
+          { label: "Our Guides", href: "/about/guides" },
+          { label: "Travel Tips", href: "/about/travel-tips" },
+          { label: "Why Us", href: "/about/why-us" },
+          { label: "Terms & Conditions", href: "/terms" },
+          { label: "FAQ", href: "/faq" },
         ],
       },
     ],
     images: [
-      {
-        src: "/nav/about-1.jpg",
-        caption: "Our story",
-      },
-      {
-        src: "/nav/about-2.jpg",
-        caption: "People and purpose",
-      },
+      { src: "/nav/about-1.jpg", caption: "People and purpose" },
+      { src: "/nav/about-2.jpg", caption: "Travel done right" },
     ],
   },
 } as const;
 
 /* ===============================
-   MOBILE MENU STRUCTURE
-   (UNCHANGED)
+   MOBILE MENU
 ================================ */
 
 export type MobileNode = {
@@ -180,30 +134,36 @@ export const MOBILE_MENU: MobileNode[] = [
     title: "Destinations",
     children: [
       { title: "Kenya", href: "/destinations/kenya" },
-      { title: "Uganda", href: "/destinations/uganda" },
       { title: "Tanzania", href: "/destinations/tanzania" },
+      { title: "Uganda", href: "/destinations/uganda" },
+      { title: "Rwanda", href: "/destinations/rwanda" },
     ],
   },
   {
-    title: "Birding Themes",
+    title: "Tours",
     children: [
-      { title: "Endemics", href: "/themes/endemics" },
-      { title: "Photography", href: "/themes/photography" },
-      { title: "Migration", href: "/themes/migration" },
+      { title: "Birding Tours in Kenya", href: "/tours/birding-kenya" },
+      { title: "Wildlife Safaris", href: "/tours/wildlife-safaris" },
+      { title: "Bird Photography Tours", href: "/tours/bird-photography" },
+      { title: "Camping Tours", href: "/tours/camping" },
+      { title: "Mountaineering Tours", href: "/tours/mountaineering" },
+      { title: "Great Migration", href: "/tours/great-migration" },
+      { title: "Team Building Tours", href: "/tours/team-building" },
     ],
   },
   {
-    title: "Travel Guides",
-    children: [
-      { title: "Field Notes", href: "/blog" },
-      { title: "Planning Advice", href: "/travel-guides" },
-    ],
+    title: "Blog",
+    href: "/blog",
   },
   {
     title: "About",
     children: [
-      { title: "About Us", href: "/about" },
-      { title: "Contact", href: "/contact" },
+      { title: "Our Transport", href: "/about/transport" },
+      { title: "Our Guides", href: "/about/guides" },
+      { title: "Travel Tips", href: "/about/travel-tips" },
+      { title: "Why Us", href: "/about/why-us" },
+      { title: "Terms & Conditions", href: "/terms" },
+      { title: "FAQ", href: "/faq" },
     ],
   },
 ];

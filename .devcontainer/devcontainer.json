@@ -1,0 +1,6 @@
+{
+  "name": "My Codespace",
+  "remoteEnv": {
+    "FIREBASE_ADMIN_SERVICE_ACCOUNT": "{\"type\":\"service_account\",\"project_id\":\"xxx\"}"
+  }
+}

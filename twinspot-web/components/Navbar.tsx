@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
 import {
@@ -11,7 +11,7 @@ import {
 } from "./navMenu.config";
 
 /* ===============================
-   LOCAL TYPES
+   TYPES
 ================================ */
 
 type MenuLink = {
@@ -29,15 +29,60 @@ type MenuImage = {
   caption: string;
 };
 
+const CLOSE_DELAY = 90; // ms (buttery zone)
+
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
   const [stack, setStack] = useState<MobileNode[]>([]);
+  const closeTimer = useRef<NodeJS.Timeout | null>(null);
 
-  const menu = openMenu ? NAV_MENUS[openMenu] : null;
   const current = stack[stack.length - 1];
   const items = current?.children ?? MOBILE_MENU;
+
+  /* ===============================
+     HOVER / INTENT HANDLING
+  ================================ */
+
+  function open(key: MenuKey) {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenMenu(key);
+    setActiveImage(0);
+  }
+
+  function scheduleClose() {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => {
+      setOpenMenu(null);
+    }, CLOSE_DELAY);
+  }
+
+  function cancelClose() {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  }
+
+  /* ===============================
+     KEYBOARD HANDLING
+  ================================ */
+
+  function onKeyDown(
+    e: React.KeyboardEvent,
+    key: MenuKey
+  ) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openMenu === key ? setOpenMenu(null) : open(key);
+    }
+
+    if (e.key === "Escape") {
+      setOpenMenu(null);
+    }
+  }
+
+  /* ===============================
+     MOBILE
+  ================================ */
 
   function openNode(node: MobileNode) {
     if (node.children) setStack([...stack, node]);
@@ -61,39 +106,107 @@ export default function Navbar() {
             Twinspot
           </Link>
 
-          {/* DESKTOP NAV */}
+          {/* ================= DESKTOP NAV ================= */}
           <nav className={styles.nav}>
             {(Object.keys(NAV_MENUS) as MenuKey[]).map((key) => {
-              const menuItem = NAV_MENUS[key];
+              const menu = NAV_MENUS[key];
+              const isOpen = openMenu === key;
 
               return (
-                <div key={key} className={styles.navItemWrap}>
-                  {/* MAIN CLICKABLE LINK */}
-                  <Link
-                    href={menuItem.href}
-                    className={styles.navLink}
+                <div
+                  key={key}
+                  className={styles.navItemWrap}
+                  onPointerEnter={() => open(key)}
+                  onPointerLeave={scheduleClose}
+                >
+                  {/* NON-CLICKABLE LABEL */}
+                  <span
+                    className={styles.navLabel}
+                    tabIndex={0}
+                    role="button"
+                    aria-expanded={isOpen}
+                    onKeyDown={(e) => onKeyDown(e, key)}
                   >
-                    {menuItem.title}
-                  </Link>
-
-                  {/* DROPDOWN TOGGLE */}
-                  <button
-                    className={styles.chevronBtn}
-                    onClick={() =>
-                      setOpenMenu(openMenu === key ? null : key)
-                    }
-                    aria-label={`Open ${menuItem.title} menu`}
-                  >
+                    {menu.title}
                     <span className={styles.chevron}>▾</span>
-                  </button>
+                  </span>
+
+                  {/* DROPDOWN */}
+                  {isOpen && (
+                    <div
+                      className={styles.dropdown}
+                      onPointerEnter={cancelClose}
+                      onPointerLeave={scheduleClose}
+                    >
+                      <div className={styles.dropdownInner}>
+                        <div className={styles.dropdownText}>
+                          {menu.columns.map(
+                            (col: MenuColumn, cIdx: number) => (
+                              <div
+                                className={styles.column}
+                                key={cIdx}
+                              >
+                                <h4>{col.heading}</h4>
+
+                                {col.links.map(
+                                  (link: MenuLink, idx: number) => (
+                                    <Link
+                                      key={`${link.href}-${idx}`}
+                                      href={link.href}
+                                      className={
+                                        styles.dropdownLink
+                                      }
+                                      onMouseEnter={() =>
+                                        setActiveImage(
+                                          idx %
+                                            menu.images.length
+                                        )
+                                      }
+                                    >
+                                      <span
+                                        className={styles.highlight}
+                                      />
+                                      {link.label}
+                                    </Link>
+                                  )
+                                )}
+                              </div>
+                            )
+                          )}
+                        </div>
+
+                        <div className={styles.imagePanel}>
+                          {menu.images.map(
+                            (img: MenuImage, i: number) => (
+                              <div
+                                key={img.src}
+                                className={`${styles.imageCard} ${
+                                  activeImage === i
+                                    ? styles.active
+                                    : styles.inactive
+                                }`}
+                              >
+                                <img src={img.src} alt="" />
+                                <span>{img.caption}</span>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
+
+            {/* BLOG — ONLY CLICKABLE TOP LEVEL */}
+            <Link href="/blog" className={styles.navLink}>
+              Blog
+            </Link>
           </nav>
 
           {/* ACTIONS */}
           <div className={styles.actions}>
-            <button className={styles.iconBtn}>🔍</button>
             <button
               className={styles.menuBtn}
               onClick={() => setMobileOpen(true)}
@@ -102,67 +215,9 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-
-        {/* DESKTOP DROPDOWN */}
-        {menu && (
-          <div className={styles.dropdown}>
-            <div className={styles.dropdownInner}>
-              <div className={styles.dropdownText}>
-                {menu.columns.map(
-                  (col: MenuColumn, cIdx: number) => (
-                    <div className={styles.column} key={cIdx}>
-                      <h4>{col.heading}</h4>
-
-                      {col.links.map(
-                        (link: MenuLink, i: number) => (
-                          <Link
-                            key={link.href}
-                            href={link.href}
-                            className={styles.dropdownLink}
-                            onMouseEnter={() =>
-                              setActiveImage(i % menu.images.length)
-                            }
-                          >
-                            <span className={styles.highlight} />
-                            {link.label}
-                          </Link>
-                        )
-                      )}
-                    </div>
-                  )
-                )}
-
-                <div className={styles.miniLinks}>
-                  <Link href="/sustainability">Sustainability</Link>
-                  <Link href="/charity">Charity</Link>
-                  <Link href="/partners">Sponsors</Link>
-                  <Link href="/contact">Contact</Link>
-                </div>
-              </div>
-
-              <div className={styles.imagePanel}>
-                {menu.images.map(
-                  (img: MenuImage, i: number) => (
-                    <div
-                      key={img.src}
-                      className={`${styles.imageCard} ${
-                        activeImage === i
-                          ? styles.active
-                          : styles.inactive
-                      }`}
-                    >
-                      <img src={img.src} alt="" />
-                      <span>{img.caption}</span>
-                    </div>
-                  )
-                )}
-              </div>
-            </div>
-          </div>
-        )}
       </header>
 
-      {/* MOBILE MENU (UNCHANGED) */}
+      {/* ================= MOBILE MENU ================= */}
       {mobileOpen && (
         <div className={styles.mobileMenu}>
           <div className={styles.mobileHeader}>
@@ -196,13 +251,6 @@ export default function Navbar() {
                 </Link>
               )
             )}
-
-            <div className={styles.mobileExtras}>
-              <Link href="/sustainability">Sustainability</Link>
-              <Link href="/charity">Charity</Link>
-              <Link href="/partners">Sponsors</Link>
-              <Link href="/contact">Contact</Link>
-            </div>
           </div>
         </div>
       )}
