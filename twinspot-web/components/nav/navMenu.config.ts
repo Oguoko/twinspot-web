@@ -62,8 +62,9 @@ export const NAV_MENUS: Record<
         heading: "East Africa",
         links: [
           { label: "Kenya", href: "/destinations/kenya" },
-          { label: "Uganda", href: "/destinations/uganda" },
           { label: "Tanzania", href: "/destinations/tanzania" },
+          { label: "Uganda", href: "/destinations/uganda" },
+          { label: "Rwanda", href: "/destinations/rwanda" },
         ],
       },
     ],
@@ -173,8 +174,9 @@ export const MOBILE_MENU: MobileNode[] = [
     title: "Destinations",
     children: [
       { title: "Kenya", href: "/destinations/kenya" },
-      { title: "Uganda", href: "/destinations/uganda" },
       { title: "Tanzania", href: "/destinations/tanzania" },
+      { title: "Uganda", href: "/destinations/uganda" },
+      { title: "Rwanda", href: "/destinations/rwanda" },
     ],
   },
   {
