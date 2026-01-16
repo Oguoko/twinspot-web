@@ -73,8 +73,14 @@ export const NAV_MENUS: Record<
       {
         heading: "Experiences",
         links: [
-          { label: "Birding Tours in Kenya", href: "/tours/birding-kenya" },
-          { label: "Wildlife Safaris", href: "/tours/wildlife-safaris" },
+          {
+            label: "Birding Tours in Kenya",
+            href: "/birding-tours-kenya",
+          },
+          {
+            label: "Wildlife Safaris in Kenya",
+            href: "/wildlife-safaris-kenya",
+          },
           { label: "Bird Photography Tours", href: "/tours/bird-photography" },
           { label: "Camping Tours", href: "/tours/camping" },
           { label: "Mountaineering Tours", href: "/tours/mountaineering" },
@@ -142,8 +148,8 @@ export const MOBILE_MENU: MobileNode[] = [
   {
     title: "Tours",
     children: [
-      { title: "Birding Tours in Kenya", href: "/tours/birding-kenya" },
-      { title: "Wildlife Safaris", href: "/tours/wildlife-safaris" },
+      { title: "Birding Tours in Kenya", href: "/birding-tours-kenya" },
+      { title: "Wildlife Safaris in Kenya", href: "/wildlife-safaris-kenya" },
       { title: "Bird Photography Tours", href: "/tours/bird-photography" },
       { title: "Camping Tours", href: "/tours/camping" },
       { title: "Mountaineering Tours", href: "/tours/mountaineering" },
