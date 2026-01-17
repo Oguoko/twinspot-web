@@ -37,9 +37,9 @@ export const NAV_MENUS: Record<
       {
         heading: "Planning",
         links: [
-          { label: "How We Plan", href: "/plan-your-trip" },
-          { label: "Best Time to Travel", href: "/travel-guides" },
-          { label: "What to Expect", href: "/travel-guides" },
+          { label: "How We Plan", href: "/plan-your-trip/how-we-plan" },
+          { label: "Best Time to Travel", href: "/plan-your-trip/best-time-to-travel" },
+          { label: "What to Expect", href: "/plan-your-trip/what-to-expect" },
         ],
       },
     ],
@@ -165,9 +165,9 @@ export const MOBILE_MENU: MobileNode[] = [
   {
     title: "Plan Your Trip",
     children: [
-      { title: "How We Plan", href: "/plan-your-trip" },
-      { title: "Best Time to Travel", href: "/travel-guides" },
-      { title: "What to Expect", href: "/travel-guides" },
+      { title: "How We Plan", href: "/plan-your-trip/how-we-plan" },
+      { title: "Best Time to Travel", href: "/plan-your-trip/best-time-to-travel" },
+      { title: "What to Expect", href: "/plan-your-trip/what-to-expect" },
     ],
   },
   {
