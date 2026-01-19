@@ -1,0 +1,153 @@
+.page {
+  background: #f6f4ef;
+  color: #1f1f1f;
+}
+
+.hero {
+  padding: 72px 0 88px;
+}
+
+.faqContent {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: #8b806f;
+  margin-bottom: 12px;
+}
+
+.heroContent {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: start;
+  margin-bottom: 48px;
+}
+
+.heroContent h1 {
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  margin-bottom: 16px;
+}
+
+.heroText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #3a332b;
+}
+
+.searchCard {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.06);
+}
+
+.searchLabel {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.searchInput {
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 12px 18px;
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.searchHint {
+  color: #6d6255;
+  font-size: 0.95rem;
+}
+
+.categoryList {
+  display: grid;
+  gap: 32px;
+}
+
+.categorySection {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.05);
+}
+
+.categoryHeader h2 {
+  margin-bottom: 8px;
+}
+
+.categoryHeader p {
+  color: #4a4037;
+  line-height: 1.6;
+}
+
+.accordion {
+  margin-top: 20px;
+  display: grid;
+  gap: 12px;
+}
+
+.detailsItem {
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.summary {
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.detailsBody {
+  margin-top: 12px;
+  color: #3c352d;
+  line-height: 1.6;
+}
+
+.detailsBody a {
+  color: #5c3b14;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ctaBand {
+  margin-top: 56px;
+  background: #1f1f1f;
+  color: #ffffff;
+  border-radius: 28px;
+  padding: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ctaBand p {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.8rem;
+  border-radius: 999px;
+  background: #c9a24d;
+  color: #1c1305;
+  font-weight: 600;
+  text-decoration: none;
+}

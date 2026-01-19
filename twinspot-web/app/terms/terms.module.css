@@ -1,0 +1,101 @@
+.page {
+  background: #f6f4ef;
+  color: #1f1f1f;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hero {
+  padding: 72px 0 40px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: #8b806f;
+  margin-bottom: 12px;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  margin-bottom: 16px;
+}
+
+.heroText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #3a332b;
+}
+
+.section {
+  padding: 32px 0 80px;
+}
+
+.legalBlock {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+}
+
+.legalBlock h2 {
+  margin-bottom: 12px;
+}
+
+.legalBlock ul {
+  margin: 12px 0 0 18px;
+  color: #3c352d;
+  line-height: 1.6;
+}
+
+.legalBlock p {
+  color: #3c352d;
+  line-height: 1.6;
+}
+
+.noticeCard {
+  background: #1f1f1f;
+  color: #ffffff;
+  border-radius: 24px;
+  padding: 32px;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.noticeCard p {
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.8rem;
+  border-radius: 999px;
+  background: #c9a24d;
+  color: #1c1305;
+  font-weight: 600;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.linkRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.linkRow a {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+}
