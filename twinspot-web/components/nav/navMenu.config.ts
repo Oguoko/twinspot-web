@@ -133,8 +133,12 @@ export const NAV_MENUS: Record<
       {
         heading: "Twinspot",
         links: [
-          { label: "About Us", href: "/about" },
-          { label: "Contact", href: "/contact" },
+          { label: "Our Transport", href: "/about/transport" },
+          { label: "Our Guides", href: "/about/guides" },
+          { label: "Travel Tips", href: "/about/travel-tips" },
+          { label: "Why Us", href: "/about/why-us" },
+          { label: "Terms & Conditions", href: "/terms" },
+          { label: "FAQ", href: "/faq" },
         ],
       },
     ],
@@ -197,8 +201,12 @@ export const MOBILE_MENU: MobileNode[] = [
   {
     title: "About",
     children: [
-      { title: "About Us", href: "/about" },
-      { title: "Contact", href: "/contact" },
+      { title: "Our Transport", href: "/about/transport" },
+      { title: "Our Guides", href: "/about/guides" },
+      { title: "Travel Tips", href: "/about/travel-tips" },
+      { title: "Why Us", href: "/about/why-us" },
+      { title: "Terms & Conditions", href: "/terms" },
+      { title: "FAQ", href: "/faq" },
     ],
   },
 ];
