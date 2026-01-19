@@ -44,8 +44,8 @@ export default function Footer() {
             <div>
               <h4>About</h4>
               <ul>
-                <li><Link href="/about">About Us</Link></li>
-                <li><Link href="/blog">Sustainable Tourism</Link></li>
+                <li><Link href="/about/why-us">About Us</Link></li>
+                <li><Link href="/sustainable-tourism">Sustainable Tourism</Link></li>
                 <li><Link href="/contact">Contact</Link></li>
                 <li><Link href="/careers">Careers</Link></li>
               </ul>
@@ -54,10 +54,10 @@ export default function Footer() {
             <div>
               <h4>Safaris</h4>
               <ul>
-                <li><Link href="/birding-safaris">Birding Safaris</Link></li>
-                <li><Link href="/wildlife-safaris">Wildlife Safaris</Link></li>
-                <li><Link href="/photography-tours">Photography Tours</Link></li>
-                <li><Link href="/contact">Custom Itineraries</Link></li>
+                <li><Link href="/birding-tours-kenya">Birding Safaris</Link></li>
+                <li><Link href="/wildlife-safaris-kenya">Wildlife Safaris</Link></li>
+                <li><Link href="/bird-photography-tours">Photography Tours</Link></li>
+                <li><Link href="/custom-itineraries">Custom Itineraries</Link></li>
               </ul>
             </div>
 
