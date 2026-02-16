@@ -199,6 +199,10 @@ export default function Navbar() {
               );
             })}
 
+            <Link href="/itineraries" className={styles.navLink}>
+              Itineraries
+            </Link>
+
             {/* BLOG — ONLY CLICKABLE TOP LEVEL */}
             <Link href="/blog" className={styles.navLink}>
               Blog
