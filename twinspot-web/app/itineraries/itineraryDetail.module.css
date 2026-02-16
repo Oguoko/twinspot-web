@@ -1,0 +1,153 @@
+.page {
+  background: #f7f8f6;
+  color: #142213;
+}
+
+.hero {
+  min-height: 56vh;
+  position: relative;
+  display: grid;
+  align-items: end;
+  padding: 4rem clamp(1rem, 4vw, 4rem);
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(4, 11, 6, 0.82), rgba(8, 16, 10, 0.24));
+}
+
+.heroContent {
+  position: relative;
+  color: #fff;
+  max-width: 760px;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.heroContent h1 {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  line-height: 1.15;
+}
+
+.contentWrap {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2.4rem 0 3rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.mainContent {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.factRow {
+  background: #fff;
+  border: 1px solid #dae2d7;
+  border-radius: 0.9rem;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.factRow span {
+  color: #4a5d4b;
+  font-size: 0.85rem;
+}
+
+.factRow p {
+  font-weight: 700;
+}
+
+.section {
+  background: #fff;
+  border: 1px solid #dae2d7;
+  border-radius: 0.9rem;
+  padding: 1.2rem;
+}
+
+.section h2 {
+  margin-bottom: 0.8rem;
+}
+
+.section ul {
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.timeline {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.dayCard {
+  border: 1px solid #d3ddd1;
+  border-radius: 0.7rem;
+  padding: 0.8rem;
+  background: #fdfefd;
+}
+
+.dayCard summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.dayCard summary span {
+  color: #37593c;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.dayCard summary h3 {
+  margin-top: 0.2rem;
+}
+
+.dayCard p {
+  margin-top: 0.6rem;
+}
+
+.stickyCta {
+  border: 1px solid #c9d6c9;
+  border-radius: 0.9rem;
+  padding: 1rem;
+  background: #f0f5f1;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.ctaButton {
+  background: #184d2d;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+}
+
+.secondaryLink {
+  text-decoration: none;
+  color: #194b2d;
+  font-weight: 600;
+}
+
+@media (min-width: 960px) {
+  .contentWrap {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+  }
+
+  .stickyCta {
+    position: sticky;
+    top: 5.5rem;
+  }
+}

@@ -1,0 +1,225 @@
+.page {
+  background: #f7f8f6;
+  color: #132113;
+}
+
+.hero {
+  position: relative;
+  min-height: 62vh;
+  display: grid;
+  place-items: end start;
+  padding: 5rem clamp(1rem, 4vw, 4rem);
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(5, 17, 9, 0.84) 12%, rgba(11, 21, 12, 0.35) 62%);
+}
+
+.heroContent {
+  position: relative;
+  max-width: 760px;
+  color: #fff;
+  display: grid;
+  gap: 1rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.82rem;
+  opacity: 0.9;
+}
+
+.heroContent h1 {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.1;
+}
+
+.heroCta {
+  display: inline-flex;
+  width: fit-content;
+  background: #fff;
+  color: #0c1d10;
+  text-decoration: none;
+  padding: 0.72rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.section {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+
+.section h2 {
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  margin-bottom: 1.2rem;
+}
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.categoryCard {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1rem;
+  border: 1px solid #dae2d7;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.categoryLabel {
+  font-weight: 700;
+}
+
+.categoryCount {
+  color: #2b6239;
+  font-size: 0.92rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.linkAction {
+  color: #205634;
+  font-weight: 600;
+}
+
+.featuredGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.featuredCard {
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #dae2d7;
+}
+
+.featuredImageWrap {
+  position: relative;
+  height: 210px;
+}
+
+.featuredImage {
+  object-fit: cover;
+}
+
+.featuredBody {
+  padding: 1rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.filtersRow {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pillWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pill {
+  border: 1px solid #aab8ab;
+  background: #fff;
+  color: #1b2d1e;
+  border-radius: 999px;
+  padding: 0.5rem 0.85rem;
+  cursor: pointer;
+}
+
+.pillActive {
+  background: #1e5a34;
+  border-color: #1e5a34;
+  color: #fff;
+}
+
+.searchInput {
+  padding: 0.72rem 0.8rem;
+  border: 1px solid #bdc7bf;
+  border-radius: 0.7rem;
+  font: inherit;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #dae2d7;
+}
+
+.cardImageWrap {
+  position: relative;
+  height: 220px;
+}
+
+.cardImage {
+  object-fit: cover;
+}
+
+.cardDuration {
+  position: absolute;
+  right: 0.8rem;
+  top: 0.8rem;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+}
+
+.cardBody {
+  padding: 1rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.cardCategory {
+  color: #2b6239;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.cardStops {
+  font-size: 0.93rem;
+  color: #334036;
+}
+
+.cardCta {
+  width: fit-content;
+  text-decoration: none;
+  color: #194d2d;
+  font-weight: 700;
+}
+
+.emptyState {
+  margin-top: 1rem;
+  color: #445447;
+}

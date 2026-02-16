@@ -74,6 +74,10 @@ export const NAV_MENUS: Record<
         heading: "Experiences",
         links: [
           {
+            label: "Itineraries",
+            href: "/itineraries",
+          },
+          {
             label: "Birding Tours in Kenya",
             href: "/birding-tours-kenya",
           },
@@ -151,6 +155,7 @@ export const MOBILE_MENU: MobileNode[] = [
   {
     title: "Tours",
     children: [
+      { title: "Itineraries", href: "/itineraries" },
       { title: "Birding Tours in Kenya", href: "/birding-tours-kenya" },
       { title: "Bird Photography Tours", href: "/bird-photography-tours" },
       { title: "Wildlife Safaris in Kenya", href: "/wildlife-safaris-kenya" },
