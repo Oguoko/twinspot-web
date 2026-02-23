@@ -3,128 +3,19 @@
   z-index: 100;
 }
 
-/* ===============================
-   VARIANTS
-================================ */
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-.sticky {
-  position: sticky;
-  top: 0;
-  background: #f6f4ef;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-/* ===============================
-   LAYOUT
-================================ */
-
-.inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 20px 24px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* ===============================
-   LOGO
-================================ */
-
-.logo a {
-  font-size: 1.2rem;
-  font-weight: 700;
-  text-decoration: none;
-  letter-spacing: -0.01em;
-  color: #121912;
-}
-
-/* ===============================
-   NAV
-================================ */
-
-.nav {
-  display: flex;
-  gap: 28px;
-}
-
-.navItem {
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  color: #121912;
-}
-
-.navItem:hover {
-  opacity: 0.75;
-}
-
-/* ===============================
-   ACTIONS
-================================ */
-
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.iconBtn {
-  background: none;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  color: #121912;
-}
-
-.menuBtn {
-  background: none;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  color: #121912;
-}
-
-
-
-/* ================= HEADER ================= */
-
-.header {
-  z-index: 100;
-  width: 100%;
-}
-
-/* VARIANTS */
 .sticky {
   position: sticky;
   top: 0;
   backdrop-filter: blur(12px);
-  background: rgba(250, 248, 244, 0.92);
+  background: rgba(250, 248, 244, 0.95);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  inset: 0 0 auto 0;
   background: transparent;
 }
-
-/* ================= CORE LAYOUT ================= */
 
 .inner {
   max-width: 1440px;
@@ -136,61 +27,209 @@
 }
 
 .logo {
+  font-size: 1.25rem;
   font-weight: 800;
-  font-size: 1.4rem;
+  color: #111;
+  text-decoration: none;
 }
-
-/* ================= DESKTOP NAV ================= */
 
 .nav {
   display: flex;
-  gap: 2.5rem;
+  gap: 2.25rem;
 }
 
 .navItem {
   background: none;
-  border: none;
-  font-size: 1rem;
+  border: 0;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: #1a1a1a;
   cursor: pointer;
 }
 
 .chevron {
-  font-size: 0.75rem;
-  margin-left: 4px;
+  font-size: 0.7rem;
+  margin-left: 6px;
 }
 
 .actions {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .iconBtn,
 .menuBtn {
   background: none;
-  border: none;
+  border: 0;
   font-weight: 600;
   cursor: pointer;
 }
-
-/* ================= DROPDOWN ================= */
 
 .dropdown {
   position: fixed;
   top: 72px;
   left: 0;
   width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
   background: #faf8f4;
-  border-top: 1px solid rgba(0,0,0,.08);
 }
 
 .dropdownInner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 64px;
+  padding: 48px 64px;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 64px;
+  gap: 56px;
 }
 
-/* --- rest of your CSS continues UNCHANGED --- */
+.dropdownText {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.column h4 {
+  margin: 0 0 12px;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #626262;
+}
+
+.dropdownLink {
+  display: block;
+  position: relative;
+  padding: 8px 0 8px 14px;
+  color: #101010;
+  text-decoration: none;
+}
+
+.dropdownLink:hover {
+  color: #0c5a43;
+}
+
+.highlight {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #0c5a43;
+}
+
+.miniLinks {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  grid-column: 1 / -1;
+  padding-top: 8px;
+}
+
+.miniLinks a {
+  color: #5f6368;
+  text-decoration: none;
+  font-size: 0.88rem;
+}
+
+.imagePanel {
+  display: grid;
+  gap: 14px;
+}
+
+.imageCard {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  min-height: 170px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.imageCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.imageCard span {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.inactive {
+  opacity: 0.7;
+  transform: translateY(2px);
+}
+
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: #f8f5ee;
+  padding: 20px;
+}
+
+.mobileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobileHeader button {
+  background: none;
+  border: 0;
+  font-size: 1rem;
+}
+
+.mobileLinks {
+  margin-top: 20px;
+  display: grid;
+  gap: 8px;
+}
+
+.mobilePrimary {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: #141414;
+}
+
+.mobileExtras {
+  margin-top: 14px;
+  display: grid;
+  gap: 6px;
+}
+
+.mobileExtras a {
+  color: #5d6165;
+  text-decoration: none;
+}
+
+@media (max-width: 1024px) {
+  .nav {
+    display: none;
+  }
+
+  .dropdown {
+    display: none;
+  }
+}

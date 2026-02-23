@@ -9,32 +9,35 @@ type PickImageParams = {
 
 const ALLOWED_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp"]);
 const DEFAULT_FALLBACK_FOLDERS = ["wildlife", "birding", "landscapes"];
+const PHOTOS_ROOT = path.join(process.cwd(), "public", "photos");
 
-function getFilesInPhotoFolder(folder: string): string[] {
-  const folderPath = path.join(process.cwd(), "public", "photos", folder);
+export function hashSeed(input: string): number {
+  let hash = 5381;
+
+  for (let i = 0; i < input.length; i += 1) {
+    hash = ((hash << 5) + hash + input.charCodeAt(i)) >>> 0;
+  }
+
+  return hash;
+}
+
+export function listPhotos(folder: string): string[] {
+  const folderPath = path.join(PHOTOS_ROOT, folder);
 
   if (!fs.existsSync(folderPath)) {
     return [];
   }
 
-  const files = fs
+  return fs
     .readdirSync(folderPath, { withFileTypes: true })
     .filter((entry) => entry.isFile())
     .map((entry) => entry.name)
-    .filter((file) => ALLOWED_EXTENSIONS.has(path.extname(file).toLowerCase()))
+    .filter((fileName) => ALLOWED_EXTENSIONS.has(path.extname(fileName).toLowerCase()))
     .sort((a, b) => a.localeCompare(b));
-
-  return files;
 }
 
-function stableHash(input: string): number {
-  let hash = 0;
-
-  for (let i = 0; i < input.length; i += 1) {
-    hash = (hash * 31 + input.charCodeAt(i)) >>> 0;
-  }
-
-  return hash;
+function toPublicPhotoPath(folder: string, fileName: string): string {
+  return `/photos/${folder}/${encodeURIComponent(fileName)}`;
 }
 
 export function pickImageFromFolders({
@@ -42,14 +45,14 @@ export function pickImageFromFolders({
   seed,
   fallbackFolders = DEFAULT_FALLBACK_FOLDERS,
 }: PickImageParams): string {
-  const searchFolders = [...folders, ...fallbackFolders];
+  const orderedFolders = [...folders, ...fallbackFolders];
 
-  for (const folder of searchFolders) {
-    const files = getFilesInPhotoFolder(folder);
+  for (const folder of orderedFolders) {
+    const files = listPhotos(folder);
 
     if (files.length > 0) {
-      const index = stableHash(`${seed}:${folder}`) % files.length;
-      return `/photos/${folder}/${files[index]}`;
+      const index = hashSeed(`${seed}:${folder}`) % files.length;
+      return toPublicPhotoPath(folder, files[index]);
     }
   }
 
