@@ -45,6 +45,27 @@
 .actions {
   display: flex;
   gap: 1rem;
+  align-items: center;
+}
+
+.bookNowBtn,
+.mobileBookNowBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.62rem 1rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  background: #1f2922;
+  color: #f8f6ef;
+  border: 1px solid #1f2922;
+}
+
+.bookNowBtn:hover,
+.mobileBookNowBtn:hover {
+  background: #141b16;
+  color: #fff;
 }
 
 .iconBtn,
@@ -55,6 +76,10 @@
   cursor: pointer;
 }
 
+.menuBtn {
+  display: none;
+}
+
 /* ================= DROPDOWN ================= */
 
 .dropdown {
@@ -63,7 +88,7 @@
   left: 0;
   width: 100%;
   background: #faf8f4;
-  border-top: 1px solid rgba(0,0,0,.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .dropdownInner {
@@ -103,7 +128,7 @@
   width: 0;
   background: #d6e400;
   z-index: -1;
-  transition: width .25s ease;
+  transition: width 0.25s ease;
 }
 
 .dropdownLink:hover .highlight {
@@ -115,7 +140,7 @@
   margin-top: 48px;
   display: flex;
   gap: 24px;
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
 
 /* ================= IMAGE PANEL ================= */
@@ -129,7 +154,7 @@
 .imageCard {
   border-radius: 18px;
   overflow: hidden;
-  transition: opacity .3s, filter .3s;
+  transition: opacity 0.3s, filter 0.3s;
 }
 
 .imageCard img {
@@ -147,7 +172,7 @@
 }
 
 .inactive {
-  opacity: .35;
+  opacity: 0.35;
   filter: blur(2px);
 }
 
@@ -159,6 +184,14 @@
 
 @media (max-width: 1024px) {
   .nav {
+    display: none;
+  }
+
+  .menuBtn {
+    display: inline-flex;
+  }
+
+  .bookNowBtn {
     display: none;
   }
 }
@@ -200,13 +233,16 @@
   justify-content: space-between;
 }
 
+.mobileBookNowBtn {
+  margin-top: 1.5rem;
+}
+
 .mobileExtras {
   margin-top: 40px;
   display: flex;
   gap: 24px;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
-
 
 .navItemWrap {
   display: flex;
@@ -227,7 +263,6 @@
   padding: 0;
   cursor: pointer;
 }
-
 
 .navLabel {
   font-size: 1rem;

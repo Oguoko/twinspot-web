@@ -211,6 +211,9 @@ export default function Navbar() {
 
           {/* ACTIONS */}
           <div className={styles.actions}>
+            <Link href="/contact" className={styles.bookNowBtn}>
+              Book Now
+            </Link>
             <button
               className={styles.menuBtn}
               onClick={() => setMobileOpen(true)}
@@ -255,6 +258,14 @@ export default function Navbar() {
                 </Link>
               )
             )}
+
+            <Link
+              href="/contact"
+              className={styles.mobileBookNowBtn}
+              onClick={closeMobile}
+            >
+              Book Now
+            </Link>
           </div>
         </div>
       )}
