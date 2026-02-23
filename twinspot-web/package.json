@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "NEXT_DISABLE_TURBOPACK=1 next dev",
+    "prebuild": "node scripts/generate-photo-manifest.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
