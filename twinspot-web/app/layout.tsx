@@ -1,6 +1,19 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
 import Footer from "@/components/Footer";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.twinspot.co.ke"),
@@ -41,7 +54,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${inter.variable} ${playfairDisplay.variable}`}>
         {children}
         <Footer />
       </body>

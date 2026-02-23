@@ -25,10 +25,9 @@ body {
 
 :root {
   /* Fonts */
-  --font-body: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+  --font-body: var(--font-inter), Inter, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-heading: Inter, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: var(--font-playfair), "Playfair Display", Georgia, serif;
 
   /* Font sizes */
   --text-xs: 0.75rem;

@@ -1,5 +1,5 @@
-import HomePage from "./home-new/page";
+import EditorialHome from "@/components/editorial/EditorialHome";
 
 export default function Page() {
-  return <HomePage />;
+  return <EditorialHome />;
 }
