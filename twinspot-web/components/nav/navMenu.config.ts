@@ -26,7 +26,6 @@ export const NAV_MENUS: Record<
       }[];
     }[];
     images: {
-      src: string;
       caption: string;
     }[];
   }
@@ -45,11 +44,9 @@ export const NAV_MENUS: Record<
     ],
     images: [
       {
-        src: "/nav/plan-1.jpg",
         caption: "Journeys shaped by season",
       },
       {
-        src: "/nav/plan-2.jpg",
         caption: "Unhurried exploration",
       },
     ],
@@ -70,11 +67,9 @@ export const NAV_MENUS: Record<
     ],
     images: [
       {
-        src: "/nav/destinations-1.jpg",
         caption: "Wetlands and forests",
       },
       {
-        src: "/nav/destinations-2.jpg",
         caption: "Savannah landscapes",
       },
     ],
@@ -94,11 +89,9 @@ export const NAV_MENUS: Record<
     ],
     images: [
       {
-        src: "/nav/themes-1.jpg",
         caption: "Rare species",
       },
       {
-        src: "/nav/themes-2.jpg",
         caption: "Moments of stillness",
       },
     ],
@@ -117,11 +110,9 @@ export const NAV_MENUS: Record<
     ],
     images: [
       {
-        src: "/nav/guides-1.jpg",
         caption: "Field insights",
       },
       {
-        src: "/nav/guides-2.jpg",
         caption: "Preparation matters",
       },
     ],
@@ -144,11 +135,9 @@ export const NAV_MENUS: Record<
     ],
     images: [
       {
-        src: "/nav/about-1.jpg",
         caption: "Our story",
       },
       {
-        src: "/nav/about-2.jpg",
         caption: "People and purpose",
       },
     ],
