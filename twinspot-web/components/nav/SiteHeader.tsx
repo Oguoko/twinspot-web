@@ -127,6 +127,14 @@ export default function SiteHeader({ variant = "sticky" }: Props) {
                 <span className={styles.chevron}>▾</span>
               </button>
             ))}
+
+            <Link href="/itineraries" className={styles.navLink}>
+              Itineraries
+            </Link>
+
+            <Link href="/blog" className={styles.navLink}>
+              Blog
+            </Link>
           </nav>
 
           <div className={styles.actions}>
@@ -208,6 +216,14 @@ export default function SiteHeader({ variant = "sticky" }: Props) {
                 </Link>
               )
             )}
+
+            <Link href="/itineraries" className={styles.mobilePrimary} onClick={closeMobile}>
+              Itineraries
+            </Link>
+
+            <Link href="/blog" className={styles.mobilePrimary} onClick={closeMobile}>
+              Blog
+            </Link>
 
             <div className={styles.mobileExtras}>
               <Link href="/sustainability">Sustainability</Link>

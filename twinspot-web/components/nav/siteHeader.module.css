@@ -7,13 +7,15 @@
   position: sticky;
   top: 0;
   backdrop-filter: blur(12px);
-  background: rgba(250, 248, 244, 0.95);
+  background: rgba(250, 248, 244, 0.92);
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .overlay {
   position: absolute;
-  inset: 0 0 auto 0;
+  top: 0;
+  left: 0;
+  right: 0;
   background: transparent;
 }
 
@@ -27,43 +29,62 @@
 }
 
 .logo {
-  font-size: 1.25rem;
   font-weight: 800;
-  color: #111;
+  font-size: 1.4rem;
   text-decoration: none;
+  color: #121912;
 }
 
 .nav {
   display: flex;
-  gap: 2.25rem;
+  align-items: center;
+  gap: 2.5rem;
 }
 
 .navItem {
   background: none;
-  border: 0;
-  font-size: 0.95rem;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #121912;
   cursor: pointer;
 }
 
+.navItem:hover,
+.navLink:hover {
+  opacity: 0.75;
+}
+
+.navLink {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #121912;
+  text-decoration: none;
+}
+
 .chevron {
-  font-size: 0.7rem;
-  margin-left: 6px;
+  font-size: 0.75rem;
+  margin-left: 4px;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .iconBtn,
 .menuBtn {
   background: none;
-  border: 0;
+  border: none;
+  color: #121912;
   font-weight: 600;
   cursor: pointer;
+}
+
+.menuBtn {
+  display: none;
 }
 
 .dropdown {
@@ -71,17 +92,17 @@
   top: 72px;
   left: 0;
   width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
   background: #faf8f4;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .dropdownInner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 48px 64px;
+  padding: 64px;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 56px;
+  gap: 64px;
 }
 
 .dropdownText {
@@ -91,9 +112,9 @@
 }
 
 .column h4 {
-  margin: 0 0 12px;
-  font-size: 0.82rem;
-  letter-spacing: 0.06em;
+  margin: 0 0 16px;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #626262;
 }
@@ -101,31 +122,33 @@
 .dropdownLink {
   display: block;
   position: relative;
-  padding: 8px 0 8px 14px;
   color: #101010;
   text-decoration: none;
-}
-
-.dropdownLink:hover {
-  color: #0c5a43;
+  font-size: 1.05rem;
+  padding: 10px 0;
 }
 
 .highlight {
   position: absolute;
-  left: 0;
-  top: 12px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #0c5a43;
+  left: -8px;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: #d6e400;
+  z-index: -1;
+  transition: width 0.25s ease;
+}
+
+.dropdownLink:hover .highlight {
+  width: calc(100% + 16px);
 }
 
 .miniLinks {
   display: flex;
-  gap: 16px;
+  gap: 24px;
   align-items: flex-end;
   grid-column: 1 / -1;
-  padding-top: 8px;
+  margin-top: 24px;
 }
 
 .miniLinks a {
@@ -135,16 +158,25 @@
 }
 
 .imagePanel {
-  display: grid;
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .imageCard {
   position: relative;
-  border-radius: 14px;
+  border-radius: 18px;
   overflow: hidden;
-  min-height: 170px;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  min-height: 180px;
+  transition: opacity 0.3s, filter 0.3s;
+}
+
+.imageCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.08));
+  pointer-events: none;
 }
 
 .imageCard img {
@@ -156,30 +188,28 @@
 
 .imageCard span {
   position: absolute;
-  left: 10px;
-  bottom: 10px;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2;
   color: #fff;
-  background: rgba(0, 0, 0, 0.45);
-  border-radius: 999px;
-  padding: 5px 10px;
-  font-size: 0.8rem;
+  font-weight: 700;
+  font-size: 0.95rem;
 }
 
 .active {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .inactive {
-  opacity: 0.7;
-  transform: translateY(2px);
+  opacity: 0.35;
+  filter: blur(2px);
 }
 
 .mobileMenu {
   position: fixed;
   inset: 0;
   z-index: 120;
-  background: #f8f5ee;
+  background: #faf8f4;
   padding: 20px;
 }
 
@@ -225,11 +255,13 @@
 }
 
 @media (max-width: 1024px) {
-  .nav {
+  .nav,
+  .dropdown,
+  .iconBtn {
     display: none;
   }
 
-  .dropdown {
-    display: none;
+  .menuBtn {
+    display: inline-flex;
   }
 }
