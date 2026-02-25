@@ -277,7 +277,7 @@ export default function RwandaDestinationPage() {
       {/* 2) Why Rwanda for Birding */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Why Rwanda for Birding</h2>
             <p>
               Rwanda concentrates Albertine Rift birding into a compact, polished
@@ -286,7 +286,7 @@ export default function RwandaDestinationPage() {
               diverse bird list.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Rwanda is ideal for travelers who prefer low-volume, high-end
             logistics. The country’s strong conservation ethos and curated
             lodges make it possible to combine premium birding with gorilla
@@ -303,14 +303,14 @@ export default function RwandaDestinationPage() {
       {/* 3) Signature Wildlife Experiences */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Signature Wildlife Experiences</h2>
             <p>
               Rwanda’s wildlife experiences are intimate, with birding leading
               the pace and primate encounters enriching the journey.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             We build in time for quiet observation at canopy levels, where
             mixed flocks move through mossy branches. This slow, intentional
             rhythm is a hallmark of Rwanda’s premium birding experience.
@@ -329,7 +329,7 @@ export default function RwandaDestinationPage() {
       {/* 4) Key Birding Regions & Habitats */}
       <section className={styles.section}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Key Birding Regions &amp; Habitats</h2>
             <p>
               Rwanda’s birding habitats range from misty rainforest to open
@@ -337,7 +337,7 @@ export default function RwandaDestinationPage() {
               communities.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             This compact geography makes it possible to dedicate extra time to
             birding without adding long transit days, ideal for travelers with
             limited time who still want a substantial species list.
@@ -356,14 +356,14 @@ export default function RwandaDestinationPage() {
       {/* 5) National Parks & Conservancies */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>National Parks &amp; Conservancies</h2>
             <p>
               Rwanda’s protected areas are small but meticulously managed, with
               a focus on conservation and high-quality guiding.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             We recommend pairing at least one forest park with Akagera to create
             a full spectrum birding journey that spans montane and savannah
             habitats in a single itinerary.
@@ -392,14 +392,14 @@ export default function RwandaDestinationPage() {
       {/* 6) Best Time to Visit */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Best Time to Visit</h2>
             <p>
               Rwanda’s higher elevations keep temperatures cool year-round.
               Timing affects trail conditions and forest visibility.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Drier months favor trekking and clearer canopy views, while greener
             months bring a surge of forest activity and additional migratory
             species. We adjust the pace to match your comfort and target birds.
@@ -426,14 +426,14 @@ export default function RwandaDestinationPage() {
       {/* 7) Sample Birding & Safari Itineraries */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Sample Birding &amp; Safari Itineraries</h2>
             <p>
               Rwanda itineraries are intentionally paced, allowing time for
               specialized birding and curated wildlife encounters.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             We can add extra mornings in Nyungwe for endemics or build in a
             leisurely Lake Kivu stay for travelers who want restorative downtime
             between forest treks.
@@ -458,14 +458,14 @@ export default function RwandaDestinationPage() {
       {/* 8) Who This Destination Is Best For */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Who This Destination Is Best For</h2>
             <p>
               Rwanda appeals to travelers who want rare birds, refined comfort,
               and meaningful primate encounters.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             It is also a strong option for travelers seeking shorter, high-end
             escapes that still deliver targeted birding and iconic wildlife
             moments.
@@ -481,14 +481,14 @@ export default function RwandaDestinationPage() {
       {/* 9) Practical Travel Information */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Practical Travel Information</h2>
             <p>
               Rwanda’s infrastructure and compact geography make planning
               efficient, especially for premium experiences.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             We provide pre-trip briefings on altitude, trail difficulty, and
             permit timing so that your birding days stay aligned with the best
             forest conditions and guide availability.
@@ -507,7 +507,7 @@ export default function RwandaDestinationPage() {
       {/* 10) Conservation & Responsible Travel */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Conservation &amp; Responsible Travel</h2>
             <p>
               Rwanda is recognized for conservation leadership, and tourism
@@ -515,7 +515,7 @@ export default function RwandaDestinationPage() {
               initiatives.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Sustainable tourism is central to Rwanda’s strategy, with visitor
             fees contributing directly to habitat protection and local
             livelihoods. We choose partners that demonstrate measurable
@@ -534,7 +534,7 @@ export default function RwandaDestinationPage() {
       {/* 11) FAQ */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Rwanda Birding FAQ</h2>
             <p>Key questions about planning a Rwanda birding safari.</p>
           </div>
@@ -576,14 +576,14 @@ export default function RwandaDestinationPage() {
       {/* 13) Related Destinations */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Related Destinations</h2>
             <p>
               Extend your East Africa birding journey with these neighboring
               destinations.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Kenya and Tanzania add open savannah birding, while Uganda offers a
             denser forest focus with more extensive Albertine Rift coverage.
           </p>
