@@ -152,21 +152,33 @@
 }
 
 .imageCard {
+  position: relative;
+  height: 180px;
   border-radius: 18px;
   overflow: hidden;
   transition: opacity 0.3s, filter 0.3s;
+}
+
+.imageCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.08));
+  pointer-events: none;
 }
 
 .imageCard img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .imageCard span {
   position: absolute;
   bottom: 16px;
   left: 16px;
+  z-index: 2;
   color: #fff;
   font-weight: 700;
 }

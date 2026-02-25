@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
 import {
@@ -9,6 +9,8 @@ import {
   MOBILE_MENU,
   MobileNode,
 } from "./navMenu.config";
+import { pickManifestPhoto } from "@/lib/photoClient";
+import { type PhotoManifestFolder } from "@/lib/photoManifest";
 
 /* ===============================
    TYPES
@@ -31,6 +33,15 @@ type MenuImage = {
 
 const CLOSE_DELAY = 90; // ms (buttery zone)
 
+const MENU_IMAGE_FOLDERS: Record<string, PhotoManifestFolder[]> = {
+  plan: ["landscapes", "destinations"],
+  destinations: ["destinations", "landscapes"],
+  themes: ["birding", "wildlife"],
+  guides: ["birding", "landscapes"],
+  about: ["landscapes", "partners-and-association", "logos-and-icons"],
+  tours: ["birding", "wildlife"],
+};
+
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -40,6 +51,30 @@ export default function Navbar() {
 
   const current = stack[stack.length - 1];
   const items = current?.children ?? MOBILE_MENU;
+
+  const menuImages = useMemo(() => {
+    return (Object.keys(NAV_MENUS) as MenuKey[]).reduce(
+      (acc, key) => {
+        const menu = NAV_MENUS[key];
+        const folders = MENU_IMAGE_FOLDERS[key] ?? ["wildlife", "birding"];
+
+        acc[key] = Array.from({ length: 2 }, (_, index) => {
+          const caption =
+            menu.images[index]?.caption ??
+            menu.images[0]?.caption ??
+            "Twinspot journey";
+
+          return {
+            src: pickManifestPhoto(folders, `nav-${key}-${index}`),
+            caption,
+          };
+        });
+
+        return acc;
+      },
+      {} as Record<MenuKey, MenuImage[]>
+    );
+  }, []);
 
   /* ===============================
      HOVER / INTENT HANDLING
@@ -111,6 +146,7 @@ export default function Navbar() {
             {(Object.keys(NAV_MENUS) as MenuKey[]).map((key) => {
               const menu = NAV_MENUS[key];
               const isOpen = openMenu === key;
+              const dropdownImages = menuImages[key];
 
               return (
                 <div
@@ -157,10 +193,7 @@ export default function Navbar() {
                                         styles.dropdownLink
                                       }
                                       onMouseEnter={() =>
-                                        setActiveImage(
-                                          idx %
-                                            menu.images.length
-                                        )
+                                        setActiveImage(idx % 2)
                                       }
                                     >
                                       <span
@@ -176,17 +209,17 @@ export default function Navbar() {
                         </div>
 
                         <div className={styles.imagePanel}>
-                          {menu.images.map(
+                          {dropdownImages.map(
                             (img: MenuImage, i: number) => (
                               <div
-                                key={img.src}
+                                key={`${key}-${i}`}
                                 className={`${styles.imageCard} ${
                                   activeImage === i
                                     ? styles.active
                                     : styles.inactive
                                 }`}
                               >
-                                <img src={img.src} alt="" />
+                                <img src={img.src} alt={img.caption} />
                                 <span>{img.caption}</span>
                               </div>
                             )
