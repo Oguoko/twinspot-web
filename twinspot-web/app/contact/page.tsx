@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import ContactForm from "./ContactForm";
+import InquiryForm from "./InquiryForm";
 
 import styles from "./contact.module.css";
 
@@ -17,120 +16,105 @@ export default function ContactPage() {
     <main className={styles.page}>
       <Navbar />
 
-      <section className={styles.hero}>
+      <section className={styles.heroSection}>
         <div className={styles.heroMedia}>
           <Image
             src="/hero.jpg"
-            alt="Twinspot safari planning consultation"
+            alt="Twinspot safari landscape"
             fill
             priority
             className={styles.heroImage}
           />
           <div className={styles.heroOverlay} />
         </div>
+
         <div className={styles.heroContent}>
-          <p className={styles.eyebrow}>Contact</p>
-          <h1>Tell us what you want to see, and we will shape the journey.</h1>
+          <h1>Start Your Adventure</h1>
           <p className={styles.heroSubtitle}>
-            Share your dates, pace, and priorities. Our planners respond within
-            two business days with next steps and early route ideas.
+            Inquire today to begin your bespoke safari and birding journey.
           </p>
         </div>
       </section>
 
-      <section className={styles.section}>
-        <div className={styles.containerSplit}>
-          <div>
-            <h2>Start the conversation</h2>
-            <p className={styles.lede}>
-              Whether you are chasing endemics, planning a photography safari,
-              or mixing birding with classic wildlife, we will tailor your trip
-              to your pace and priorities.
-            </p>
-            <div className={styles.infoCard}>
-              <h3>Preferred contact options</h3>
-              <p>
-                Share a phone number if you would like a call. Otherwise, we
-                will respond via email with a proposed planning session.
-              </p>
+      <section className={styles.inquirySection}>
+        <div className={styles.inquiryCard}>
+          <InquiryForm />
+
+          <aside className={styles.sidebar}>
+            <div className={styles.sidebarCard}>
+              <h3>Need instant help?</h3>
+              <a href="#" className={styles.whatsappCard}>
+                <span className={styles.whatsappLabel}>WhatsApp Concierge</span>
+                <span className={styles.whatsappText}>
+                  Chat with our team for quick planning guidance.
+                </span>
+              </a>
             </div>
-          </div>
-          <ContactForm />
+
+            <div className={styles.sidebarCard}>
+              <div className={styles.trustRow}>
+                <h4>Expert Curation</h4>
+                <p>
+                  Every itinerary is shaped by destination specialists and field
+                  guides.
+                </p>
+              </div>
+
+              <div className={styles.trustRow}>
+                <h4>Bespoke Routes</h4>
+                <p>
+                  Built around your pace, priorities, and target wildlife
+                  experiences.
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.hoursCard}>
+              <h4>Office Hours</h4>
+              <p>Mon - Fri: 08:00 - 18:00 (EAT)</p>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section className={styles.sectionAlt}>
-        <div className={styles.container}>
-          <h2>What happens next</h2>
-          <div className={styles.steps}>
-            <div>
-              <span className={styles.stepNumber}>1</span>
-              <h3>We review your request</h3>
-              <p>
-                Our team checks seasonal timing, guide availability, and the
-                habitats best aligned with your goals.
-              </p>
-            </div>
-            <div>
-              <span className={styles.stepNumber}>2</span>
-              <h3>We schedule a planning call</h3>
-              <p>
-                We clarify priorities, preferred comfort level, and must-see
-                regions to shape the initial route.
-              </p>
-            </div>
-            <div>
-              <span className={styles.stepNumber}>3</span>
-              <h3>We send a draft itinerary</h3>
-              <p>
-                Expect a thoughtfully paced outline with lodge options, pricing
-                ranges, and the reasoning behind each stop.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className={styles.faqSection}>
+        <div className={styles.faqWrap}>
+          <h2>Frequently Asked Questions</h2>
 
-      <section className={styles.section}>
-        <div className={styles.container}>
-          <h2>Planning resources</h2>
-          <p>
-            These guides answer common questions and help you prepare before we
-            speak.
-          </p>
-          <div className={styles.linkGrid}>
-            <Link href="/plan-your-trip/how-we-plan" className={styles.linkCard}>
-              <h3>How We Plan</h3>
-              <p>Understand our pacing, guide matching, and route design.</p>
-            </Link>
-            <Link
-              href="/plan-your-trip/best-time-to-travel"
-              className={styles.linkCard}
-            >
-              <h3>Best Time to Travel</h3>
-              <p>Seasonal guidance for birding highlights and wildlife moments.</p>
-            </Link>
-            <Link
-              href="/plan-your-trip/what-to-expect"
-              className={styles.linkCard}
-            >
-              <h3>What to Expect</h3>
-              <p>Know what a Twinspot-led safari feels like day to day.</p>
-            </Link>
-          </div>
-        </div>
-      </section>
+          <div className={styles.faqGrid}>
+            <article className={styles.faqItem}>
+              <h3>How long does it take to get a quote?</h3>
+              <p>
+                We aim to respond to all inquiries within 24–48 hours with an
+                initial draft itinerary and ballpark pricing.
+              </p>
+            </article>
 
-      <section className={styles.ctaBand}>
-        <div className={styles.container}>
-          <h2>Thoughtful planning, no pressure</h2>
-          <p>
-            We never rush itineraries. Expect calm guidance, transparent pricing,
-            and a trip that reflects your priorities.
-          </p>
-          <Link href="/plan-your-trip" className={styles.secondaryCta}>
-            Learn about planning
-          </Link>
+            <article className={styles.faqItem}>
+              <h3>Can I customize a listed tour?</h3>
+              <p>
+                Absolutely. All our tours serve as templates that can be fully
+                tailored to your pace and specific interests.
+              </p>
+            </article>
+
+            <article className={styles.faqItem}>
+              <h3>Do you handle international flights?</h3>
+              <p>
+                We specialize in on-the-ground arrangements. While we don’t
+                book international airfare, we handle all regional flights and
+                transfers.
+              </p>
+            </article>
+
+            <article className={styles.faqItem}>
+              <h3>What is the best time for birding?</h3>
+              <p>
+                This varies by region. Migratory seasons (Oct–Mar) are often
+                peak, but resident birding is exceptional year-round.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
     </main>
