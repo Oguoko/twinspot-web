@@ -277,7 +277,7 @@ export default function UgandaDestinationPage() {
       {/* 2) Why Uganda for Birding */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Why Uganda for Birding</h2>
             <p>
               Uganda’s forest reserves sit at the heart of the Albertine Rift,
@@ -286,7 +286,7 @@ export default function UgandaDestinationPage() {
               a compact country with exceptional habitat diversity.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Birding is complemented by primate tracking in Bwindi and Kibale,
             giving the trip a unique wildlife narrative. Uganda is ideal for
             birders who value forest species and want a slower, immersive pace
@@ -304,14 +304,14 @@ export default function UgandaDestinationPage() {
       {/* 3) Signature Wildlife Experiences */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Signature Wildlife Experiences</h2>
             <p>
               Forest birding dominates, but Uganda’s wildlife adds depth through
               primate encounters and river-based birding.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             We schedule forest walks when bird activity is highest and balance
             them with boat safaris for relaxed waterbird viewing. This blend
             keeps the itinerary immersive without being overly strenuous.
@@ -330,7 +330,7 @@ export default function UgandaDestinationPage() {
       {/* 4) Key Birding Regions & Habitats */}
       <section className={styles.section}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Key Birding Regions &amp; Habitats</h2>
             <p>
               Uganda rewards patient exploration. We slow down for forest trails
@@ -338,7 +338,7 @@ export default function UgandaDestinationPage() {
               wetland boardwalks.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Because forest birds can be elusive, we focus on vocalization
             patterns and mixed flocks, allowing extra time for listening and
             careful positioning. This approach consistently improves sightings.
@@ -357,14 +357,14 @@ export default function UgandaDestinationPage() {
       {/* 5) National Parks & Conservancies */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>National Parks &amp; Conservancies</h2>
             <p>
               Uganda’s protected areas are compact but rich in biodiversity, with
               birding, primates, and classic safari scenes all within reach.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             We pair flagship parks with smaller community-run sites that deliver
             intimate birding opportunities and direct conservation benefits. This
             combination adds both depth and meaning to the route.
@@ -393,14 +393,14 @@ export default function UgandaDestinationPage() {
       {/* 6) Best Time to Visit */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Best Time to Visit</h2>
             <p>
               Uganda’s equatorial climate allows year-round travel, but drier
               periods make forest trails and primate tracking easier.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             The wetter months can be lush and productive for migrants, yet trails
             are more challenging. We balance forest days with savannah and
             wetland birding to keep the experience comfortable.
@@ -427,14 +427,14 @@ export default function UgandaDestinationPage() {
       {/* 7) Sample Birding & Safari Itineraries */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Sample Birding &amp; Safari Itineraries</h2>
             <p>
               Our sample routes keep birding at the center while layering in
               primate encounters and river-based wildlife viewing.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             We frequently add buffer days for forest birding, as mixed flock
             activity can vary with weather. Extra mornings dramatically improve
             chances of seeing rare Albertine Rift species.
@@ -459,14 +459,14 @@ export default function UgandaDestinationPage() {
       {/* 8) Who This Destination Is Best For */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Who This Destination Is Best For</h2>
             <p>
               Uganda suits travelers who want immersive forest birding paired
               with primates and wetlands.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             It is also a strong choice for travelers who enjoy traveling by road
             and appreciate the slower pace of walking birding and canoe
             excursions.
@@ -482,14 +482,14 @@ export default function UgandaDestinationPage() {
       {/* 9) Practical Travel Information */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Practical Travel Information</h2>
             <p>
               Ground travel and forest treks require preparation. We provide
               detailed packing lists and guide briefings to maximize comfort.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Travel times between parks are part of the experience, with scenic
             crater lakes and tea plantations offering occasional birding stops.
             We set realistic drive days to keep the journey comfortable.
@@ -508,7 +508,7 @@ export default function UgandaDestinationPage() {
       {/* 10) Conservation & Responsible Travel */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Conservation &amp; Responsible Travel</h2>
             <p>
               Uganda’s forests are sensitive ecosystems. Responsible tourism
@@ -516,7 +516,7 @@ export default function UgandaDestinationPage() {
               conservation.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             We favor operators that limit group size and invest in habitat
             restoration near forest edges. This helps protect nesting sites and
             reduce human-wildlife conflict in key birding zones.
@@ -535,7 +535,7 @@ export default function UgandaDestinationPage() {
       {/* 11) FAQ */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Uganda Birding FAQ</h2>
             <p>Answers to common questions about Uganda birding safaris.</p>
           </div>
@@ -577,14 +577,14 @@ export default function UgandaDestinationPage() {
       {/* 13) Related Destinations */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Related Destinations</h2>
             <p>
               Explore additional East African destinations that complement your
               Uganda birding safari.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Kenya and Tanzania add open savannah birding, while Rwanda offers a
             refined montane forest counterpoint to Uganda’s broader habitat
             range.

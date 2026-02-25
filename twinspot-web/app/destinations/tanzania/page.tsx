@@ -278,7 +278,7 @@ export default function TanzaniaDestinationPage() {
       {/* 2) Why Tanzania for Birding */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Why Tanzania for Birding</h2>
             <p>
               Tanzania sits at the crossroads of East Africa’s richest birding
@@ -287,7 +287,7 @@ export default function TanzaniaDestinationPage() {
               guiding for dedicated birders.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             The Serengeti and Ngorongoro circuits bring extraordinary wildlife
             density, yet birding remains the anchor. Tanzania is perfect for
             travelers who want to chase migration drama without losing the
@@ -306,14 +306,14 @@ export default function TanzaniaDestinationPage() {
       {/* 3) Signature Wildlife Experiences */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Signature Wildlife Experiences</h2>
             <p>
               Birding-driven pacing reveals wildlife behavior and scale, from
               river crossings to southern circuit solitude.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             We plan longer blocks at sightings when flocks are active, and we
             use flexible routing to follow weather patterns that influence raptor
             movement and migrant activity across the plains.
@@ -332,14 +332,14 @@ export default function TanzaniaDestinationPage() {
       {/* 4) Key Birding Regions & Habitats */}
       <section className={styles.section}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Key Birding Regions &amp; Habitats</h2>
             <p>
               Tanzania’s vastness rewards thoughtful routing. We layer open
               plains, forest edges, and wetlands to maximize species diversity.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Expect a mix of early-morning drives, mid-day river sessions, and
             golden-hour plains scanning. This rhythm helps capture both large
             mammals and the nuanced birding moments between them.
@@ -358,14 +358,14 @@ export default function TanzaniaDestinationPage() {
       {/* 5) National Parks & Conservancies */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>National Parks &amp; Conservancies</h2>
             <p>
               We blend iconic northern parks with lower-volume southern reserves
               so you can experience both scale and solitude.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Staying inside park boundaries means earlier starts and later
             returns, which is vital for birders tracking activity windows. The
             mix of parks ensures both headline species and quieter birding
@@ -395,7 +395,7 @@ export default function TanzaniaDestinationPage() {
       {/* 6) Best Time to Visit */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Best Time to Visit</h2>
             <p>
               Birding and safari timing overlap, but each season delivers a
@@ -403,7 +403,7 @@ export default function TanzaniaDestinationPage() {
               preferred habitats.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Long dry months favor open-country visibility and predator activity,
             while green seasons bring lush habitats and additional migrant
             variety. We adjust routes based on rainfall patterns and your
@@ -432,14 +432,14 @@ export default function TanzaniaDestinationPage() {
       {/* 7) Sample Birding & Safari Itineraries */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Sample Birding &amp; Safari Itineraries</h2>
             <p>
               These itineraries spotlight Tanzania’s birding strengths while
               reserving time for iconic wildlife moments.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             We can extend Serengeti stays for raptor activity, add extra nights
             in Ruaha for woodland specialties, or include a short coastal break
             if you want time on the Indian Ocean.
@@ -464,14 +464,14 @@ export default function TanzaniaDestinationPage() {
       {/* 8) Who This Destination Is Best For */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Who This Destination Is Best For</h2>
             <p>
               Tanzania suits travelers seeking landscape scale, migration
               movement, and birding variety across multiple circuits.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             It is particularly well suited for travelers who enjoy long game
             drives, big-sky photography, and the dramatic contrast between open
             plains and river forests.
@@ -487,14 +487,14 @@ export default function TanzaniaDestinationPage() {
       {/* 9) Practical Travel Information */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Practical Travel Information</h2>
             <p>
               We curate logistics that allow longer birding blocks and smooth
               transitions between circuits.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Many guests prefer a blend of light aircraft and private vehicles to
             reduce driving fatigue. We also schedule midday rests to ensure
             comfort during long, productive mornings.
@@ -513,7 +513,7 @@ export default function TanzaniaDestinationPage() {
       {/* 10) Conservation & Responsible Travel */}
       <section className={styles.section}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Conservation &amp; Responsible Travel</h2>
             <p>
               Tanzania’s protected areas span massive ecosystems and rely on
@@ -521,7 +521,7 @@ export default function TanzaniaDestinationPage() {
               strong anti-poaching and community partnerships.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             By choosing smaller camps and longer stays, you reduce carbon-heavy
             transfers and support a model that keeps wildlife corridors
             protected. Birding guides also contribute data that supports
@@ -541,7 +541,7 @@ export default function TanzaniaDestinationPage() {
       {/* 11) FAQ */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerNarrow}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Tanzania Birding FAQ</h2>
             <p>Answers to key planning questions for Tanzania birding safaris.</p>
           </div>
@@ -583,14 +583,14 @@ export default function TanzaniaDestinationPage() {
       {/* 13) Related Destinations */}
       <section className={styles.sectionAlt}>
         <div className={styles.containerWide}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHead}>
             <h2>Related Destinations</h2>
             <p>
               Pair Tanzania with other East African birding destinations to
               broaden your species list.
             </p>
           </div>
-          <p>
+          <p className={styles.cardText}>
             Combining Tanzania with Kenya adds Rift Valley lakes, while Uganda
             and Rwanda bring forest endemics to your overall birding portfolio.
           </p>
