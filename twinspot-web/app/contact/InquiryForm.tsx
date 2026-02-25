@@ -12,6 +12,8 @@ type InquiryState = {
   interests: string;
 };
 
+type InquiryErrors = Partial<Record<keyof InquiryState, string>>;
+
 const initialState: InquiryState = {
   fullName: "",
   email: "",
@@ -20,11 +22,86 @@ const initialState: InquiryState = {
   interests: "",
 };
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validateForm(values: InquiryState): InquiryErrors {
+  const errors: InquiryErrors = {};
+
+  if (!values.fullName.trim()) {
+    errors.fullName = "Full name is required.";
+  }
+
+  if (!values.email.trim()) {
+    errors.email = "Email is required.";
+  } else if (!emailRegex.test(values.email.trim())) {
+    errors.email = "Please enter a valid email address.";
+  }
+
+  if (!values.interests.trim()) {
+    errors.interests = "Travel interests are required.";
+  }
+
+  return errors;
+}
+
 export default function InquiryForm() {
   const [formState, setFormState] = useState<InquiryState>(initialState);
+  const [errors, setErrors] = useState<InquiryErrors>({});
+  const [isSending, setIsSending] = useState(false);
+  const [banner, setBanner] = useState<{
+    type: "success" | "error";
+    message: string;
+  } | null>(null);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const validationErrors = validateForm(formState);
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setBanner(null);
+      return;
+    }
+
+    setErrors({});
+    setBanner(null);
+    setIsSending(true);
+
+    try {
+      const response = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
+
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      setBanner({
+        type: "success",
+        message: "Inquiry sent. We’ll respond within 24–48 hours.",
+      });
+      setFormState(initialState);
+    } catch {
+      setBanner({
+        type: "error",
+        message: "Something went wrong. Please try again.",
+      });
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  const handleFieldChange = (field: keyof InquiryState, value: string) => {
+    setFormState((prev) => ({ ...prev, [field]: value }));
+
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
   };
 
   return (
@@ -35,7 +112,19 @@ export default function InquiryForm() {
         itinerary for you.
       </p>
 
-      <form className={styles.form} onSubmit={handleSubmit}>
+      {banner ? (
+        <div
+          className={`${styles.banner} ${
+            banner.type === "success" ? styles.successBanner : styles.errorBanner
+          }`}
+          role="status"
+          aria-live="polite"
+        >
+          {banner.message}
+        </div>
+      ) : null}
+
+      <form className={styles.form} onSubmit={handleSubmit} noValidate>
         <label className={styles.field}>
           <span>FULL NAME</span>
           <input
@@ -43,10 +132,15 @@ export default function InquiryForm() {
             name="fullName"
             placeholder="John Doe"
             value={formState.fullName}
-            onChange={(event) =>
-              setFormState((prev) => ({ ...prev, fullName: event.target.value }))
-            }
+            onChange={(event) => handleFieldChange("fullName", event.target.value)}
+            aria-invalid={Boolean(errors.fullName)}
+            aria-describedby={errors.fullName ? "fullName-error" : undefined}
           />
+          {errors.fullName ? (
+            <p id="fullName-error" className={styles.errorText}>
+              {errors.fullName}
+            </p>
+          ) : null}
         </label>
 
         <label className={styles.field}>
@@ -56,10 +150,15 @@ export default function InquiryForm() {
             name="email"
             placeholder="john@example.com"
             value={formState.email}
-            onChange={(event) =>
-              setFormState((prev) => ({ ...prev, email: event.target.value }))
-            }
+            onChange={(event) => handleFieldChange("email", event.target.value)}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? "email-error" : undefined}
           />
+          {errors.email ? (
+            <p id="email-error" className={styles.errorText}>
+              {errors.email}
+            </p>
+          ) : null}
         </label>
 
         <label className={styles.field}>
@@ -70,10 +169,7 @@ export default function InquiryForm() {
             placeholder="e.g. October 2024"
             value={formState.travelDates}
             onChange={(event) =>
-              setFormState((prev) => ({
-                ...prev,
-                travelDates: event.target.value,
-              }))
+              handleFieldChange("travelDates", event.target.value)
             }
           />
         </label>
@@ -83,9 +179,7 @@ export default function InquiryForm() {
           <select
             name="budget"
             value={formState.budget}
-            onChange={(event) =>
-              setFormState((prev) => ({ ...prev, budget: event.target.value }))
-            }
+            onChange={(event) => handleFieldChange("budget", event.target.value)}
           >
             <option value="">$3,000 - $5,000</option>
             <option value="$3,000 - $5,000">$3,000 - $5,000</option>
@@ -102,14 +196,19 @@ export default function InquiryForm() {
             rows={6}
             placeholder="What are you hoping to see? Specific species, regions, or activity preferences…"
             value={formState.interests}
-            onChange={(event) =>
-              setFormState((prev) => ({ ...prev, interests: event.target.value }))
-            }
+            onChange={(event) => handleFieldChange("interests", event.target.value)}
+            aria-invalid={Boolean(errors.interests)}
+            aria-describedby={errors.interests ? "interests-error" : undefined}
           />
+          {errors.interests ? (
+            <p id="interests-error" className={styles.errorText}>
+              {errors.interests}
+            </p>
+          ) : null}
         </label>
 
-        <button type="submit" className={styles.submitButton}>
-          Send Inquiry
+        <button type="submit" className={styles.submitButton} disabled={isSending}>
+          {isSending ? "Sending…" : "Send Inquiry"}
         </button>
       </form>
     </div>
