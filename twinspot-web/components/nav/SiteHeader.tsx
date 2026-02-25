@@ -26,6 +26,11 @@ type MenuColumn = {
   links: MenuLink[];
 };
 
+type NavImage = {
+  caption: string;
+  src: string;
+};
+
 const NAV_IMAGE_FOLDERS: Record<MenuKey, string[]> = {
   plan: ["landscapes", "destinations"],
   destinations: ["destinations", "landscapes"],
@@ -71,15 +76,16 @@ export default function SiteHeader({ variant = "sticky" }: Props) {
 
   const selectedImages = useMemo(() => {
     if (!openMenu) {
-      return [] as { src: string; caption: string }[];
+      return [] as NavImage[];
     }
 
     const captions = NAV_MENUS[openMenu].images.map((img) => img.caption).slice(0, 2);
     const safeCaptions = captions.length === 2 ? captions : ["Curated journeys", "Editorial moments"];
+    const folders = NAV_IMAGE_FOLDERS[openMenu] ?? DEFAULT_FALLBACK;
 
-    return safeCaptions.map((caption, i) => ({
+    return safeCaptions.map((caption, i): NavImage => ({
       caption,
-      src: selectPhotoPath(NAV_IMAGE_FOLDERS[openMenu], `nav-${openMenu}-${i}`),
+      src: selectPhotoPath(folders, `nav-${openMenu}-${i}`),
     }));
   }, [openMenu]);
 

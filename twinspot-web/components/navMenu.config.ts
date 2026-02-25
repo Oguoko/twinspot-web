@@ -25,7 +25,6 @@ export const NAV_MENUS: Record<
       }[];
     }[];
     images: {
-      src: string;
       caption: string;
     }[];
   }
@@ -43,8 +42,8 @@ export const NAV_MENUS: Record<
       },
     ],
     images: [
-      { src: "/nav/plan-1.jpg", caption: "Journeys shaped by season" },
-      { src: "/nav/plan-2.jpg", caption: "Unhurried exploration" },
+      { caption: "Journeys shaped by season" },
+      { caption: "Unhurried exploration" },
     ],
   },
 
@@ -62,8 +61,8 @@ export const NAV_MENUS: Record<
       },
     ],
     images: [
-      { src: "/nav/destinations-1.jpg", caption: "Wetlands and forests" },
-      { src: "/nav/destinations-2.jpg", caption: "Savannah landscapes" },
+      { caption: "Wetlands and forests" },
+      { caption: "Savannah landscapes" },
     ],
   },
 
@@ -97,8 +96,8 @@ export const NAV_MENUS: Record<
       },
     ],
     images: [
-      { src: "/nav/themes-1.jpg", caption: "Purposeful journeys" },
-      { src: "/nav/themes-2.jpg", caption: "Adventure with intent" },
+      { caption: "Purposeful journeys" },
+      { caption: "Adventure with intent" },
     ],
   },
 
@@ -118,8 +117,8 @@ export const NAV_MENUS: Record<
       },
     ],
     images: [
-      { src: "/nav/about-1.jpg", caption: "People and purpose" },
-      { src: "/nav/about-2.jpg", caption: "Travel done right" },
+      { caption: "People and purpose" },
+      { caption: "Travel done right" },
     ],
   },
 } as const;
