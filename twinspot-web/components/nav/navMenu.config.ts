@@ -124,6 +124,7 @@ export const NAV_MENUS: Record<
       {
         heading: "Twinspot",
         links: [
+          { label: "About Us", href: "/about" },
           { label: "Our Transport", href: "/about/transport" },
           { label: "Our Guides", href: "/about/guides" },
           { label: "Travel Tips", href: "/about/travel-tips" },
@@ -190,6 +191,7 @@ export const MOBILE_MENU: MobileNode[] = [
   {
     title: "About",
     children: [
+      { title: "About Us", href: "/about" },
       { title: "Our Transport", href: "/about/transport" },
       { title: "Our Guides", href: "/about/guides" },
       { title: "Travel Tips", href: "/about/travel-tips" },

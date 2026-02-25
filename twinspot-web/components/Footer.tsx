@@ -44,7 +44,7 @@ export default function Footer() {
             <div>
               <h4>About</h4>
               <ul>
-                <li><Link href="/about/why-us">About Us</Link></li>
+                <li><Link href="/about">About Us</Link></li>
                 <li><Link href="/sustainable-tourism">Sustainable Tourism</Link></li>
                 <li><Link href="/contact">Contact</Link></li>
                 <li><Link href="/careers">Careers</Link></li>
