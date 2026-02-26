@@ -35,10 +35,8 @@ type NavImage = {
 const HAS_SEARCH_ROUTE = false;
 
 const NAV_IMAGE_FOLDERS: Record<MenuKey, string[]> = {
-  plan: ["landscapes", "destinations"],
   destinations: ["destinations", "landscapes"],
-  themes: ["birding"],
-  guides: ["birding", "landscapes"],
+  tours: ["birding", "wildlife", "landscapes"],
   about: ["landscapes", "partners-and-association"],
 };
 
@@ -201,19 +199,12 @@ export default function SiteHeader({ variant = "sticky" }: Props) {
                   <div className={styles.column} key={cIdx}>
                     <h4>{col.heading}</h4>
 
-                    {openMenu === "plan" && (
-                      <Link href="/itineraries" className={styles.dropdownLink} onMouseEnter={() => setActiveImage(0)}>
-                        <span className={styles.highlight} />
-                        Itineraries
-                      </Link>
-                    )}
-
                     {col.links.map((link: MenuLink, i: number) => (
                       <Link
                         key={link.href}
                         href={link.href}
                         className={styles.dropdownLink}
-                        onMouseEnter={() => setActiveImage(i % 2)}
+                        onMouseEnter={() => setActiveImage(i % menu.images.length)}
                       >
                         <span className={styles.highlight} />
                         {link.label}
