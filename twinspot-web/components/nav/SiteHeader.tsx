@@ -1,35 +1,105 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { PHOTO_MANIFEST } from "@/lib/photoManifest";
 import styles from "./siteHeader.module.css";
 
 import {
+  CENTER_NAV_ITEMS,
+  NAV_MENUS,
+  MenuKey,
   MOBILE_MENU,
   MobileNode,
-  PRIMARY_NAV_ITEMS,
-  TOURS_SUBMENU_ITEMS,
 } from "./navMenu.config";
 
 type Props = {
   variant?: "sticky" | "overlay";
 };
 
+type MenuLink = {
+  label: string;
+  href: string;
+};
+
+type MenuColumn = {
+  heading: string;
+  links: MenuLink[];
+};
+
+type NavImage = {
+  caption: string;
+  src: string;
+};
+
 const HAS_SEARCH_ROUTE = false;
 
+const NAV_IMAGE_FOLDERS: Record<MenuKey, string[]> = {
+  plan: ["landscapes", "destinations"],
+  destinations: ["destinations", "landscapes"],
+  themes: ["birding"],
+  guides: ["birding", "landscapes"],
+  about: ["landscapes", "partners-and-association"],
+};
+
+const DEFAULT_FALLBACK = ["wildlife", "birding", "landscapes"];
+
+function hashSeed(input: string): number {
+  let hash = 5381;
+  for (let i = 0; i < input.length; i += 1) {
+    hash = ((hash << 5) + hash + input.charCodeAt(i)) >>> 0;
+  }
+  return hash;
+}
+
+function selectPhotoPath(folders: string[], seed: string): string {
+  const pool: string[] = [];
+
+  for (const folder of [...folders, ...DEFAULT_FALLBACK]) {
+    const files = PHOTO_MANIFEST[folder as keyof typeof PHOTO_MANIFEST] ?? [];
+    for (const file of files) {
+      pool.push(`/photos/${folder}/${encodeURIComponent(file)}`);
+    }
+  }
+
+  if (pool.length === 0) {
+    return "/hero.jpg";
+  }
+
+  return pool[hashSeed(seed) % pool.length];
+}
+
 export default function SiteHeader({ variant = "sticky" }: Props) {
+  const [openMenu, setOpenMenu] = useState<MenuKey | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
   const [stack, setStack] = useState<MobileNode[]>([]);
-  const [toursOpen, setToursOpen] = useState(false);
-  const toursMenuRef = useRef<HTMLDivElement | null>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+
+  const menu = openMenu ? NAV_MENUS[openMenu] : null;
+
+  const selectedImages = useMemo(() => {
+    if (!openMenu) {
+      return [] as NavImage[];
+    }
+
+    const captions = NAV_MENUS[openMenu].images.map((img) => img.caption).slice(0, 2);
+    const safeCaptions = captions.length === 2 ? captions : ["Curated journeys", "Editorial moments"];
+    const folders = NAV_IMAGE_FOLDERS[openMenu] ?? DEFAULT_FALLBACK;
+
+    return safeCaptions.map((caption, i): NavImage => ({
+      caption,
+      src: selectPhotoPath(folders, `nav-${openMenu}-${i}`),
+    }));
+  }, [openMenu]);
 
   const current = stack[stack.length - 1];
   const items = current?.children ?? MOBILE_MENU;
 
   useEffect(() => {
     function onDocumentClick(event: MouseEvent) {
-      if (!toursMenuRef.current?.contains(event.target as Node)) {
-        setToursOpen(false);
+      if (!menuRef.current?.contains(event.target as Node)) {
+        setOpenMenu(null);
       }
     }
 
@@ -62,7 +132,7 @@ export default function SiteHeader({ variant = "sticky" }: Props) {
   return (
     <>
       <header className={`${styles.header} ${variant === "overlay" ? styles.overlay : styles.sticky}`}>
-        <div className={styles.inner}>
+        <div className={styles.inner} ref={menuRef}>
           <Link href="/" className={styles.logo} aria-label="Twinspot home">
             <img
               src="/photos/logos-and-icons/logo (1).png"
@@ -73,45 +143,30 @@ export default function SiteHeader({ variant = "sticky" }: Props) {
           </Link>
 
           <nav className={styles.nav} aria-label="Primary">
-            {PRIMARY_NAV_ITEMS.slice(0, 3).map((item) => (
-              <Link key={item.label} href={item.href} className={styles.navLink}>
-                {item.label}
-              </Link>
-            ))}
-
-            <div className={styles.toursWrap} ref={toursMenuRef}>
-              <button
-                type="button"
-                className={styles.navButton}
-                aria-expanded={toursOpen}
-                aria-haspopup="menu"
-                onClick={() => setToursOpen((isOpen) => !isOpen)}
-              >
-                Tours <span className={styles.chevron}>▾</span>
-              </button>
-
-              {toursOpen && (
-                <div className={styles.dropdown} role="menu" aria-label="Tours submenu">
-                  {TOURS_SUBMENU_ITEMS.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      role="menuitem"
-                      className={styles.dropdownLink}
-                      onClick={() => setToursOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {PRIMARY_NAV_ITEMS.slice(3).map((item) => (
-              <Link key={item.label} href={item.href} className={styles.navLink}>
-                {item.label}
-              </Link>
-            ))}
+            {CENTER_NAV_ITEMS.map((item) =>
+              item.menuKey ? (
+                <button
+                  key={item.label}
+                  type="button"
+                  className={styles.navItem}
+                  onMouseEnter={() => {
+                    setActiveImage(0);
+                    setOpenMenu(item.menuKey ?? null);
+                  }}
+                  onClick={() => {
+                    setActiveImage(0);
+                    setOpenMenu(openMenu === item.menuKey ? null : item.menuKey ?? null);
+                  }}
+                >
+                  {item.label}
+                  <span className={styles.chevron}>▾</span>
+                </button>
+              ) : (
+                <Link key={item.label} href={item.href} className={styles.navLink} onMouseEnter={() => setOpenMenu(null)}>
+                  {item.label}
+                </Link>
+              ),
+            )}
           </nav>
 
           <div className={styles.actions}>
@@ -137,6 +192,58 @@ export default function SiteHeader({ variant = "sticky" }: Props) {
             </button>
           </div>
         </div>
+
+        {menu && (
+          <div className={styles.dropdown} onMouseLeave={() => setOpenMenu(null)}>
+            <div className={styles.dropdownInner}>
+              <div className={styles.dropdownText}>
+                {menu.columns.map((col: MenuColumn, cIdx: number) => (
+                  <div className={styles.column} key={cIdx}>
+                    <h4>{col.heading}</h4>
+
+                    {openMenu === "plan" && (
+                      <Link href="/itineraries" className={styles.dropdownLink} onMouseEnter={() => setActiveImage(0)}>
+                        <span className={styles.highlight} />
+                        Itineraries
+                      </Link>
+                    )}
+
+                    {col.links.map((link: MenuLink, i: number) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className={styles.dropdownLink}
+                        onMouseEnter={() => setActiveImage(i % 2)}
+                      >
+                        <span className={styles.highlight} />
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                ))}
+
+                <div className={styles.miniLinks}>
+                  <Link href="/sustainability">Sustainability</Link>
+                  <Link href="/charity">Charity</Link>
+                  <Link href="/partners">Sponsors</Link>
+                  <Link href="/contact">Contact</Link>
+                </div>
+              </div>
+
+              <div className={styles.imagePanel}>
+                {selectedImages.map((img, i) => (
+                  <div
+                    key={`${openMenu}-${i}`}
+                    className={`${styles.imageCard} ${activeImage === i ? styles.active : styles.inactive}`}
+                  >
+                    <img src={img.src} alt={img.caption} />
+                    <span>{img.caption}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </header>
 
       {mobileOpen && (
