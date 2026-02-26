@@ -8,7 +8,6 @@
   top: 0;
   backdrop-filter: blur(12px);
   background: rgba(250, 248, 244, 0.92);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .overlay {
@@ -22,7 +21,7 @@
 .inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 12px 24px;
+  padding: 20px 32px;
   display: grid;
   grid-template-columns: minmax(240px, 1fr) auto minmax(240px, 1fr);
   align-items: center;
@@ -34,67 +33,38 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: #121912;
+  color: inherit;
   justify-self: start;
 }
 
 .logoMark {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
   object-fit: cover;
 }
 
 .logoText {
-  font-size: 1.2rem;
   font-weight: 800;
-  line-height: 1;
+  font-size: 1.4rem;
 }
 
 .nav {
   display: flex;
-  align-items: center;
-  gap: 6px;
   justify-self: center;
+  gap: 2.5rem;
 }
 
-.navItem {
-  min-height: 44px;
-  padding: 0 14px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 650;
-  color: #111;
-  text-decoration: none;
-  border: 1px solid transparent;
-  background: transparent;
-  cursor: pointer;
-}
-
+.navItem,
 .navLink {
-  min-height: 44px;
-  padding: 0 14px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  background: none;
+  border: none;
   font-size: 1rem;
-  font-weight: 650;
-  color: #111;
+  font-weight: 600;
+  cursor: pointer;
   text-decoration: none;
-  border: 1px solid transparent;
-  background: transparent;
-}
-
-.navItem:hover,
-.navLink:hover,
-.navLink:focus-visible,
-.navItem:focus-visible {
-  background: rgba(0, 0, 0, 0.06);
-  outline: none;
+  color: inherit;
+  padding: 0;
 }
 
 .chevron {
@@ -104,8 +74,8 @@
 
 .actions {
   display: flex;
+  gap: 1rem;
   align-items: center;
-  gap: 8px;
   justify-self: end;
 }
 
@@ -116,18 +86,18 @@
 }
 
 .searchBtn {
-  min-height: 44px;
-  min-width: 44px;
+  min-height: 40px;
+  min-width: 40px;
   border-radius: 999px;
   border: 1px solid rgba(0, 0, 0, 0.16);
   background: #fff;
   color: #121912;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
 }
 
 .searchInput {
-  min-height: 44px;
+  min-height: 40px;
   width: 180px;
   border-radius: 999px;
   border: 1px solid rgba(0, 0, 0, 0.16);
@@ -139,41 +109,30 @@
 
 .bookNowBtn,
 .mobileBookNowBtn {
-  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  padding: 0 16px;
+  padding: 0.62rem 1rem;
   text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 0.9rem;
   background: #1f2922;
   color: #f8f6ef;
   border: 1px solid #1f2922;
 }
 
 .bookNowBtn:hover,
-.bookNowBtn:focus-visible,
-.mobileBookNowBtn:hover,
-.mobileBookNowBtn:focus-visible,
-.searchBtn:hover,
-.searchBtn:focus-visible,
-.menuBtn:hover,
-.menuBtn:focus-visible {
-  outline: none;
-  filter: brightness(0.95);
+.mobileBookNowBtn:hover {
+  background: #141b16;
+  color: #fff;
 }
 
 .menuBtn {
   display: none;
-  min-height: 44px;
-  min-width: 44px;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  background: #fff;
-  color: #121912;
-  font-size: 1rem;
+  background: none;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .dropdown {
@@ -196,25 +155,24 @@
 
 .dropdownText {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
 }
 
 .column h4 {
-  margin: 0 0 16px;
   font-size: 0.8rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #626262;
+  margin-bottom: 20px;
 }
 
 .dropdownLink {
-  display: block;
   position: relative;
-  color: #101010;
-  text-decoration: none;
-  font-size: 1.05rem;
+  display: block;
+  font-size: 1.2rem;
   padding: 10px 0;
+  color: inherit;
+  text-decoration: none;
 }
 
 .highlight {
@@ -233,17 +191,16 @@
 }
 
 .miniLinks {
+  grid-column: span 2;
+  margin-top: 48px;
   display: flex;
   gap: 24px;
-  align-items: flex-end;
-  grid-column: 1 / -1;
-  margin-top: 24px;
+  font-size: 0.85rem;
 }
 
 .miniLinks a {
-  color: #5f6368;
+  color: inherit;
   text-decoration: none;
-  font-size: 0.88rem;
 }
 
 .imagePanel {
@@ -254,9 +211,9 @@
 
 .imageCard {
   position: relative;
+  height: 180px;
   border-radius: 18px;
   overflow: hidden;
-  min-height: 180px;
   transition: opacity 0.3s, filter 0.3s;
 }
 
@@ -277,21 +234,20 @@
 
 .imageCard span {
   position: absolute;
-  left: 16px;
   bottom: 16px;
+  left: 16px;
   z-index: 2;
   color: #fff;
   font-weight: 700;
-  font-size: 0.95rem;
-}
-
-.active {
-  opacity: 1;
 }
 
 .inactive {
   opacity: 0.35;
   filter: blur(2px);
+}
+
+.active {
+  opacity: 1;
 }
 
 .mobileMenu {
@@ -304,57 +260,54 @@
 }
 
 .mobileHeader {
-  padding: 16px 20px;
+  padding: 20px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .mobileHeaderBtn {
-  min-height: 44px;
+  font-size: 1.1rem;
+  background: none;
   border: none;
-  background: transparent;
-  font-size: 1rem;
-  color: #121912;
 }
 
 .mobileLinks {
-  padding: 20px;
-  display: grid;
-  gap: 10px;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .mobilePrimary {
-  min-height: 44px;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background: #fff;
-  padding: 0 14px;
+  font-size: 1.6rem;
+  font-weight: 700;
   display: flex;
-  align-items: center;
   justify-content: space-between;
   text-decoration: none;
-  color: #141414;
-  font-weight: 650;
-  font-size: 1rem;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .mobileActions {
-  margin-top: 12px;
+  margin-top: 1.5rem;
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .mobileSearchBtn {
-  min-height: 44px;
-  flex: 1;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  font-size: 1rem;
   background: #fff;
-  font-weight: 600;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 999px;
+  padding: 0.62rem 1rem;
+  flex: 1;
 }
 
 .mobileBookNowBtn {
+  margin-top: 0;
   flex: 1;
 }
 
@@ -365,21 +318,19 @@
 }
 
 @media (max-width: 1024px) {
-  .inner {
-    display: flex;
-    justify-content: space-between;
-  }
-
   .nav,
   .dropdown,
-  .searchForm,
-  .bookNowBtn {
+  .bookNowBtn,
+  .searchForm {
     display: none;
   }
 
   .menuBtn {
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  }
+
+  .inner {
+    display: flex;
+    justify-content: space-between;
   }
 }

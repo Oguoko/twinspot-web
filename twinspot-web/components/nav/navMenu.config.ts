@@ -3,12 +3,7 @@
    Shared between desktop mega-nav and mobile drill-down
 ====================================================== */
 
-export type MenuKey =
-  | "plan"
-  | "destinations"
-  | "themes"
-  | "guides"
-  | "about";
+export type MenuKey = "destinations" | "tours" | "about";
 
 export type CenterNavItem = {
   label: string;
@@ -20,7 +15,7 @@ export const CENTER_NAV_ITEMS: CenterNavItem[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about", menuKey: "about" },
   { label: "Destinations", href: "/destinations", menuKey: "destinations" },
-  { label: "Tours", href: "/itineraries", menuKey: "plan" },
+  { label: "Tours", href: "/itineraries", menuKey: "tours" },
   { label: "Blog", href: "/blog" },
   { label: "Contact Us", href: "/contact" },
 ];
@@ -45,28 +40,6 @@ export const NAV_MENUS: Record<
     }[];
   }
 > = {
-  plan: {
-    title: "Plan Your Trip",
-    columns: [
-      {
-        heading: "Planning",
-        links: [
-          { label: "How We Plan", href: "/plan-your-trip/how-we-plan" },
-          { label: "Best Time to Travel", href: "/plan-your-trip/best-time-to-travel" },
-          { label: "What to Expect", href: "/plan-your-trip/what-to-expect" },
-        ],
-      },
-    ],
-    images: [
-      {
-        caption: "Journeys shaped by season",
-      },
-      {
-        caption: "Unhurried exploration",
-      },
-    ],
-  },
-
   destinations: {
     title: "Destinations",
     columns: [
@@ -80,57 +53,27 @@ export const NAV_MENUS: Record<
         ],
       },
     ],
-    images: [
-      {
-        caption: "Wetlands and forests",
-      },
-      {
-        caption: "Savannah landscapes",
-      },
-    ],
+    images: [{ caption: "Wetlands and forests" }, { caption: "Savannah landscapes" }],
   },
 
-  themes: {
-    title: "Birding Themes",
+  tours: {
+    title: "Tours",
     columns: [
       {
-        heading: "Focus",
+        heading: "Experiences",
         links: [
-          { label: "Endemics", href: "/themes/endemics" },
-          { label: "Photography", href: "/themes/photography" },
-          { label: "Migration", href: "/themes/migration" },
+          { label: "Itineraries", href: "/itineraries" },
+          { label: "Birding Tours in Kenya", href: "/birding-tours-kenya" },
+          { label: "Bird Photography Tours", href: "/bird-photography-tours" },
+          { label: "Wildlife Safaris in Kenya", href: "/wildlife-safaris-kenya" },
+          { label: "Great Migration", href: "/great-migration" },
+          { label: "Camping Tours", href: "/camping-tours" },
+          { label: "Mountaineering Tours", href: "/mountaineering-tours" },
+          { label: "Team Building Tours", href: "/team-building-tours" },
         ],
       },
     ],
-    images: [
-      {
-        caption: "Rare species",
-      },
-      {
-        caption: "Moments of stillness",
-      },
-    ],
-  },
-
-  guides: {
-    title: "Travel Guides",
-    columns: [
-      {
-        heading: "Resources",
-        links: [
-          { label: "Field Notes", href: "/blog" },
-          { label: "Planning Advice", href: "/travel-guides" },
-        ],
-      },
-    ],
-    images: [
-      {
-        caption: "Field insights",
-      },
-      {
-        caption: "Preparation matters",
-      },
-    ],
+    images: [{ caption: "Purposeful journeys" }, { caption: "Adventure with intent" }],
   },
 
   about: {
@@ -139,7 +82,6 @@ export const NAV_MENUS: Record<
       {
         heading: "Twinspot",
         links: [
-          { label: "About Us", href: "/about" },
           { label: "Our Transport", href: "/about/transport" },
           { label: "Our Guides", href: "/about/guides" },
           { label: "Travel Tips", href: "/about/travel-tips" },
@@ -149,14 +91,7 @@ export const NAV_MENUS: Record<
         ],
       },
     ],
-    images: [
-      {
-        caption: "Our story",
-      },
-      {
-        caption: "People and purpose",
-      },
-    ],
+    images: [{ caption: "People and purpose" }, { caption: "Travel done right" }],
   },
 };
 
@@ -176,7 +111,16 @@ export const MOBILE_MENU: MobileNode[] = [
   { title: "Destinations", href: "/destinations" },
   {
     title: "Tours",
-    children: [{ title: "Itineraries", href: "/itineraries" }],
+    children: [
+      { title: "Itineraries", href: "/itineraries" },
+      { title: "Birding Tours in Kenya", href: "/birding-tours-kenya" },
+      { title: "Bird Photography Tours", href: "/bird-photography-tours" },
+      { title: "Wildlife Safaris in Kenya", href: "/wildlife-safaris-kenya" },
+      { title: "Great Migration", href: "/great-migration" },
+      { title: "Camping Tours", href: "/camping-tours" },
+      { title: "Mountaineering Tours", href: "/mountaineering-tours" },
+      { title: "Team Building Tours", href: "/team-building-tours" },
+    ],
   },
   { title: "Blog", href: "/blog" },
   { title: "Contact Us", href: "/contact" },
