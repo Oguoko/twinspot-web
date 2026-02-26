@@ -1,214 +1,166 @@
-/* ================= NAVBAR ================= */
-
 .navbar {
   position: sticky;
   top: 0;
   z-index: 100;
   backdrop-filter: blur(12px);
   background: rgba(250, 248, 244, 0.92);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 20px 32px;
+  padding: 12px 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 20px;
 }
 
 .logo {
-  font-weight: 800;
-  font-size: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #121912;
+  margin-right: 12px;
 }
 
-/* ================= DESKTOP NAV ================= */
+.logoMark {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.logoText {
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+}
 
 .nav {
   display: flex;
-  gap: 2.5rem;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
 }
 
-.navItem {
-  background: none;
-  border: none;
+.navLink,
+.navButton {
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 650;
+  color: #111;
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.navButton {
   cursor: pointer;
 }
 
+.navLink:hover,
+.navLink:focus-visible,
+.navButton:hover,
+.navButton:focus-visible {
+  background: rgba(0, 0, 0, 0.06);
+  outline: none;
+}
+
 .chevron {
-  font-size: 0.75rem;
-  margin-left: 4px;
+  font-size: 0.78rem;
+  margin-left: 6px;
+}
+
+.toursWrap {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 200px;
+  padding: 8px;
+  background: #faf8f4;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.08);
+}
+
+.dropdownLink {
+  min-height: 44px;
+  border-radius: 10px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #101010;
+  font-weight: 600;
+}
+
+.dropdownLink:hover,
+.dropdownLink:focus-visible {
+  background: rgba(0, 0, 0, 0.06);
+  outline: none;
 }
 
 .actions {
   display: flex;
-  gap: 1rem;
   align-items: center;
+  gap: 8px;
+}
+
+.searchBtn,
+.menuBtn {
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: #fff;
+  color: #121912;
+  font-size: 1.1rem;
+  cursor: pointer;
 }
 
 .bookNowBtn,
 .mobileBookNowBtn {
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  padding: 0.62rem 1rem;
+  padding: 0 16px;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 700;
   background: #1f2922;
   color: #f8f6ef;
   border: 1px solid #1f2922;
 }
 
 .bookNowBtn:hover,
-.mobileBookNowBtn:hover {
-  background: #141b16;
-  color: #fff;
-}
-
-.iconBtn,
-.menuBtn {
-  background: none;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
+.bookNowBtn:focus-visible,
+.mobileBookNowBtn:hover,
+.mobileBookNowBtn:focus-visible,
+.searchBtn:hover,
+.searchBtn:focus-visible,
+.menuBtn:hover,
+.menuBtn:focus-visible {
+  outline: none;
+  filter: brightness(0.95);
 }
 
 .menuBtn {
   display: none;
 }
 
-/* ================= DROPDOWN ================= */
-
-.dropdown {
-  position: fixed;
-  top: 72px;
-  left: 0;
-  width: 100%;
-  background: #faf8f4;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.dropdownInner {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 64px;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 64px;
-}
-
-.dropdownText {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-}
-
-.column h4 {
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.dropdownLink {
-  position: relative;
-  display: block;
-  font-size: 1.2rem;
-  padding: 10px 0;
-}
-
-.highlight {
-  position: absolute;
-  left: -8px;
-  top: 0;
-  height: 100%;
-  width: 0;
-  background: #d6e400;
-  z-index: -1;
-  transition: width 0.25s ease;
-}
-
-.dropdownLink:hover .highlight {
-  width: calc(100% + 16px);
-}
-
-.miniLinks {
-  grid-column: span 2;
-  margin-top: 48px;
-  display: flex;
-  gap: 24px;
-  font-size: 0.85rem;
-}
-
-/* ================= IMAGE PANEL ================= */
-
-.imagePanel {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.imageCard {
-  position: relative;
-  height: 180px;
-  border-radius: 18px;
-  overflow: hidden;
-  transition: opacity 0.3s, filter 0.3s;
-}
-
-.imageCard::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.08));
-  pointer-events: none;
-}
-
-.imageCard img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.imageCard span {
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
-  z-index: 2;
-  color: #fff;
-  font-weight: 700;
-}
-
-.inactive {
-  opacity: 0.35;
-  filter: blur(2px);
-}
-
-.active {
-  opacity: 1;
-}
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 1024px) {
-  .nav {
-    display: none;
-  }
-
-  .menuBtn {
-    display: inline-flex;
-  }
-
-  .bookNowBtn {
-    display: none;
-  }
-}
-
-/* FULLSCREEN MOBILE MENU */
 .mobileMenu {
   position: fixed;
   inset: 0;
@@ -219,68 +171,80 @@
 }
 
 .mobileHeader {
-  padding: 20px 24px;
+  padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.closeBtn {
-  font-size: 1.25rem;
-  background: none;
+.mobileHeaderBtn {
+  min-height: 44px;
   border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #121912;
 }
 
 .mobileLinks {
-  padding: 40px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  padding: 20px;
+  display: grid;
+  gap: 10px;
 }
 
 .mobilePrimary {
-  font-size: 1.6rem;
-  font-weight: 700;
+  min-height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding: 0 14px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  text-decoration: none;
+  color: #141414;
+  font-weight: 650;
+  font-size: 1rem;
+}
+
+.mobileActions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.mobileSearchBtn {
+  min-height: 44px;
+  flex: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: #fff;
+  font-weight: 600;
 }
 
 .mobileBookNowBtn {
-  margin-top: 1.5rem;
+  flex: 1;
 }
 
-.mobileExtras {
-  margin-top: 40px;
-  display: flex;
-  gap: 24px;
-  font-size: 0.9rem;
+@media (max-width: 1120px) {
+  .logoText {
+    display: none;
+  }
 }
 
-.navItemWrap {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
+@media (max-width: 1024px) {
+  .nav,
+  .searchBtn,
+  .bookNowBtn {
+    display: none;
+  }
 
-.navLink {
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  color: inherit;
-}
+  .menuBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.chevronBtn {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.navLabel {
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: default;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  .inner {
+    justify-content: space-between;
+  }
 }
