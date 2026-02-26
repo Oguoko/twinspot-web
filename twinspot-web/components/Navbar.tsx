@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
 import {
@@ -13,6 +13,8 @@ import {
 type NavbarProps = {
   variant?: "sticky" | "overlay";
 };
+
+const HAS_SEARCH_ROUTE = false;
 
 export default function Navbar(_props: NavbarProps = {}) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -34,6 +36,13 @@ export default function Navbar(_props: NavbarProps = {}) {
     return () => document.removeEventListener("mousedown", onDocumentClick);
   }, []);
 
+  function onSearchSubmit(event: FormEvent<HTMLFormElement>) {
+    if (!HAS_SEARCH_ROUTE) {
+      event.preventDefault();
+      console.log("Search route is not configured yet.");
+    }
+  }
+
   function openNode(node: MobileNode) {
     if (node.children) {
       setStack([...stack, node]);
@@ -52,8 +61,14 @@ export default function Navbar(_props: NavbarProps = {}) {
   return (
     <>
       <header className={styles.navbar}>
-        <div className={styles.inner}>
-          <Link href="/" className={styles.logo} aria-label="Twinspot home">
+        <div
+          className={styles.inner}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(240px, 1fr) auto minmax(240px, 1fr)",
+          }}
+        >
+          <Link href="/" className={styles.logo} aria-label="Twinspot home" style={{ justifySelf: "start" }}>
             <img
               src="/photos/logos-and-icons/logo (1).png"
               alt="Twinspot logo"
@@ -62,7 +77,7 @@ export default function Navbar(_props: NavbarProps = {}) {
             <span className={styles.logoText}>Twinspot</span>
           </Link>
 
-          <nav className={styles.nav} aria-label="Primary">
+          <nav className={styles.nav} aria-label="Primary" style={{ justifySelf: "center" }}>
             {PRIMARY_NAV_ITEMS.slice(0, 3).map((item) => (
               <Link key={item.label} href={item.href} className={styles.navLink}>
                 {item.label}
@@ -109,10 +124,34 @@ export default function Navbar(_props: NavbarProps = {}) {
             ))}
           </nav>
 
-          <div className={styles.actions}>
-            <button type="button" className={styles.searchBtn} aria-label="Search">
-              🔍
-            </button>
+          <div className={styles.actions} style={{ justifySelf: "end" }}>
+            <form
+              className="desktopSearchForm"
+              action="/search"
+              method="get"
+              onSubmit={onSearchSubmit}
+              style={{ display: "inline-flex", alignItems: "center", gap: 8 }}
+            >
+              <button type="submit" className={styles.searchBtn} aria-label="Search">
+                🔍
+              </button>
+              <input
+                type="search"
+                name="q"
+                placeholder="Search trips…"
+                aria-label="Search"
+                style={{
+                  minHeight: 44,
+                  width: 180,
+                  borderRadius: 999,
+                  border: "1px solid rgba(0, 0, 0, 0.16)",
+                  background: "#fff",
+                  color: "#121912",
+                  padding: "0 14px",
+                  fontSize: "0.95rem",
+                }}
+              />
+            </form>
             <Link href="/contact" className={styles.bookNowBtn}>
               Book Now
             </Link>
@@ -173,6 +212,14 @@ export default function Navbar(_props: NavbarProps = {}) {
           </div>
         </div>
       )}
+
+      <style jsx>{`
+        @media (max-width: 1024px) {
+          .desktopSearchForm {
+            display: none !important;
+          }
+        }
+      `}</style>
     </>
   );
 }
