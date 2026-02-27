@@ -12,7 +12,6 @@ export type CenterNavItem = {
 };
 
 export const CENTER_NAV_ITEMS: CenterNavItem[] = [
-  { label: "Home", href: "/" },
   { label: "About Us", href: "/about", menuKey: "about" },
   { label: "Destinations", href: "/destinations", menuKey: "destinations" },
   { label: "Tours", href: "/itineraries", menuKey: "tours" },
@@ -106,7 +105,6 @@ export type MobileNode = {
 };
 
 export const MOBILE_MENU: MobileNode[] = [
-  { title: "Home", href: "/" },
   { title: "About Us", href: "/about" },
   { title: "Destinations", href: "/destinations" },
   {
