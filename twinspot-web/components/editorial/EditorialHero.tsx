@@ -14,7 +14,7 @@ export default function EditorialHero({ imageSrc }: EditorialHeroProps) {
         alt="Luxury safari travellers watching wildlife at golden hour"
         fill
         priority
-        className={styles.heroImage}
+        className={`${styles.heroImage} ${styles.heroImageMotion}`}
       />
       <div className={styles.heroOverlay} />
 

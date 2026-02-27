@@ -314,3 +314,52 @@ footer,
 * + img {
   margin-top: 0;
 }
+
+/* -----------------------
+   SUBTLE GLOBAL MOTION
+----------------------- */
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+button,
+a[class*="Button"],
+a[class*="Btn"] {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+}
+
+button:hover,
+a[class*="Button"]:hover,
+a[class*="Btn"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(17, 17, 17, 0.08);
+}
+
+button:active,
+a[class*="Button"]:active,
+a[class*="Btn"]:active {
+  transform: translateY(0) scale(0.985);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-on-scroll.is-revealed {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  button,
+  a[class*="Button"],
+  a[class*="Btn"] {
+    transition: none;
+  }
+}
