@@ -30,6 +30,7 @@
 .cardGrid,.spotlightGrid,.itineraryGrid,.popularGrid { display:grid; gap:1.25rem; grid-template-columns: repeat(3,minmax(0,1fr)); }
 .card,.spotlightCard { background:#fff; border:1px solid #e8e2d7; border-radius:16px; overflow:hidden; }
 .cardImageWrap,.spotlightImageWrap { position:relative; aspect-ratio:4/3; }
+.blogImageWrap { position:relative; aspect-ratio:16/9; border-bottom:1px solid #ece5d9; }
 .cardImage,.spotlightImage,.tileImage { object-fit:cover; }
 .cardBody { padding:1.1rem 1rem 1.2rem; }
 .cardBody h3 { font-size:1.15rem; margin-bottom:.45rem; font-family:var(--font-heading); }
@@ -38,7 +39,20 @@
 
 .sliderWrap { position:relative; }
 .sliderRail { display:flex; gap:1rem; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:.5rem; }
-.sliderCard { min-width:min(320px,85%); scroll-snap-align:start; background:#fff; border:1px solid #e8e2d7; border-radius:16px; padding:1.1rem; }
+.sliderCard { min-width:min(320px,85%); scroll-snap-align:start; background:#fff; border:1px solid #e8e2d7; border-radius:16px; overflow:hidden; box-shadow: 0 10px 22px rgba(27,24,17,.08); }
+.sliderCardWhy { display:flex; flex-direction:column; }
+.sliderCardPackages { position:relative; min-width:min(300px,85%); background:#12110f; }
+.sliderImageWrap { position:relative; overflow:hidden; }
+.sliderImageWrapWhy { aspect-ratio:3/4; border-bottom:1px solid #ece5d9; }
+.sliderImageWrapPackages { aspect-ratio:9/16; }
+.sliderImage { object-fit:cover; }
+.sliderImageOverlay { position:absolute; inset:0; background:linear-gradient(180deg, rgba(6,8,7,.08) 25%, rgba(6,8,7,.82) 100%); }
+.sliderCardContent { padding:1rem 1rem 1.1rem; }
+.sliderCardContentOverlay { position:absolute; left:0; right:0; bottom:0; padding:1rem 1rem 1.1rem; color:#fefbf7; z-index:1; }
+.sliderCardContentOverlay h3,.sliderCardContentOverlay p,.sliderCardContentOverlay a,.sliderCardContentOverlay .sliderBadge { color:inherit; }
+.sliderCardContentOverlay a { color:#f8efdf; text-decoration-color:rgba(248,239,223,.7); }
+.sliderCard h3 { margin-bottom:.45rem; font-family:var(--font-heading); }
+.sliderCard p { margin-bottom:.8rem; }
 .sliderBadge { font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; color:#766e62; margin-bottom:.4rem; }
 .sliderActions { display:flex; justify-content:flex-end; gap:.5rem; margin-bottom:.75rem; }
 .sliderActions button { width:38px; height:38px; border-radius:999px; border:1px solid #d8d0c2; background:#fff; }
