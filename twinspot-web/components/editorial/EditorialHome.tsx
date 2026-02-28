@@ -24,20 +24,92 @@ export default async function EditorialHome() {
   }));
 
   const tourOptions = [
-    { title: "Great Migration", description: "Prime crossings and predator action timed to season windows.", href: "/great-migration" },
-    { title: "Mountaineering", description: "Guided ascents and acclimatized highland adventure routes.", href: "/mountaineering-tours" },
-    { title: "Birding", description: "Specialist guiding for endemics, wetlands, and Rift Valley circuits.", href: "/birding-tours-kenya" },
-    { title: "Team Building", description: "Purposeful retreats with logistics designed for teams.", href: "/team-building-tours" },
-    { title: "Camping Tours", description: "Light-footprint wilderness nights with comfort-focused camp flow.", href: "/camping-tours" },
+    {
+      title: "Great Migration",
+      description: "Prime crossings and predator action timed to season windows.",
+      href: "/great-migration",
+      imageSrc: pickImageFromFolders({ folders: ["wildlife", "destinations"], seed: "package-great-migration" }),
+      imageAlt: "Wildebeest and zebras crossing during the Great Migration",
+    },
+    {
+      title: "Mountaineering",
+      description: "Guided ascents and acclimatized highland adventure routes.",
+      href: "/mountaineering-tours",
+      imageSrc: pickImageFromFolders({ folders: ["landscapes", "destinations"], seed: "package-mountaineering" }),
+      imageAlt: "Hikers moving along a high-altitude mountain trail",
+    },
+    {
+      title: "Birding",
+      description: "Specialist guiding for endemics, wetlands, and Rift Valley circuits.",
+      href: "/birding-tours-kenya",
+      imageSrc: pickImageFromFolders({ folders: ["birding", "wildlife"], seed: "package-birding" }),
+      imageAlt: "Birdwatching safari scene with binoculars and endemic birds",
+    },
+    {
+      title: "Team Building",
+      description: "Purposeful retreats with logistics designed for teams.",
+      href: "/team-building-tours",
+      imageSrc: pickImageFromFolders({ folders: ["camping", "landscapes"], seed: "package-team-building" }),
+      imageAlt: "Team retreat setup outdoors near safari camp",
+    },
+    {
+      title: "Camping Tours",
+      description: "Light-footprint wilderness nights with comfort-focused camp flow.",
+      href: "/camping-tours",
+      imageSrc: pickImageFromFolders({ folders: ["camping", "landscapes"], seed: "package-camping-tours" }),
+      imageAlt: "Comfortable safari tents and campfire at dusk",
+    },
   ];
 
   const reasons = [
-    { title: "Expert Guides", description: "Seasoned naturalists and field leaders across East Africa.", href: "/about/guides", icon: "🧭" },
-    { title: "Tailor-Made Journeys", description: "Every route and lodge aligned to your pace and priorities.", href: "/itineraries", icon: "✍️" },
-    { title: "Conservation Forward", description: "Travel choices that support habitat and local communities.", href: "/sustainable-tourism", icon: "🌿" },
-    { title: "Responsive Support", description: "Planning support before, during, and after your safari.", href: "/contact", icon: "🤝" },
-    { title: "Premium Logistics", description: "Reliable transport, timing, and comfort at each stage.", href: "/about/transport", icon: "🚙" },
-    { title: "Trusted Reputation", description: "A long-standing partner for discerning safari travelers.", href: "/about/why-us", icon: "⭐" },
+    {
+      title: "Expert Guides",
+      description: "Seasoned naturalists and field leaders across East Africa.",
+      href: "/about/guides",
+      icon: "🧭",
+      imageSrc: pickImageFromFolders({ folders: ["wildlife", "destinations"], seed: "why-expert-guides" }),
+      imageAlt: "Expert safari guide in the field",
+    },
+    {
+      title: "Tailor-Made Journeys",
+      description: "Every route and lodge aligned to your pace and priorities.",
+      href: "/itineraries",
+      icon: "✍️",
+      imageSrc: pickImageFromFolders({ folders: ["landscapes", "destinations"], seed: "why-tailored-journeys" }),
+      imageAlt: "Safari planning materials and route notes",
+    },
+    {
+      title: "Conservation Forward",
+      description: "Travel choices that support habitat and local communities.",
+      href: "/sustainable-tourism",
+      icon: "🌿",
+      imageSrc: pickImageFromFolders({ folders: ["wildlife", "birding"], seed: "why-conservation-forward" }),
+      imageAlt: "Wildlife in protected habitat",
+    },
+    {
+      title: "Responsive Support",
+      description: "Planning support before, during, and after your safari.",
+      href: "/contact",
+      icon: "🤝",
+      imageSrc: pickImageFromFolders({ folders: ["destinations", "landscapes"], seed: "why-responsive-support" }),
+      imageAlt: "Twinspot support team assisting travelers",
+    },
+    {
+      title: "Premium Logistics",
+      description: "Reliable transport, timing, and comfort at each stage.",
+      href: "/about/transport",
+      icon: "🚙",
+      imageSrc: pickImageFromFolders({ folders: ["destinations", "camping"], seed: "why-premium-logistics" }),
+      imageAlt: "Safari vehicle prepared for expedition",
+    },
+    {
+      title: "Trusted Reputation",
+      description: "A long-standing partner for discerning safari travelers.",
+      href: "/about/why-us",
+      icon: "⭐",
+      imageSrc: pickImageFromFolders({ folders: ["wildlife", "landscapes"], seed: "why-trusted-reputation" }),
+      imageAlt: "Travelers enjoying a guided safari experience",
+    },
   ];
 
   return (
@@ -95,7 +167,7 @@ export default async function EditorialHome() {
       </RevealOnScroll>
 
       <RevealOnScroll className={styles.section}>
-        <div className={styles.container}><div className={styles.sectionHeader}><h2>Tour options & packages</h2></div><HomeSlider slides={tourOptions.map((option) => ({ ...option, badge: "Packages" }))} /></div>
+        <div className={styles.container}><div className={styles.sectionHeader}><h2>Tour options & packages</h2></div><HomeSlider variant="packages" slides={tourOptions.map((option) => ({ ...option, badge: "Packages" }))} /></div>
       </RevealOnScroll>
 
       <RevealOnScroll className={`${styles.section} ${styles.breaker}`}>
@@ -111,7 +183,7 @@ export default async function EditorialHome() {
       </RevealOnScroll>
 
       <RevealOnScroll className={styles.section}>
-        <div className={styles.container}><div className={styles.sectionHeader}><h2>Why you should book with us</h2></div><HomeSlider slides={reasons.map((reason) => ({ ...reason, badge: "Why Twinspot" }))} /></div>
+        <div className={styles.container}><div className={styles.sectionHeader}><h2>Why you should book with us</h2></div><HomeSlider variant="why" slides={reasons.map((reason) => ({ ...reason, badge: "Why Twinspot" }))} /></div>
       </RevealOnScroll>
 
       <RevealOnScroll className={styles.section}>
@@ -126,8 +198,19 @@ export default async function EditorialHome() {
       </RevealOnScroll>
 
       <RevealOnScroll className={styles.section}>
-        <div className={styles.container}><div className={styles.sectionTopRow}><h2>From the Journal</h2><Link href="/blog" className={styles.secondaryButton}>Visit blog</Link></div><div className={styles.cardGrid}>{(blogPosts.length > 0 ? blogPosts : [{ id: "placeholder", title: "Field stories coming soon", excerpt: "Fresh dispatches, seasonal notes, and route insights from our team.", slug: "" }]).map((post) => (
-          <article className={styles.card} key={post.id}><div className={styles.cardBody}><h3>{post.title}</h3><p>{post.excerpt ?? "Read our latest field stories and planning notes."}</p><Link href={post.slug ? `/blog/${post.slug}` : "/blog"}>Read article</Link></div></article>
+        <div className={styles.container}><div className={styles.sectionTopRow}><h2>From the Journal</h2><Link href="/blog" className={styles.secondaryButton}>Visit blog</Link></div><div className={styles.cardGrid}>{(blogPosts.length > 0 ? blogPosts : [{ id: "placeholder", title: "Field stories coming soon", excerpt: "Fresh dispatches, seasonal notes, and route insights from our team.", slug: "", heroImage: { imageUrl: "/hero.jpg", alt: "Sunrise over safari grasslands" } }]).map((post, index) => (
+          <article className={styles.card} key={post.id}>
+            <div className={styles.blogImageWrap}>
+              <Image
+                src={post.heroImage?.imageUrl || pickImageFromFolders({ folders: ["wildlife", "landscapes", "birding"], seed: `blog-fallback-${post.slug || index}` })}
+                alt={post.heroImage?.alt || post.title}
+                fill
+                sizes="(max-width: 980px) 50vw, 33vw"
+                className={styles.cardImage}
+              />
+            </div>
+            <div className={styles.cardBody}><h3>{post.title}</h3><p>{post.excerpt ?? "Read our latest field stories and planning notes."}</p><Link href={post.slug ? `/blog/${post.slug}` : "/blog"}>Read article</Link></div>
+          </article>
         ))}</div></div>
       </RevealOnScroll>
 
