@@ -1,22 +1,5 @@
-import { ReactNode } from "react";
-import { requireEditor } from "@/lib/auth/requireEditor";
+import AdminShell from "@/components/admin/AdminShell";
 
-export default async function AdminLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  await requireEditor();
-
-  return (
-    <section
-      style={{
-        background: "#fafafa",
-        minHeight: "100vh",
-        padding: "2rem",
-      }}
-    >
-      {children}
-    </section>
-  );
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <AdminShell>{children}</AdminShell>;
 }
