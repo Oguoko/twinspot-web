@@ -1,14 +1,22 @@
-import ImagePicker from "@/components/admin/ImagePicker";
+import Link from "next/link";
+import styles from "@/app/admin/admin.module.css";
+import { listAllArticles } from "@/lib/articles";
 
-export default function AdminHome() {
+export const dynamic = "force-dynamic";
+
+export default async function AdminPage() {
+  const articles = await listAllArticles();
+  const published = articles.filter((article) => article.published).length;
+
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <ul>
-        <li><a href="/admin/posts">Posts</a></li>
-        <li><a href="/admin/destinations">Destinations</a></li>
-        <li><a href="/admin/images">Images</a></li>
-      </ul>
+    <div className={styles.grid}>
+      <h1>Dashboard</h1>
+      <div className={styles.card}>
+        <p>Total articles: <strong>{articles.length}</strong></p>
+        <p>Published: <strong>{published}</strong></p>
+        <p>Drafts: <strong>{articles.length - published}</strong></p>
+        <Link className={styles.button} href="/admin/articles">Manage Articles</Link>
+      </div>
     </div>
   );
 }

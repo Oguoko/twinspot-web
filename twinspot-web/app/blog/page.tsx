@@ -1,56 +1,37 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getLatestPosts } from "@/lib/data/homepage";
+import { listPublishedArticles } from "@/lib/articles";
+import styles from "./blog.module.css";
+
+export const dynamic = "force-dynamic";
 
 export default async function BlogIndexPage() {
-  const posts = await getLatestPosts(10);
+  const posts = await listPublishedArticles();
 
   return (
-    <main style={{ maxWidth: 1100, margin: "auto", padding: "3rem 1.5rem" }}>
-      <h1 style={{ fontSize: "2.5rem", marginBottom: "2rem" }}>
-        Field Notes
-      </h1>
+    <main className={styles.wrap}>
+      <h1>Field Notes</h1>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: "2rem",
-        }}
-      >
-        {posts.map((post) => (
-          <Link key={post.id} href={`/blog/${post.slug}`}>
-            <article
-              style={{
-                border: "1px solid #e5e5e5",
-                borderRadius: 12,
-                overflow: "hidden",
-              }}
-            >
-              {post.heroImage?.imageUrl && (
-                <div style={{ position: "relative", height: 200 }}>
-                  <Image
-                    src={post.heroImage.imageUrl}
-                    alt={post.heroImage.alt || post.title}
-                    fill
-                    style={{ objectFit: "cover" }}
-                  />
+      {posts.length === 0 ? (
+        <p>No published articles yet. Please check back soon.</p>
+      ) : (
+        <div className={styles.grid}>
+          {posts.map((post) => (
+            <Link key={post.id} href={`/blog/${post.id}`} className={styles.card}>
+              {post.featuredImage && (
+                <div className={styles.thumb}>
+                  <Image src={post.featuredImage} alt={post.title} fill style={{ objectFit: "cover" }} />
                 </div>
               )}
-
-              <div style={{ padding: "1rem" }}>
-                <h2 style={{ fontSize: "1.2rem" }}>{post.title}</h2>
-
-                {post.excerpt && (
-                  <p style={{ fontSize: "0.95rem", marginTop: 8 }}>
-                    {post.excerpt}
-                  </p>
-                )}
+              <div className={styles.cardBody}>
+                <h3>{post.title}</h3>
+                <p>{post.excerpt}</p>
+                <span className={styles.meta}>Read more →</span>
               </div>
-            </article>
-          </Link>
-        ))}
-      </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </main>
   );
 }

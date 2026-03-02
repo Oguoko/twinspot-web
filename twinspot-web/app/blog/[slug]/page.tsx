@@ -1,33 +1,30 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getPostBySlug } from "@/lib/data/posts";
+import { getArticleBySlug } from "@/lib/articles";
+import { markdownToHtml } from "@/lib/markdown";
+import styles from "../blog.module.css";
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const post = await getPostBySlug(params.slug);
+export const dynamic = "force-dynamic";
+
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await getArticleBySlug(slug);
 
   if (!post) notFound();
 
-  // ✅ HARD GUARARD: content must exist
-  const html = post.content ?? "";
-
   return (
-    <article
-      style={{
-        maxWidth: 800,
-        margin: "auto",
-        padding: "3rem 1.5rem",
-      }}
-    >
+    <article className={styles.post}>
+      {post.featuredImage && (
+        <div className={styles.hero}>
+          <Image src={post.featuredImage} alt={post.title} fill style={{ objectFit: "cover" }} />
+        </div>
+      )}
       <h1>{post.title}</h1>
-
-      <div
-        dangerouslySetInnerHTML={{
-          __html: html,
-        }}
-      />
+      <p className={styles.meta}>
+        {post.author || "Twinspot Editorial"}
+        {post.publishedAt ? ` · ${new Date(post.publishedAt).toLocaleDateString()}` : ""}
+      </p>
+      <div className={styles.content} dangerouslySetInnerHTML={{ __html: markdownToHtml(post.content ?? "") }} />
     </article>
   );
 }
