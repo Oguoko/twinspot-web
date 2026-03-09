@@ -1,8 +1,10 @@
+import "server-only";
+
 import { cookies } from "next/headers";
-import { NextRequest } from "next/server";
 import crypto from "crypto";
 
-const COOKIE_NAME = "twinspot_admin_session";
+import { ADMIN_SESSION_COOKIE_NAME } from "@/lib/adminAuthCookie";
+
 const SECRET = process.env.ADMIN_PASSWORD || "";
 
 function sign(value: string) {
@@ -25,7 +27,7 @@ function verifyToken(token?: string) {
 
 export async function createAdminSession() {
   const store = await cookies();
-  store.set(COOKIE_NAME, buildToken(), {
+  store.set(ADMIN_SESSION_COOKIE_NAME, buildToken(), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -36,16 +38,12 @@ export async function createAdminSession() {
 
 export async function clearAdminSession() {
   const store = await cookies();
-  store.delete(COOKIE_NAME);
+  store.delete(ADMIN_SESSION_COOKIE_NAME);
 }
 
 export async function isAdminAuthenticated() {
   const store = await cookies();
-  return verifyToken(store.get(COOKIE_NAME)?.value);
-}
-
-export function isAdminAuthenticatedRequest(request: NextRequest) {
-  return verifyToken(request.cookies.get(COOKIE_NAME)?.value);
+  return verifyToken(store.get(ADMIN_SESSION_COOKIE_NAME)?.value);
 }
 
 export function verifyAdminPassword(password: string) {

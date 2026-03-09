@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { isAdminAuthenticatedRequest } from "@/lib/adminAuth";
+import { hasAdminSessionCookie } from "@/lib/adminAuthEdge";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (isAdminAuthenticatedRequest(request)) {
+  if (hasAdminSessionCookie(request)) {
     return NextResponse.next();
   }
 
