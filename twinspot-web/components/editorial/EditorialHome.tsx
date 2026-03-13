@@ -2,164 +2,92 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import RevealOnScroll from "@/components/RevealOnScroll";
-import { getLatestPosts } from "@/lib/data/homepage";
-import { itineraries as itineraryData } from "@/lib/itineraries/itineraries";
-import { pickImageFromFolders } from "@/lib/photoPicker";
-import EditorialHero from "./EditorialHero";
-import HomeSlider from "./HomeSlider";
 import DestinationSpotlight from "./DestinationSpotlight";
 import TestimonialBlock from "./TestimonialBlock";
 import NewsletterBlock from "./NewsletterBlock";
+import { getLatestPosts } from "@/lib/data/homepage";
+import { itineraries } from "@/lib/itineraries/itineraries";
 import styles from "./editorialHome.module.css";
+
+const destinationCards = [
+  { name: "Maasai Mara", country: "Kenya", image: "/photos/destinations/maasai-mara-wildebeest-migration-kenya.jpeg" },
+  { name: "Amboseli", country: "Kenya", image: "/photos/destinations/amboseli-elephants-kilimanjaro-view-kenya-safari.jpg" },
+  { name: "Samburu", country: "Kenya", image: "/photos/destinations/samburu-national-reserve-reticulated-giraffes-kenya.jpeg" },
+  { name: "Serengeti", country: "Tanzania", image: "/photos/wildlife/Elephants-Serengeti-Safari-timbuktu-1.jpg" },
+  { name: "Ngorongoro", country: "Tanzania", image: "/photos/destinations/maasai-mara-lodge-panorama-viewpoint-kenya.jpg" },
+  { name: "Kigali & Volcanoes", country: "Rwanda", image: "/photos/landscapes/eburru-forest-valley-hills-great-rift-kenya.webp" },
+  { name: "Bwindi", country: "Uganda", image: "/photos/birding/forest-bird-branch-eastafrica.jpg" },
+];
+
+const featuredItineraries = [
+  itineraries[1],
+  itineraries[0],
+  itineraries[2],
+  {
+    ...itineraries[0],
+    id: "bird-photography-expedition",
+    title: "East Africa Bird Photography Expedition",
+    duration: "10 days",
+    shortSummary: "Field hides, dawn marsh sessions, and specialist guidance for portfolio-grade bird imagery.",
+  },
+  itineraries[3],
+  itineraries[4],
+];
 
 export default async function EditorialHome() {
   const blogPosts = await getLatestPosts(3).catch(() => []);
 
-  const itineraries = itineraryData.slice(0, 6).map((item, index) => ({
-    title: item.title,
-    location: item.start && item.end ? `${item.start} • ${item.end}` : item.duration,
-    summary: item.shortSummary,
-    href: `/itineraries/${item.id}`,
-    imageSrc: pickImageFromFolders({ folders: item.suggestedPhotoCategories, seed: `itinerary-${item.id}-${index}` }),
-  }));
-
-  const tourOptions = [
-    {
-      title: "Great Migration",
-      description: "Prime crossings and predator action timed to season windows.",
-      href: "/great-migration",
-      imageSrc: pickImageFromFolders({ folders: ["wildlife", "destinations"], seed: "package-great-migration" }),
-      imageAlt: "Wildebeest and zebras crossing during the Great Migration",
-    },
-    {
-      title: "Mountaineering",
-      description: "Guided ascents and acclimatized highland adventure routes.",
-      href: "/mountaineering-tours",
-      imageSrc: pickImageFromFolders({ folders: ["landscapes", "destinations"], seed: "package-mountaineering" }),
-      imageAlt: "Hikers moving along a high-altitude mountain trail",
-    },
-    {
-      title: "Birding",
-      description: "Specialist guiding for endemics, wetlands, and Rift Valley circuits.",
-      href: "/birding-tours-kenya",
-      imageSrc: pickImageFromFolders({ folders: ["birding", "wildlife"], seed: "package-birding" }),
-      imageAlt: "Birdwatching safari scene with binoculars and endemic birds",
-    },
-    {
-      title: "Team Building",
-      description: "Purposeful retreats with logistics designed for teams.",
-      href: "/team-building-tours",
-      imageSrc: pickImageFromFolders({ folders: ["camping", "landscapes"], seed: "package-team-building" }),
-      imageAlt: "Team retreat setup outdoors near safari camp",
-    },
-    {
-      title: "Camping Tours",
-      description: "Light-footprint wilderness nights with comfort-focused camp flow.",
-      href: "/camping-tours",
-      imageSrc: pickImageFromFolders({ folders: ["camping", "landscapes"], seed: "package-camping-tours" }),
-      imageAlt: "Comfortable safari tents and campfire at dusk",
-    },
-  ];
-
-  const reasons = [
-    {
-      title: "Expert Guides",
-      description: "Seasoned naturalists and field leaders across East Africa.",
-      href: "/about/guides",
-      icon: "🧭",
-      imageSrc: pickImageFromFolders({ folders: ["wildlife", "destinations"], seed: "why-expert-guides" }),
-      imageAlt: "Expert safari guide in the field",
-    },
-    {
-      title: "Tailor-Made Journeys",
-      description: "Every route and lodge aligned to your pace and priorities.",
-      href: "/itineraries",
-      icon: "✍️",
-      imageSrc: pickImageFromFolders({ folders: ["landscapes", "destinations"], seed: "why-tailored-journeys" }),
-      imageAlt: "Safari planning materials and route notes",
-    },
-    {
-      title: "Conservation Forward",
-      description: "Travel choices that support habitat and local communities.",
-      href: "/sustainable-tourism",
-      icon: "🌿",
-      imageSrc: pickImageFromFolders({ folders: ["wildlife", "birding"], seed: "why-conservation-forward" }),
-      imageAlt: "Wildlife in protected habitat",
-    },
-    {
-      title: "Responsive Support",
-      description: "Planning support before, during, and after your safari.",
-      href: "/contact",
-      icon: "🤝",
-      imageSrc: pickImageFromFolders({ folders: ["destinations", "landscapes"], seed: "why-responsive-support" }),
-      imageAlt: "Twinspot support team assisting travelers",
-    },
-    {
-      title: "Premium Logistics",
-      description: "Reliable transport, timing, and comfort at each stage.",
-      href: "/about/transport",
-      icon: "🚙",
-      imageSrc: pickImageFromFolders({ folders: ["destinations", "camping"], seed: "why-premium-logistics" }),
-      imageAlt: "Safari vehicle prepared for expedition",
-    },
-    {
-      title: "Trusted Reputation",
-      description: "A long-standing partner for discerning safari travelers.",
-      href: "/about/why-us",
-      icon: "⭐",
-      imageSrc: pickImageFromFolders({ folders: ["wildlife", "landscapes"], seed: "why-trusted-reputation" }),
-      imageAlt: "Travelers enjoying a guided safari experience",
-    },
-  ];
-
   return (
     <main className={styles.page}>
-      <Navbar />
-      <EditorialHero imageSrc={pickImageFromFolders({ folders: ["wildlife", "landscapes"], seed: "homepage-hero" })} />
+      <Navbar variant="overlay" />
 
-      <RevealOnScroll className={styles.section}>
-        <div className={styles.container + " " + styles.whoGrid}>
-          <div>
-            <p className={styles.eyebrow}>Who we are</p>
-            <h2>East Africa specialists crafting premium safaris with purpose.</h2>
-            <p>
-              Twinspot Safaris is a Kenyan-owned destination company focused on high-touch wildlife,
-              birding and conservation-led journeys across East Africa.
-            </p>
-            <p>
-              We blend expert guiding, elegant pacing and responsible travel partnerships so every journey
-              feels personal, insightful and unforgettable.
-            </p>
-            <Link href="/about" className={styles.primaryButton}>Learn More</Link>
-          </div>
-          <div className={styles.visualCard}>
-            <Image src={pickImageFromFolders({ folders: ["landscapes", "wildlife"], seed: "who-we-are" })} alt="Twinspot team in the field" fill className={styles.cardImage} />
-          </div>
+      <section className={styles.hero}>
+        <video
+          className={styles.heroVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster="/photos/wildlife/great-wildebeest-migration-river-crossing.webp"
+        >
+          <source src="https://cdn.coverr.co/videos/coverr-zebras-crossing-the-river-6755/1080p.mp4" type="video/mp4" />
+        </video>
+        <div className={styles.heroShade} />
+        <div className={styles.heroInner}>
+          <p className={styles.kicker}>Twinspot Tours • East Africa</p>
+          <h1>Jambo! Karibu - travel into the unexplored corners of East Africa Region for untold bird stories with us.</h1>
+          <form className={styles.heroForm} action="/itineraries" method="get">
+            <label>
+              Destination or region
+              <input type="text" name="destination" placeholder="Maasai Mara, Serengeti, Bwindi..." />
+            </label>
+            <label>
+              Travel period
+              <input type="text" name="period" placeholder="Jul - Oct 2026" />
+            </label>
+            <label>
+              Experience type
+              <select name="experience" defaultValue="">
+                <option value="" disabled>Choose an experience</option>
+                <option value="birding">Birding</option>
+                <option value="wildlife">Wildlife safari</option>
+                <option value="migration">Great migration</option>
+                <option value="gorilla">Primate & gorilla</option>
+              </select>
+            </label>
+            <button type="submit">Explore journeys</button>
+          </form>
         </div>
-      </RevealOnScroll>
-
-      <RevealOnScroll className={styles.section}>
-        <div className={styles.container + " " + styles.profileGrid}>
-          <div className={styles.visualCard}><Image src={pickImageFromFolders({ folders: ["birding", "wildlife"], seed: "profile-inclusion" })} alt="Birding and safari profile" fill className={styles.cardImage} /></div>
-          <div>
-            <p className={styles.eyebrow}>Profile inclusion</p>
-            <h2>Precise planning for travelers with different safari styles.</h2>
-            <p>Whether you are a dedicated birder, wildlife photographer, family group, or first-time explorer, we shape each itinerary around comfort, rhythm and field goals.</p>
-            <div className={styles.statsRow}>
-              <span>40+ curated routes</span><span>Year-round departures</span><span>Private & small-group</span>
-            </div>
-          </div>
-        </div>
-      </RevealOnScroll>
+      </section>
 
       <RevealOnScroll className={styles.section}>
         <div className={styles.container}>
-          <div className={styles.sectionTopRow}><h2>Signature Itineraries</h2><Link href="/itineraries" className={styles.secondaryButton}>See all itineraries</Link></div>
-          <div className={styles.itineraryGrid}>
-            {itineraries.map((itinerary) => (
-              <article className={styles.card} key={itinerary.title}>
-                <div className={styles.cardImageWrap}><Image src={itinerary.imageSrc} alt={itinerary.title} fill className={styles.cardImage} /></div>
-                <div className={styles.cardBody}><h3>{itinerary.title}</h3><p className={styles.metaLine}>{itinerary.location}</p><p>{itinerary.summary}</p><Link href={itinerary.href}>View itinerary</Link></div>
+          <div className={styles.sectionHead}><p>Destinations</p><h2>Our East Africa Destinations</h2></div>
+          <div className={styles.destinationsTrack}>
+            {destinationCards.map((card) => (
+              <article key={card.name} className={styles.destinationCard}>
+                <Image src={card.image} alt={card.name} fill className={styles.cardImage} />
+                <div className={styles.cardOverlay}><span>{card.country}</span><h3>{card.name}</h3></div>
               </article>
             ))}
           </div>
@@ -167,57 +95,86 @@ export default async function EditorialHome() {
       </RevealOnScroll>
 
       <RevealOnScroll className={styles.section}>
-        <div className={styles.container}><div className={styles.sectionHeader}><h2>Tour options & packages</h2></div><HomeSlider variant="packages" slides={tourOptions.map((option) => ({ ...option, badge: "Packages" }))} /></div>
+        <div className={styles.container}>
+          <div className={styles.sectionHead}><p>Curated routes</p><h2>Signature itineraries for deeper field stories</h2></div>
+          <div className={styles.itineraryGrid}>
+            {featuredItineraries.map((trip, idx) => (
+              <article key={trip.id} className={styles.itineraryCard}>
+                <div className={styles.itineraryMedia}>
+                  <Image src={destinationCards[idx % destinationCards.length].image} alt={trip.title} fill className={styles.cardImage} />
+                  <span>{trip.duration}</span>
+                </div>
+                <div className={styles.itineraryBody}>
+                  <h3>{trip.title}</h3>
+                  <p>{trip.shortSummary}</p>
+                  <Link href={`/itineraries/${trip.id}`}>View itinerary</Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
       </RevealOnScroll>
 
-      <RevealOnScroll className={`${styles.section} ${styles.breaker}`}>
-        <div className={styles.containerNarrow}>
-          <h2>Twinspot as a birding doyen in East Africa</h2>
-          <p>From montane forests to Rift Valley lakes, our birding programs are crafted by specialists who know seasonal movements, habitat nuance and field ethics.</p>
-          <Link href="/contact" className={styles.primaryButton}>Inquire today</Link>
+      <RevealOnScroll className={styles.statement}>
+        <div className={styles.narrow}>
+          <h2>We guide bird-first journeys with local depth, patient pacing, and the route knowledge that turns sightings into stories.</h2>
+          <p>
+            Twinspot pairs serious field expertise with thoughtful travel craft across Kenya, Tanzania, Rwanda, and Uganda—so each day feels purposeful, calm, and deeply connected to place.
+          </p>
+        </div>
+      </RevealOnScroll>
+
+      <RevealOnScroll className={styles.splitSection}>
+        <div className={styles.splitMedia}><Image src="/photos/birding/great-blue-turaco-pair-kakamega-forest-kenya.webp" alt="Birding in East Africa forest habitat" fill className={styles.cardImage} /></div>
+        <div className={styles.splitText}>
+          <p>Why Twinspot</p>
+          <h3>Your gateway to East Africa's birding and wildlife richness.</h3>
+          <p>From Rift Valley lakes to montane forests, we build custom journeys around behavior windows, habitat conditions, and your preferred field rhythm.</p>
+          <Link href="/about">Discover our approach</Link>
+        </div>
+      </RevealOnScroll>
+
+      <RevealOnScroll className={`${styles.splitSection} ${styles.reverse}`}>
+        <div className={styles.splitMedia}><Image src="/photos/wildlife/elephants-evening-browse-tsavo-twinspot.jpg" alt="Curated safari pacing and planning" fill className={styles.cardImage} /></div>
+        <div className={styles.splitText}>
+          <p>Planning philosophy</p>
+          <h3>Thoughtful planning over cookie-cutter tourism.</h3>
+          <p>Every Twinspot departure is shaped by seasoned guides, realistic travel tempos, and flexible logistics that respect your priorities.</p>
+          <Link href="/contact">Start planning</Link>
         </div>
       </RevealOnScroll>
 
       <RevealOnScroll className={styles.section}>
-        <div className={styles.container}><div className={styles.sectionHeader}><h2>Most Popular Tours</h2></div><div className={styles.popularGrid}>{itineraries.map((item) => <article key={`popular-${item.title}`} className={styles.card}><div className={styles.cardImageWrap}><Image src={item.imageSrc} alt={item.title} fill className={styles.cardImage} /></div><div className={styles.cardBody}><h3>{item.title}</h3><Link href={item.href} className={styles.primaryButton}>View Tour</Link></div></article>)}</div></div>
+        <div className={styles.container}>
+          <div className={styles.promoBand}>
+            <h3>Private departures, specialist guides, and elegant East Africa journeys.</h3>
+            <Link href="/contact">Speak with a safari planner</Link>
+          </div>
+        </div>
       </RevealOnScroll>
 
       <RevealOnScroll className={styles.section}>
-        <div className={styles.container}><div className={styles.sectionHeader}><h2>Why you should book with us</h2></div><HomeSlider variant="why" slides={reasons.map((reason) => ({ ...reason, badge: "Why Twinspot" }))} /></div>
-      </RevealOnScroll>
-
-      <RevealOnScroll className={styles.section}>
-        <div className={styles.container}><div className={styles.sectionHeader}><h2>Memberships & Partnerships</h2></div><div className={styles.logoGrid}>{[
-          "/photos/partners-and-association/IATAlogo.svg.png",
-          "/photos/partners-and-association/kenya museum society.png",
-          "/photos/partners-and-association/kenya-wildlife-service-logo-png_seeklogo-321792.png",
-          "/photos/partners-and-association/ktb-logonew-1024x605.jpg",
-          "/photos/partners-and-association/nature-kenya-logo.jpg",
-          "/photos/partners-and-association/safari-bookings.jpeg",
-        ].map((src) => <div key={src} className={styles.logoCell}><Image src={src} alt="Partner logo" width={220} height={90} className={styles.partnerLogo} /></div>)}</div></div>
-      </RevealOnScroll>
-
-      <RevealOnScroll className={styles.section}>
-        <div className={styles.container}><div className={styles.sectionTopRow}><h2>From the Journal</h2><Link href="/blog" className={styles.secondaryButton}>Visit blog</Link></div><div className={styles.cardGrid}>{(blogPosts.length > 0 ? blogPosts : [{ id: "placeholder", title: "Field stories coming soon", excerpt: "Fresh dispatches, seasonal notes, and route insights from our team.", slug: "", heroImage: { imageUrl: "/hero.jpg", alt: "Sunrise over safari grasslands" } }]).map((post, index) => (
-          <article className={styles.card} key={post.id}>
-            <div className={styles.blogImageWrap}>
-              <Image
-                src={post.heroImage?.imageUrl || pickImageFromFolders({ folders: ["wildlife", "landscapes", "birding"], seed: `blog-fallback-${post.slug || index}` })}
-                alt={post.heroImage?.alt || post.title}
-                fill
-                sizes="(max-width: 980px) 50vw, 33vw"
-                className={styles.cardImage}
-              />
-            </div>
-            <div className={styles.cardBody}><h3>{post.title}</h3><p>{post.excerpt ?? "Read our latest field stories and planning notes."}</p><Link href={post.slug ? `/blog/${post.slug}` : "/blog"}>Read article</Link></div>
-          </article>
-        ))}</div></div>
+        <div className={styles.container}>
+          <div className={styles.sectionHead}><p>Journal</p><h2>From the field</h2></div>
+          <div className={styles.blogGrid}>
+            {(blogPosts.length ? blogPosts : [
+              { id: "fallback-a", title: "Birding windows across East Africa", excerpt: "How to align migration, rainfall, and light for memorable field days.", slug: "" },
+              { id: "fallback-b", title: "Choosing your first Twinspot route", excerpt: "A practical guide to selecting regions, pace, and lodge style.", slug: "" },
+              { id: "fallback-c", title: "Storytelling through safari photography", excerpt: "Editorial techniques for meaningful wildlife and bird imagery.", slug: "" },
+            ]).map((post, idx) => (
+              <article key={post.id} className={styles.blogCard}>
+                <div className={styles.blogMedia}><Image src={destinationCards[(idx + 2) % destinationCards.length].image} alt={post.title} fill className={styles.cardImage} /></div>
+                <div className={styles.blogBody}><h3>{post.title}</h3><p>{post.excerpt}</p><Link href={post.slug ? `/blog/${post.slug}` : "/blog"}>Read article</Link></div>
+              </article>
+            ))}
+          </div>
+        </div>
       </RevealOnScroll>
 
       <DestinationSpotlight destinations={[
-        { name: "Maasai Mara", summary: "Classic savannah drama with year-round predators and migration season intensity.", href: "/destinations", imageSrc: pickImageFromFolders({ folders: ["destinations", "wildlife"], seed: "destination-mara" }) },
-        { name: "Samburu", summary: "Arid north-country landscapes, rare species, and beautiful riverside lodges.", href: "/destinations", imageSrc: pickImageFromFolders({ folders: ["destinations"], seed: "destination-samburu" }) },
-        { name: "Rift Valley Lakes", summary: "A layered birding landscape of escarpments, alkaline lakes, and dramatic horizons.", href: "/destinations", imageSrc: pickImageFromFolders({ folders: ["birding", "landscapes"], seed: "destination-rift" }) },
+        { name: "Maasai Mara", summary: "Classic savannah drama with year-round predators and migration season intensity.", href: "/destinations", imageSrc: "/photos/destinations/maasai-mara-wildebeest-migration-kenya.jpeg" },
+        { name: "Samburu", summary: "Arid north-country landscapes, rare species, and beautiful riverside lodges.", href: "/destinations", imageSrc: "/photos/destinations/samburu-national-reserve-reticulated-giraffes-kenya.jpeg" },
+        { name: "Rift Valley Lakes", summary: "A layered birding landscape of escarpments, alkaline lakes, and dramatic horizons.", href: "/destinations", imageSrc: "/photos/birding/great-white-pelicans-and-reed-cormorants-lake-elementaita-kenya.webp" },
       ]} />
       <TestimonialBlock />
       <NewsletterBlock />
